@@ -1,9 +1,22 @@
-<nav class="nav-wapper blue">
-    <a href="/" class="brand-logo" >TravelSaleMan</a>
-</nav>
-<a routerLink="/customer" class="btn btn-primary">
-Customer
-</a>
-<a routerLink="/position" class="btn btn-primary">Position</a>
+  <mat-toolbar style="background: #ff5252">
+      <a href="/" style="color:black">TravelSaleMan</a>
+    </mat-toolbar>
+    <ul>
+        <li><a routerLink="/customer" class="btn btn-primary">Customer</a></li>
+        <li><a routerLink="/position" class="btn btn-primary">Position</a></li>
+        </ul>
+        <mat-sidenav-container class="example-container">
+            <mat-sidenav #sidenav mode="side" opened class="example-sidenav">
+                <ul>
+                <div>
+                <li><a mat-stroked-button routerLink="/customer">Customer</a></li>
+                <li><a mat-stroked-button routerLink="/position">Position</a></li>
+              </div>
+              </ul>
+            </mat-sidenav>
 
-<router-outlet></router-outlet>
+            <mat-sidenav-content>
+              <router-outlet></router-outlet>
+            </mat-sidenav-content>
+          </mat-sidenav-container>
+
