@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { NgSelectModule } from '@ng-select/ng-select';
+
 import { RouterModule, Routes } from '@angular/router';
 
 import { FormsModule } from '@angular/forms';
@@ -29,8 +29,7 @@ const routes: Routes = [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw'
     }),
-    RouterModule.forRoot(routes),
-    NgSelectModule
+    RouterModule.forRoot(routes)
 
   ],
   providers: [],

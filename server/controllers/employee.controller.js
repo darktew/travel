@@ -1,4 +1,5 @@
 const Employee = require('../models/employee');
+const Position = require('../models/position');
 const mongoose = require('mongoose');
 const employeeCtrl = {};
 
@@ -10,6 +11,7 @@ employeeCtrl.getEmployees = async (req, res) => {
 
 employeeCtrl.createEmployee = async (req, res) => {
     const employee = new Employee({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name
     });
     await employee.save();
@@ -20,7 +22,8 @@ employeeCtrl.createEmployee = async (req, res) => {
 
 employeeCtrl.getEmployee = async (req, res) => {
   
-    const employee = await Employee.findById(req.params.id)
+    const employee = await Employee.findById(req.params.id);
+    
     res.json(employee);
 };
 
@@ -31,7 +34,7 @@ employeeCtrl.editEmployee = async (req, res) =>{
     }
     await Employee.findByIdAndUpdate(id, {$set: employee},{ new: true });
     res.json({
-        status: 'Customer Updated, ' + id 
+        status: 'Customer Updated'
     });
 };
 employeeCtrl.deleteEmployee = async (req, res) => {

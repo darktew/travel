@@ -4,7 +4,6 @@ export class Employee {
     this.name = name;
 
   }
-
   _id: string;
   name: string;
 }

@@ -17,8 +17,8 @@ export class PositionService {
   }
 
   // tslint:disable-next-line:no-shadowed-variable
-  postPosition(Position: Position) {
-    return this.http.post(this.URL_API, Position);
+  postPosition(position: Position) {
+    return this.http.post(this.URL_API, position);
   }
 
   putPosition(position: Position) {

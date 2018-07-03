@@ -1,10 +1,14 @@
+import { EmployeeService } from './../../services/employee.service';
 import { NgForm } from '@angular/forms/src/directives';
 import { Position } from './../../models/position';
 import { PositionService } from './../../services/position.service';
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../models/employee';
 
+
+
 declare var M: any;
+
 
 @Component({
   selector: 'app-position',
@@ -14,9 +18,13 @@ declare var M: any;
 })
 export class PositionComponent implements OnInit {
   locationChosen = false;
-  constructor(public positionService: PositionService) { }
+  show: boolean ;
+  constructor(public positionService: PositionService,
+              public employeeService: EmployeeService
+              ) { }
   ngOnInit() {
     this.getPositions();
+    this.getEmployees();
   }
   addPosition(form: NgForm) {
     if (form.value._id) {
@@ -25,6 +33,7 @@ export class PositionComponent implements OnInit {
           this.resetForm(form);
           M.toast({html: 'Update Success'});
           this.getPositions();
+          this.show = false;
         });
     } else {
       this.positionService.postPosition(form.value)
@@ -32,6 +41,7 @@ export class PositionComponent implements OnInit {
         this.resetForm(form);
         M.toast({html: 'Save Success'});
         this.getPositions();
+        this.show = false;
       });
     }
   }
@@ -44,6 +54,7 @@ export class PositionComponent implements OnInit {
   }
   editPosition(position: Position) {
     this.positionService.selectedPosition = position;
+    this.show = true;
   }
   delePosition(_id: string) {
     if (confirm('Are you sure Delete')) {
@@ -65,8 +76,14 @@ export class PositionComponent implements OnInit {
     this.positionService.selectedPosition.longtitude = event.coords.lng;
     this.locationChosen = true;
   }
-  a(employee){
-    
-    //console.log("HELLO : " , typeof(employee), employee,Object.keys(employee));
+  getEmployees() {
+    this.employeeService.getEmployees()
+      .subscribe(res => {
+        this.employeeService.employees = res as Employee[];
+        console.log(res);
+      });
+  }
+  a(position) {
+    console.log(position);
   }
 }

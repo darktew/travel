@@ -4,7 +4,7 @@ const positionCtrl = {};
 
 positionCtrl.getPositions = async (req, res) => {
     const positions = await Position.find()
-        .populate({path:'employee', select: 'name'})
+        .populate({path:'employee',select: 'name'})
         .exec();
     res.json(positions);
         
@@ -16,7 +16,7 @@ positionCtrl.createPosition = async (req, res) => {
         address: req.body.address,
         lattitude: req.body.lattitude,
         longtitude: req.body.longtitude,
-        employee: req.body.id
+        employee : req.body.id
     });
     await position.save();
     res.json({
@@ -27,7 +27,7 @@ positionCtrl.createPosition = async (req, res) => {
 positionCtrl.getPosition = async (req, res) => {
   
     const position = await Position.findById(req.params.id)
-        .populate({path:'position'})
+        .populate({path: 'employee', select: 'name'})
         .exec();
     res.json(position);
 };

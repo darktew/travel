@@ -1,4 +1,4 @@
-cd C:\Program Files\MongoDB\Server\4.0\bin
-mongodump -d mean-crud -o C:\Users\VRU_COMPUTER\Desktop
+cd C:\Program Files\MongoDB\Server\3.6\bin
+mongodump -d mean-crud -o C:\Users\akkapon\travel\export
 echo "done"
 pause
