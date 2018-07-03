@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form  (ngSubmit)="addEmployee(employeeForm)" #employeeForm="ngForm">
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" id="n">
+                <label for="n">Name</label>
+              </div>
+              <div class="card-action">
+                <div class="input-field col s12">
+                  <button class="btn right" (click)="resetForm(employeeForm)">Clean</button>
+                  <button class="btn right" style="margin-left:  2px;">Save</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+      <table>
+        <thead>
+          <th>Name</th>
+          <th>Oparations</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let employee of employeeService.employees">
+            <td>{{ employee?.name }}</td>
+            <td>
+              <button (click)="editEmployee(employee)" class="btn btn-primary">
+                <i class="material-icons">edit</i>
+              </button>
+              <button (click)="deleteEmployee(employee._id)" class="btn btn-primary">
+                <i class="material-icons">delete</i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

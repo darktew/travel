@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row">
+    <div class="col s5">
+      <div class="card">
+        <div class="card-content">
+          <form (ngSubmit)="addPosition(positionForm)" #positionForm="ngForm">
+              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
+            <div class="row">
+              <div class="input-field col s12">
+                <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address">
+                <label for="add">Address</label>
+              </div>
+              <div class="input-field col s12">
+                <input type="hidden" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
+              </div>
+              <div class="input-field col s12">
+                <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
+              </div>
+              <div class="input-field col s12">
+              <select [(ngModel)]="positionService.positions.employee" name="employee">
+                <option *ngFor="let positions of positionService.positions" [value]="positions.employee._id">{{ positions.employee.name }}</option>
+              </select>
+              </div>
+              <div class="card-action">
+                <div class="input-field col s12">
+                  <button class="btn right" (click)="resetForm(positionForm)">Clean</button>
+                  <button class="btn right" style="margin-left:  2px;">Save</button>
+                </div>
+              </div>
+            </div>
+          </form>
+          <agm-map [latitude]="positionService.selectedPosition.lattitude" [longitude]="positionService.selectedPosition.longtitude" (mapClick)="onChosenLocation($event)">
+              <agm-marker [latitude]="positionService.selectedPosition.lattitude"
+                          [longitude]="positionService.selectedPosition.longtitude"
+                          *ngIf="locationChosen"></agm-marker>
+                          <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address">
+          </agm-map>
+        </div>
+      </div>
+    </div>
+    <div class="col s7">
+       
+      <table>
+        <thead>
+          <th>Address</th>
+          <th>name</th>
+          <th>Oparations</th>
+        </thead>
+
+        <tr *ngFor="let position of positionService.positions">
+          <td>{{ position.address }}</td>
+          <td >{{ position.employee.name }}</td>
+          <button class="btn btn-primary" (click)="editPosition(position)">
+            <i class="material-icons">edit</i>
+          </button>
+          <button class="btn btn-primary" (click)="delePosition(position._id)">
+            <i class="material-icons">delete</i>
+          </button>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
