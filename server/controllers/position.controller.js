@@ -7,7 +7,6 @@ positionCtrl.getPositions = async (req, res) => {
         .populate({path:'employee',select: 'name'})
         .exec();
     res.json(positions);
-        
 };
 
 positionCtrl.createPosition = async (req, res) => {
@@ -17,11 +16,13 @@ positionCtrl.createPosition = async (req, res) => {
         lattitude: req.body.lattitude,
         longtitude: req.body.longtitude,
         employee : req.body.id
-    });
+    }); 
     await position.save();
     res.json({
-        'status' : 'Position Saved'
+       'status' : 'Position Saved'
     });
+    
+    
 };
 
 positionCtrl.getPosition = async (req, res) => {
