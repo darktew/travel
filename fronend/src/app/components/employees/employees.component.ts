@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Location } from '@angular/common';
-
+import { MatTable } from '@angular/material/table';
 import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
 import { Employee } from '../../models/employee';
 
 declare var M: any;
-
-
 @Component({
   selector: 'app-employees',
   templateUrl: './employees.component.html',
@@ -16,12 +13,14 @@ declare var M: any;
   providers: [EmployeeService]
 })
 export class EmployeesComponent implements OnInit {
-
+  show: boolean;
   constructor(public employeeService: EmployeeService,
-              public location: Location) { }
+              public location: Location,
+              ) { }
 
   ngOnInit() {
     this.getEmployees();
+
   }
 
   addEmployee(form: NgForm) {
@@ -31,6 +30,7 @@ export class EmployeesComponent implements OnInit {
           this.resetForm(form);
           M.toast({html: 'Update Success'});
           this.getEmployees();
+          this.show = false;
         });
     } else {
       this.employeeService.postEmployee(form.value)
@@ -38,6 +38,7 @@ export class EmployeesComponent implements OnInit {
         this.resetForm(form);
         M.toast({html: 'Save Success'});
         this.getEmployees();
+        this.show = false;
       });
     }
   }

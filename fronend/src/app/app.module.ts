@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -31,6 +32,7 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     MatToolbarModule,
+    MatTableModule,
     BrowserAnimationsModule,
     MatSidenavModule,
     MatButtonModule,
@@ -39,6 +41,10 @@ const routes: Routes = [
     }),
     RouterModule.forRoot(routes)
 
+  ],
+  exports: [
+    MatButtonModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
