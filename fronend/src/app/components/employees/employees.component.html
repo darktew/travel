@@ -10,17 +10,14 @@
     <div class="col s7">
       <table class="mat-elevation-z8">
         <thead>
-          <div class="container">
+          <th>No.</th>
           <th>Name</th>
-          </div>
           <th>Oparations</th>
         </thead>
         <tbody>
-          <tr *ngFor="let employee of employeeService.employees">
-              <div class="container">
-
+          <tr *ngFor="let employee of employeeService.employees; let i = index">
+            <td>{{ i+1 }}</td>
             <td>{{ employee?.name }}</td>
-            </div>
             <td>
               <button (click)="editEmployee(employee, show=!show)" mat-fab style="width: 50px;">
                 <i class="material-icons">edit</i>
