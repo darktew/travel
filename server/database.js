@@ -4,4 +4,6 @@ mongoose.connect(URI)
     .then(db => console.log('DB is connected'))
     .catch(err => console.error(err));
 
+mongoose.set('debug', true);
+
 module.exports = mongoose;

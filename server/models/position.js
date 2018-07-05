@@ -6,7 +6,7 @@ const PositionSchema = new Schema({
     address: String,
    lattitude: Number,
    longtitude: Number, 
-   employee: {type: mongoose.Schema.Types.ObjectId, ref: 'Employee',required: true}
+   employee: {type: Schema.Types.ObjectId, ref: 'Employee',required: true}
 });
 
 module.exports = mongoose.model('Position', PositionSchema);

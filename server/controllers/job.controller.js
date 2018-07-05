@@ -1,9 +1,12 @@
 const Job = require('../models/job');
+const Position = require('../models/position');
 const mongoose = require('mongoose');
 const jobCtrl = {};
 
 jobCtrl.getJobs = async (req, res) => {
-    const job = await Job.find();
+    const job = await Job.find()
+    .populate({path: "address"})
+    .exec();
     res.json(job);
         
 };
@@ -11,7 +14,8 @@ jobCtrl.getJobs = async (req, res) => {
 jobCtrl.createJob = async (req, res) => {
     const job = new Job({
         _id: new mongoose.Types.ObjectId(),
-        jobname: req.body.jobname
+        jobname: req.body.jobname,
+        address: req.body.id
     });
     await job.save();
     res.json({
@@ -28,7 +32,8 @@ jobCtrl.getJob = async (req, res) => {
 jobCtrl.editJob = async (req, res) =>{
     const { id } = req.params;
     const job = {
-        jobname: req.body.jobname
+        jobname: req.body.jobname,
+        address: req.body.id
     }
     await Job.findByIdAndUpdate(id, {$set: job},{ new: true });
     res.json({
