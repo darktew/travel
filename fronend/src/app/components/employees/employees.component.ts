@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatTable } from '@angular/material/table';
 import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
 import { Employee } from '../../models/employee';
 import { Router } from '@angular/router';
-
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 declare var M: any;
 @Component({
@@ -16,15 +15,15 @@ declare var M: any;
 })
 export class EmployeesComponent implements OnInit {
   show: boolean;
+  displayedColumns: string[] = ['i', 'name', 'action'];
   constructor(public employeeService: EmployeeService,
               public location: Location,
-              private router: Router) { }
-
+              private router: Router) {
+              }
   ngOnInit() {
     this.getEmployees();
 
   }
-
   addEmployee(form: NgForm) {
     if (form.value._id) {
       this.employeeService.putEmployee(form.value)

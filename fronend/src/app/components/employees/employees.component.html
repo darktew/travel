@@ -6,15 +6,15 @@
     <br>
   <div class="row">
     <div class="col s7">
-      <table class="mat-elevation-z8">
+       <table class="responsive-table z-depth-5">
         <thead>
-          <th>No.</th>
+          <th>&nbsp;&nbsp;No.</th>
           <th>Name</th>
           <th>Oparations</th>
         </thead>
         <tbody>
           <tr *ngFor="let employee of employeeService.employees; let i = index">
-            <td>{{ i+1 }}</td>
+            <td>&nbsp;&nbsp;{{ i+1 }}</td>
             <td>{{ employee?.name }}</td>
             <td>
               <button (click)="editEmployee(employee, show=!show)" mat-fab style="width: 50px;">
@@ -27,6 +27,29 @@
           </tr>
         </tbody>
       </table>
+      <!-- <table mat-table [dataSource]="employeeService.employees" class="mat-elevation-z8">
+          <ng-container matColumnDef="i">
+              <th mat-header-cell *matHeaderCellDef> No. </th>
+              <td mat-cell *matCellDef="let i = index;"> {{i+1}} </td>
+            </ng-container>
+          <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef> Oparations </th>
+                <td mat-cell *matCellDef="let employee">
+                    <button (click)="editEmployee(employee, show=!show)" mat-mini-fab style="width: 50px;">
+                        <i class="material-icons">edit</i>
+                      </button>
+                      <button (click)="deleteEmployee(employee._id)" mat-mini-fab color="warn">
+                        <i class="material-icons">delete</i>
+                      </button>
+                </td>
+              </ng-container>
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table> -->
     </div>
     <div class="col s5">
         <div class="card">

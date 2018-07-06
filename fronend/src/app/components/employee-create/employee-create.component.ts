@@ -49,4 +49,7 @@ export class EmployeeCreateComponent implements OnInit {
       this.employeeService.selectedEmployee = new Employee();
     }
   }
+  goback() {
+    this.location.back();
+  }
 }

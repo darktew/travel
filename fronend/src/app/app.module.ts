@@ -12,7 +12,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
-
+import {MatPaginatorModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -40,6 +40,7 @@ const routes: Routes = [
     HttpClientModule,
     MatToolbarModule,
     MatTableModule,
+    MatPaginatorModule,
     MatInputModule,
     BrowserAnimationsModule,
     MatSidenavModule,
@@ -53,7 +54,8 @@ const routes: Routes = [
   exports: [
     MatButtonModule,
     MatTableModule,
-    MatInputModule
+    MatInputModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]
