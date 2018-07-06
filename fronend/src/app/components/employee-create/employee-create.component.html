@@ -1,0 +1,21 @@
+<div class="container">
+  <h3>เพิ่มลูกค้า</h3>
+        <div class="card">
+<form  (ngSubmit)="addEmployee(employeeForm,show=!show)" #employeeForm="ngForm" >
+  <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+  <div class="row">
+    <div class="input-field col s12">
+      <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" id="n">
+      <label for="n">Name</label>
+    </div>
+    <div class="card-action">
+      <div class="input-field col s12">
+        <button class="btn right" (click)="resetForm(employeeForm)">Clean</button>
+        <button class="btn right" style="margin-left:  2px;">Save</button>
+        <a mat-raised-button href="/customer" style="color: aliceblue;background-color: red">Back</a>
+      </div>
+    </div>
+  </div>
+</form>
+</div>
+</div>

@@ -4,6 +4,8 @@ import { MatTable } from '@angular/material/table';
 import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
 import { Employee } from '../../models/employee';
+import { Router } from '@angular/router';
+
 
 declare var M: any;
 @Component({
@@ -16,7 +18,7 @@ export class EmployeesComponent implements OnInit {
   show: boolean;
   constructor(public employeeService: EmployeeService,
               public location: Location,
-              ) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.getEmployees();
@@ -70,5 +72,11 @@ export class EmployeesComponent implements OnInit {
       form.reset();
       this.employeeService.selectedEmployee = new Employee();
     }
+  }
+  goback() {
+    this.location.back();
+  }
+  showAddEmployee() {
+    this.router.navigate(['/customer/create']);
   }
 }
