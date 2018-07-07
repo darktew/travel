@@ -1,3 +1,4 @@
+import { EmployeeFilterPipe } from './../components/employees/employee-filter.pipe';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { EmployeesComponent } from '../components/employees/employees.component';
