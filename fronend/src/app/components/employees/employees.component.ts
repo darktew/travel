@@ -1,9 +1,12 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
 import { Employee } from '../../models/employee';
 import { Router } from '@angular/router';
+import { DataSource } from '@angular/cdk/table';
+import {MatPaginator, MatTableDataSource} from '@angular/material';
 
 declare var M: any;
 @Component({
@@ -14,8 +17,10 @@ declare var M: any;
 })
 export class EmployeesComponent implements OnInit {
   show: boolean;
-  displayedColumns: string[] = ['i', 'name', 'action'];
+  displayedColumns: string[] = ['name', 'action'];
   searchTerm: string;
+  dataSource;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public employeeService: EmployeeService,
               public location: Location,
               private router: Router) {
@@ -47,8 +52,16 @@ export class EmployeesComponent implements OnInit {
     this.employeeService.getEmployees()
       .subscribe(res => {
         this.employeeService.employees = res as Employee[];
+        this.dataSource = new  MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
         console.log(res);
       });
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   editEmployee(employee: Employee) {
@@ -77,4 +90,14 @@ export class EmployeesComponent implements OnInit {
   showAddEmployee() {
     this.router.navigate(['/customer/create']);
   }
+}
+
+export class EmployeesDataSource implements DataSource<any> {
+  constructor(private employee: EmployeeService) {
+  }
+  connect(): Observable<Employee[]> {
+    return this.employee.getEmployees();
+  }
+
+  disconnect() {}
 }

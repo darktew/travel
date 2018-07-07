@@ -8,6 +8,7 @@
             <div class="row">
               <div class="input-field col s12">
                   <select *ngIf="!show" [(ngModel)]="positionService.selectedPosition.id" name="id" #id="ngModel">
+                      <option value="" disabled>Select Customer</option>
                       <option *ngFor="let employ of employeeService.employees"  [value]="employ._id">{{ employ.name }}</option>
                   </select>
               </div>

@@ -6,11 +6,11 @@
     <br>
   <div class="row">
     <div class="col s7">
-        <div class="input-field col s12">
+     <!--   <div class="input-field col s12">
       <input matInput type="text" [(ngModel)]="searchTerm"  id="n">
       <label for="n">Search By Name</label>
         </div>
-       <table class="responsive-table z-depth-5">
+        <table class="responsive-table z-depth-5">
         <thead>
           <th>Name</th>
           <th>Oparations</th>
@@ -29,12 +29,12 @@
           </tr>
         </tbody>
       </table>
-      <p style="text-align: right;"><pagination-controls (pageChange)="p = $event"></pagination-controls></p>
-      <!-- <table mat-table [dataSource]="datasoruce" class="mat-elevation-z8">
-          <ng-container matColumnDef="i">
-              <th mat-header-cell *matHeaderCellDef> No. </th>
-              <td mat-cell *matCellDef="let i = index;"> {{i+1}} </td>
-            </ng-container>
+      <p style="text-align: right;"><pagination-controls (pageChange)="p = $event"></pagination-controls></p>-->
+      <div class="input-field col s12">
+          <input matInput (keyup)="applyFilter($event.target.value)"  id="n">
+          <label for="n">Search By Name</label>
+      </div>
+     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef> Name </th>
               <td mat-cell *matCellDef="let element"> {{element.name}} </td>
@@ -42,7 +42,7 @@
             <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef> Oparations </th>
                 <td mat-cell *matCellDef="let employee">
-                    <button (click)="editEmployee(employee, show=!show)" mat-mini-fab style="width: 50px;">
+                    <button (click)="editEmployee(employee, show=!show)" mat-mini-fab  color="primary">
                         <i class="material-icons">edit</i>
                       </button>
                       <button (click)="deleteEmployee(employee._id)" mat-mini-fab color="warn">
@@ -52,7 +52,8 @@
               </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table> -->
+      </table>
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
     <div class="col s5">
         <div class="card">
