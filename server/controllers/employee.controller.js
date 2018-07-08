@@ -10,9 +10,10 @@ employeeCtrl.getEmployees = async (req, res) => {
 };
 
 employeeCtrl.createEmployee = async (req, res) => {
+    const dname = req.body.name;
     const employee = new Employee({
         _id: new mongoose.Types.ObjectId(),
-        name: req.body.name
+        name: dname
     });
     await employee.save();
     res.json({
