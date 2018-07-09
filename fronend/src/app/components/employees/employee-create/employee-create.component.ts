@@ -1,6 +1,7 @@
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Employee } from './../../../models/employee';
 import { EmployeeService } from './../../../services/employee.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Location } from '@angular/common';
 declare var M: any;
@@ -14,28 +15,32 @@ declare var M: any;
 export class EmployeeCreateComponent implements OnInit {
 
   constructor(public employeeService: EmployeeService,
-              private location: Location) { }
+              private location: Location,
+              private dialogRef: MatDialogRef<EmployeeCreateComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   }
   addEmployee(form: NgForm) {
-    if (form.value._id) {
+    if (this.data._id) {
+      form.value._id = this.data._id;
       this.employeeService.putEmployee(form.value)
         .subscribe(res => {
           this.resetForm(form);
-          M.toast({html: 'Update Success'});
           this.getEmployees();
+          M.toast({html: 'Update Success'});
+          this.dialogRef.close();
         });
     } else {
       this.employeeService.postEmployee(form.value)
       .subscribe(res => {
         this.resetForm(form);
-        M.toast({html: 'Save Success'});
         this.getEmployees();
-        this.location.back();
+        M.toast({html: 'Save Success'});
+        this.dialogRef.close();
       });
-    }
-  }
+     }
+   }
   getEmployees() {
     this.employeeService.getEmployees()
       .subscribe(res => {
@@ -49,7 +54,7 @@ export class EmployeeCreateComponent implements OnInit {
       this.employeeService.selectedEmployee = new Employee();
     }
   }
-  goback() {
-    this.location.back();
+  goback(): void {
+    this.dialogRef.close();
   }
 }

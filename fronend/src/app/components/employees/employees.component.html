@@ -2,7 +2,6 @@
     <h3>ข้อมูลลูกค้า</h3>
     <router-outlet></router-outlet>
   <div class="row">
-    <div class="col s7">
       <div class="input-field col s12">
         <input type="text" name="name" (keyup)="applyFilter($event.target.value)" id="n">
         <label for="n">Search By Name</label>
@@ -19,54 +18,27 @@
                         <mat-icon>more_vert</mat-icon>
                       </button>
                       <mat-menu #Menu="matMenu">
-                          <button mat-menu-item (click)="editEmployee(employee, show=!show)" style="background-color: aliceblue;text-align: center">
+                          <button mat-menu-item (click)="updateEmployee(employee._id)" style="background-color: aliceblue;text-align: center">
                               <i class="material-icons">edit</i>
                             </button>
                             <button  mat-menu-item (click)="deleteEmployee(employee._id)" style="background-color: aliceblue;text-align: center">
                                 <i class="material-icons">delete</i>
                               </button>
                         </mat-menu>
-                    <!-- <button (click)="editEmployee(employee, show=!show)" mat-mini-fab  color="primary">
-                        <i class="material-icons">edit</i>
-                      </button>
-                      <button (click)="deleteEmployee(employee._id)" mat-mini-fab color="warn">
-                        <i class="material-icons">delete</i>
-                      </button> -->
                 </td>
               </ng-container>
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
       <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-    </div>
-    <div class="col s5">
-        <div class="card">
-          <div class="card-content" *ngIf="show">
-            <form  (ngSubmit)="addEmployee(employeeForm)" #employeeForm="ngForm" >
-              <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
-              <div class="row">
-                <div class="input-field col s12">
-                  <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" id="n">
-                  <label for="n">Name</label>
-                </div>
-                <div class="card-action">
-                  <div class="input-field col s12">
-                    <button class="btn right" (click)="resetForm(employeeForm)">Clean</button>
-                    <button class="btn right" style="margin-left:  2px;">Save</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-  </div>
+</div>
 </div>
 <footer class="footer">
-  <div class="container">
-  <button mat-fab (click)="showAddEmployee()" class="right"><i class="low material-icons">add</i></button>
-  </div>
-</footer>
+    <div class="container">
+    <button mat-fab (click)="showAddEmployee()" class="right"><i class="low material-icons">add</i></button>
+    </div>
+  </footer>
+
 
 
 

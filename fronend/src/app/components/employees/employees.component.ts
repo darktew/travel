@@ -6,7 +6,8 @@ import { NgForm } from '@angular/forms';
 import { Employee } from '../../models/employee';
 import { Router } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
+import { EmployeeCreateComponent } from './employee-create/employee-create.component';
 declare var M: any;
 @Component({
   selector: 'app-employees',
@@ -15,6 +16,7 @@ declare var M: any;
   providers: [EmployeeService]
 })
 export class EmployeesComponent implements OnInit {
+  isPopupOpened = false;
   show: boolean;
   displayedColumns: string[] = ['name', 'action'];
   searchTerm: string;
@@ -22,30 +24,31 @@ export class EmployeesComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public employeeService: EmployeeService,
               public location: Location,
-              private router: Router) {
+              private router: Router,
+              private dialog?: MatDialog) {
               }
   ngOnInit() {
     this.getEmployees();
   }
-  addEmployee(form: NgForm) {
-    if (form.value._id) {
-      this.employeeService.putEmployee(form.value)
-        .subscribe(res => {
-          this.resetForm(form);
-          M.toast({html: 'Update Success'});
-          this.getEmployees();
-          this.show = false;
-        });
-    } else {
-      this.employeeService.postEmployee(form.value)
-      .subscribe(res => {
-        this.resetForm(form);
-        M.toast({html: 'Save Success'});
-        this.getEmployees();
-        this.show = false;
-      });
-    }
-  }
+  // addEmployee(form: NgForm) {
+  //   if (form.value._id) {
+  //     this.employeeService.putEmployee(form.value)
+  //       .subscribe(res => {
+  //         this.resetForm(form);
+  //         M.toast({html: 'Update Success'});
+  //         this.getEmployees();
+  //         this.show = false;
+  //       });
+  //   } else {
+  //     this.employeeService.postEmployee(form.value)
+  //     .subscribe(res => {
+  //       this.resetForm(form);
+  //       M.toast({html: 'Save Success'});
+  //       this.getEmployees();
+  //       this.show = false;
+  //     });
+  //   }
+  // }
 
   getEmployees() {
     this.employeeService.getEmployees()
@@ -63,9 +66,19 @@ export class EmployeesComponent implements OnInit {
     }
   }
 
-  editEmployee(employee: Employee) {
-      this.employeeService.selectedEmployee = employee;
-  }
+  // editEmployee(employee: Employee) {
+  //     this.employeeService.selectedEmployee = employee;
+  //     const check = this.employeeService.selectedEmployee;
+  //     this.isPopupOpened = true;
+  //     const dialogRef = this.dialog.open(EmployeeCreateComponent, {
+  //       width: '65em',
+  //       data: check
+  //     });
+  //     dialogRef.afterClosed().subscribe(result => {
+  //       this.isPopupOpened = false;
+  //       this.getEmployees();
+  //     });
+  // }
 
   deleteEmployee(_id: string) {
           if (confirm('Are you sure you want to delete it?')) {
@@ -76,7 +89,18 @@ export class EmployeesComponent implements OnInit {
               });
         }
 }
-
+  updateEmployee(_id: string) {
+    this.isPopupOpened = true;
+    const check = this.employeeService.employees.find(c => c._id === _id);
+    console.log(check);
+    const dialogRef = this.dialog.open(EmployeeCreateComponent, {
+      data: check
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.isPopupOpened = false;
+      this.getEmployees();
+    });
+  }
   resetForm(form?: NgForm) {
     if (form) {
       form.reset();
@@ -87,7 +111,14 @@ export class EmployeesComponent implements OnInit {
     this.location.back();
   }
   showAddEmployee() {
-    this.router.navigate(['/customer/create']);
+    this.isPopupOpened = true;
+    const dialogRef = this.dialog.open(EmployeeCreateComponent, {
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.isPopupOpened = false;
+      this.getEmployees();
+    });
   }
 }
 

@@ -10,3 +10,12 @@
 .example-full-width {
   width: 100%;
 }
+
+.toolbar {
+  background-color: coral;
+  color: azure;
+  border-radius: 5px
+}
+.toolbar-spacer{
+  flex: 1 1 auto;
+}

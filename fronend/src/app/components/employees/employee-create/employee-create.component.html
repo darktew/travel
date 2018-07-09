@@ -1,7 +1,11 @@
-<div class="container">
-  <h3>เพิ่มลูกค้า</h3>
-        <div class="card">
-<form  (ngSubmit)="addEmployee(employeeForm,show=!show)" #employeeForm="ngForm" >
+<div class="card-header">
+<mat-toolbar class="toolbar">
+  <h3>Information</h3>
+  <span class="toolbar-spacer"></span>
+  <mat-icon (click)="goback()">cancel</mat-icon>
+</mat-toolbar>
+        <div class="card-content">
+<form  (ngSubmit)="addEmployee(employeeForm)" #employeeForm="ngForm" >
   <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
   <div class="row">
     <div class="input-field col s12">
@@ -12,7 +16,6 @@
       <div class="input-field col s12">
         <button class="btn right" (click)="resetForm(employeeForm)">Clean</button>
         <button class="btn right" style="margin-left:  2px;">Save</button>
-        <button mat-raised-button style="color: aliceblue;background-color: red" (click)="goback()">Back</button>
       </div>
     </div>
   </div>

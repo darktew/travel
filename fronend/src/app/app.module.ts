@@ -24,6 +24,7 @@ import { PositionComponent } from './components/position/position.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmployeeCreateComponent } from './components/employees/employee-create/employee-create.component';
 
+
 const routes: Routes = [
   {path: '', redirectTo: '', pathMatch: 'full'},
   {path: 'customer', component: EmployeesComponent},
