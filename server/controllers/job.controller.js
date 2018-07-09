@@ -92,7 +92,7 @@ jobCtrl.createJob = async (req, res) => {
     }
     order.push(unorder_list[point]);  
     unorder_list.splice(point,1);
-}while(unorder_list==[])
+}while(unorder_list.length==0)
     console.log("order: ",order, "unorder",unorder_list);
 
      //Step 4 : save
