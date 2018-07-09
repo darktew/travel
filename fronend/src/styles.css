@@ -5,3 +5,17 @@
 nav a.active {
   color: aqua;
 }
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+}
+footer{
+  float: right;
+  margin-right: 4em;
+  margin-top: 10em;
+  margin-bottom: 2em;
+}

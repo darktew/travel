@@ -6,7 +6,8 @@ const JobSchema = new Schema({
     jobname: String,
     address: [{type: Schema.Types.ObjectId, ref: 'Position', required: true}],
     dis: Object,
-    date: Date
+    date: Date,
+    delivery: Number
 });
 
 

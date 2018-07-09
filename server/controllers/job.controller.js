@@ -69,7 +69,8 @@ jobCtrl.createJob = async (req, res) => {
         jobname: req.body.jobname,
         address: position,
         dis: order,
-        date: new Date
+        date: new Date,
+        delivery: req.body.delivery
     });
     await job.save();
     res.json({

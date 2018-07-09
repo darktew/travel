@@ -6,6 +6,12 @@ table {
   width: 100%;
 }
 .example-full-width {
-  width: 10%;
+  width: 100%;
+}
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
 }
 
+button.menu{
+  float: right;
+}

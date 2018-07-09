@@ -13,7 +13,10 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
-import {MatPaginatorModule} from '@angular/material';
+import {MatPaginatorModule, MatIconModule} from '@angular/material';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatListModule} from '@angular/material/list';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -48,6 +51,10 @@ const routes: Routes = [
     BrowserAnimationsModule,
     MatSidenavModule,
     MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
+    MatListModule,
+    MatDialogModule,
     NgxPaginationModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw'
@@ -59,7 +66,11 @@ const routes: Routes = [
     MatButtonModule,
     MatTableModule,
     MatInputModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatMenuModule,
+    MatIconModule,
+    MatListModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
