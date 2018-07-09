@@ -1,12 +1,9 @@
 const Job = require('../models/job');
 const Position = require('../models/position');
 const mongoose = require('mongoose');
-const geoLib = require('geo-lib');
-//const distance = require('google-distance');
 const tofixed = require('tofixed');
 const jobCtrl = {};
-//distance.apiKey = 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw';
-// distance.units('imperial');
+
 
 jobCtrl.getJobs = async (req, res) => {
     const job = await Job.find()
@@ -20,10 +17,10 @@ jobCtrl.createJob = async (req, res) => {
     /* V = ระยะทาง (distance)
        S = อัตราความเร็ว (speed)
           T = เวลา (T) */ 
-     const position = req.body.id;
+     var position = req.body.id;
     // console.log(position);
-     const latitude = req.body.lattitude;
-     const longtitude = req.body.longtitude;
+     var latitude = req.body.lattitude;
+     var longtitude = req.body.longtitude;
     // var dis;
     // var dura;
 
@@ -73,6 +70,7 @@ jobCtrl.createJob = async (req, res) => {
 
      //STEP 3 : 
     var distance = [];
+    do{
      for (i=0;i<unorder_list.length;i++) {
         var dist = getDistanceFromLatLonInKm(
             order[order.length-1].lattitude,order[order.length-1].longtitude,
@@ -85,30 +83,29 @@ jobCtrl.createJob = async (req, res) => {
     for (var i = 1; i < distance.length; i++) {
         var v = distance[i].distance;
         if (v<min) {
-            min = v
+            min = v;
             point = i;
         } else {
             min = min;
             point = point;
         }
     }
-    order.push(unorder_list[point]);
-    
+    order.push(unorder_list[point]);  
     unorder_list.splice(point,1);
+}while(unorder_list==[])
+    console.log("order: ",order, "unorder",unorder_list);
 
-
-
-     //Step 4 : check min distance
-    // const job = new Job({
-    //     _id: new mongoose.Types.ObjectId(),
-    //     jobname: req.body.jobname,
-    //     address: position
-    //     //dis: 
-    // });
-    // await job.save();
-    // res.json({
-    //     'status' : 'Job Saved'
-    // });
+     //Step 4 : save
+    const job = new Job({
+        _id: new mongoose.Types.ObjectId(),
+        jobname: req.body.jobname,
+        address: position
+        //dis: 
+    });
+    await job.save();
+    res.json({
+        'status' : 'Job Saved'
+    });
 };
 
 // function distance(origins, destinations){
