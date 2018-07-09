@@ -30,10 +30,14 @@
         </tbody>
       </table>
       <p style="text-align: right;"><pagination-controls (pageChange)="p = $event"></pagination-controls></p>-->
-      <div class="input-field col s12">
-          <input matInput (keyup)="applyFilter($event.target.value)"  id="n">
-          <label for="n">Search By Name</label>
-      </div>
+      <style>
+      .mat-form-field-underline .ng-tns-c5-0 .ng-star-inserted{
+        display:none !important;
+      }
+      </style>
+      <mat-form-field class="example-full-width">
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search By name">
+      </mat-form-field>
      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef> Name </th>
