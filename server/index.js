@@ -18,7 +18,6 @@ app.use(cors({origin: 'http://localhost:4200'}));
 app.use('/api/employees',require('./routes/employee.routes'));
 app.use('/api/position',require('./routes/position.routes'));
 app.use('/api/jobs',require('./routes/job.routes'));
-app.use('/api/jobdetails',require('./routes/jobdetail.routes'));
 // Starting the Server
 app.listen(app.get('port'), () =>{
     console.log('Server on port 3000');
