@@ -1,6 +1,7 @@
 <div class="container">
+  <h3>ที่อยู่ลูกค้า</h3>
   <div class="row">
-    <div class="col s5">
+    <!-- <div class="col s5">
       <div class="card">
         <div class="card-content">
           <form (ngSubmit)="addPosition(positionForm)" #positionForm="ngForm">
@@ -37,25 +38,69 @@
           </agm-map>
         </div>
       </div>
-    </div>
-    <div class="col s7">
-      <table>
+    </div> -->
+
+    <div class="input-field col s12">
+        <input type="text" name="name" (keyup)="applyFilter($event.target.value)" id="n">
+        <label for="n">Search Address</label>
+      </div>
+
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 100%">
+              <ng-container matColumnDef="address">
+                  <th mat-header-cell *matHeaderCellDef> ที่อยู่ </th>
+                  <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+                </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> ชื่อลูกค้า </th>
+              <td mat-cell *matCellDef="let element" > {{element.employee["name"]}} </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let position" style="align-content: right;">
+                    <button class="menu" mat-icon-button [matMenuTriggerFor]="Menu" style="background-color: aliceblue">
+                        <mat-icon>more_vert</mat-icon>
+                      </button>
+                      <mat-menu #Menu="matMenu">
+                          <button mat-menu-item (click)="editPosition(position._id)" style="background-color: aliceblue;text-align: center">
+                              <mat-icon>edit</mat-icon><span>แก้ไข</span>
+                            </button>
+                            <button  mat-menu-item (click)="delePosition(position._id)" style="background-color: aliceblue;text-align: center">
+                                <mat-icon>delete</mat-icon><span>ลบ</span>
+                              </button>
+                        </mat-menu>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+          </div>
+      <!-- <table>
         <thead>
           <th>Name</th>
           <th>Address</th>
-          <th>Oparations</th>
         </thead>
         <tr *ngFor="let position of positionService.positions">
             <td>{{ position.employee["name"] }}</td>
             <td>{{ position.address }}</td>
-          <button class="btn btn-primary" (click)="editPosition(position, show=!show)">
-            <i class="material-icons">edit</i>
-          </button>
-          <button class="btn btn-primary" (click)="delePosition(position._id)">
-            <i class="material-icons">delete</i>
-          </button>
+            <button class="menu" mat-icon-button [matMenuTriggerFor]="Menu" style="background-color: aliceblue">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #Menu="matMenu">
+                <button mat-menu-item (click)="editPosition(position)" style="background-color: aliceblue;text-align: center">
+                    <mat-icon>edit</mat-icon><span>แก้ไข</span>
+                  </button>
+                  <button  mat-menu-item (click)="delePosition(position._id)" style="background-color: aliceblue;text-align: center">
+                      <mat-icon>delete</mat-icon><span>ลบ</span>
+                    </button>
+              </mat-menu>
         </tr>
-      </table>
-    </div>
+      </table> -->
   </div>
+  <div class="footer">
+  <footer class="footer">
+    <div class="container">
+    <button mat-fab (click)="showAddPosition()" class="right"><i class="low material-icons">add</i></button>
+    </div>
+  </footer>
 </div>

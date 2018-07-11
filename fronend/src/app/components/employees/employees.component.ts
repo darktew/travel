@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { Component, OnInit, ViewChild, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { EmployeeService } from '../../services/employee.service';
 import { NgForm } from '@angular/forms';
@@ -31,7 +31,7 @@ export class EmployeesComponent implements OnInit {
     this.getEmployees();
   }
   // addEmployee(form: NgForm) {
-  //   if (form.value._id) {
+  //  if (form.value._id) {
   //     this.employeeService.putEmployee(form.value)
   //       .subscribe(res => {
   //         this.resetForm(form);
@@ -68,16 +68,6 @@ export class EmployeesComponent implements OnInit {
 
   // editEmployee(employee: Employee) {
   //     this.employeeService.selectedEmployee = employee;
-  //     const check = this.employeeService.selectedEmployee;
-  //     this.isPopupOpened = true;
-  //     const dialogRef = this.dialog.open(EmployeeCreateComponent, {
-  //       width: '65em',
-  //       data: check
-  //     });
-  //     dialogRef.afterClosed().subscribe(result => {
-  //       this.isPopupOpened = false;
-  //       this.getEmployees();
-  //     });
   // }
 
   deleteEmployee(_id: string) {
@@ -89,12 +79,11 @@ export class EmployeesComponent implements OnInit {
               });
         }
 }
-  updateEmployee(_id: string) {
+  updateEmployee(employee: Employee) {
     this.isPopupOpened = true;
-    const check = this.employeeService.employees.find(c => c._id === _id);
-    console.log(check);
+    this.employeeService.selectedEmployee = employee;
     const dialogRef = this.dialog.open(EmployeeCreateComponent, {
-      data: check
+      data: this.employeeService.selectedEmployee
     });
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;

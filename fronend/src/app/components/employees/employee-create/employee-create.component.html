@@ -5,20 +5,36 @@
   <mat-icon (click)="goback()">cancel</mat-icon>
 </mat-toolbar>
         <div class="card-content">
-<form  (ngSubmit)="addEmployee(employeeForm)" #employeeForm="ngForm" >
-  <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id">
+<form  [formGroup]= "_addEmployee" (submit)="onSubmit()">
+    <input type="hidden" formControlName="_id">
+  <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id" [ngModelOptions]="{standalone: true}">
   <div class="row">
     <div class="input-field col s12">
-      <input type="text" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" id="n">
+      <input type="text" formControlName="name" id="n">
       <label for="n">Name</label>
     </div>
+      <input type="hidden" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" id="n" [ngModelOptions]="{standalone: true}">
     <div class="card-action">
       <div class="input-field col s12">
-        <button mat-raised-button class="right" (click)="resetForm(employeeForm)">Clean</button>
-        <button mat-raised-button class="btn right">Save</button>
+        <button mat-button class="btn btn-success right"><mat-icon>save</mat-icon></button>
       </div>
     </div>
   </div>
 </form>
+  <!-- <form [formGroup]= "_addEmployee" (submit)="onSubmit()">
+    <input type="hidden" formControlName="_id">
+    <div class="row">
+      <div class="input-field col s12">
+      <input type="text" formControlName="name" id="n">
+      <label for="n">Name</label>
+    </div>
+    <div class="card-action">
+      <div class="input-field col s12">
+        <button mat-raised-button color="primary" class="right" (click)="resetForm(_addEmployee)">Clean</button>
+        <button mat-raised-button class="right">Save</button>
+      </div>
+    </div>
+  </div>
+  </form> -->
 </div>
 </div>

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs';
 import { Position } from './../models/position';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,8 +13,8 @@ export class PositionService {
   constructor(private http: HttpClient) {
       this.selectedPosition = new Position();
    }
-  getPositions() {
-    return this.http.get(this.URL_API);
+  getPositions(): Observable<Position[]> {
+    return this.http.get<Position[]>(this.URL_API);
   }
 
   // tslint:disable-next-line:no-shadowed-variable

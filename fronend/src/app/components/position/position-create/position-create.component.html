@@ -1,0 +1,48 @@
+<div class="card-header">
+    <mat-toolbar class="toolbar">
+      <h3>Information</h3>
+      <span class="toolbar-spacer"></span>
+      <mat-icon (click)="goback()">cancel</mat-icon>
+</mat-toolbar>
+
+<div class="col s4">
+    <div class="card">
+      <div class="card-content">
+        <form (ngSubmit)="addPosition(positionForm)" #positionForm="ngForm">
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
+          <div class="row">
+            <div class="input-field col s12">
+                <select [(ngModel)]="positionService.selectedPosition.id" name="id" #id="ngModel">
+                    <option value="" disabled>Select Customer</option>
+                    <option *ngFor="let employe of employeeService.employees"  [value]="employe._id">{{ employe.name }}</option>
+                </select>
+            </div>
+            <div class="input-field col s12">
+              <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address">
+              <label for="add">Address</label>
+            </div>
+            <div class="input-field col s12">
+              <input type="hidden" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
+            </div>
+            <div class="input-field col s12">
+              <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
+            </div>
+            <div class="card-action">
+              <div class="input-field col s12">
+                <button class="btn right" (click)="resetForm(positionForm)">Clean</button>
+                <button class="btn right" style="margin-left:  2px;">Save</button>
+            </div>
+            </div>
+          </div>
+        </form>
+        <div class="col-s5">
+          <agm-map [latitude]="positionService.selectedPosition.lattitude" [longitude]="positionService.selectedPosition.longtitude" (mapClick)="onChosenLocation($event)">
+            <agm-marker [latitude]="positionService.selectedPosition.lattitude"
+                        [longitude]="positionService.selectedPosition.longtitude"
+                        *ngIf="locationChosen"></agm-marker>
+        </agm-map>
+      </div>
+      </div>
+    </div>
+  </div>
+

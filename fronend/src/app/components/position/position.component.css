@@ -4,3 +4,9 @@ agm-map{
 select{
   display: initial ;
 }
+button.menu{
+  float: right;
+}
+table {
+  width: 100%;
+}

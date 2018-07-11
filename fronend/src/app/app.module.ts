@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {MatToolbarModule} from '@angular/material/toolbar';
@@ -23,6 +23,7 @@ import { EmployeesComponent } from './components/employees/employees.component';
 import { PositionComponent } from './components/position/position.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmployeeCreateComponent } from './components/employees/employee-create/employee-create.component';
+import { PositionCreateComponent } from './components/position/position-create/position-create.component';
 
 
 const routes: Routes = [
@@ -39,7 +40,8 @@ const routes: Routes = [
     PositionComponent,
     PageNotFoundComponent,
     EmployeeCreateComponent,
-    EmployeeFilterPipe
+    EmployeeFilterPipe,
+    PositionCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ const routes: Routes = [
     MatListModule,
     MatDialogModule,
     NgxPaginationModule,
+    ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw'
     }),
@@ -74,6 +77,9 @@ const routes: Routes = [
     MatDialogModule
   ],
   providers: [],
+  entryComponents: [
+    EmployeeCreateComponent,
+    PositionCreateComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

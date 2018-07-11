@@ -1,9 +1,11 @@
+import { PositionCreateComponent } from './position-create/position-create.component';
 import { EmployeeService } from './../../services/employee.service';
 import { NgForm } from '@angular/forms/src/directives';
 import { Position } from './../../models/position';
 import { PositionService } from './../../services/position.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Employee } from '../../models/employee';
+import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 
 
 
@@ -17,14 +19,30 @@ declare var M: any;
   providers: [PositionService]
 })
 export class PositionComponent implements OnInit {
+  isPopupOpened = false;
   locationChosen = false;
   show: boolean ;
+  displayedColumns: string[] = ['address', 'name', 'action'];
+  dataSource;
+  dataSource2;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public positionService: PositionService,
-              public employeeService: EmployeeService
+              public employeeService: EmployeeService,
+              private dialog?: MatDialog
               ) { }
   ngOnInit() {
     this.getPositions();
-    this.getEmployees();
+  }
+  showAddPosition() {
+    this.isPopupOpened = true;
+    const dialogRef = this.dialog.open(PositionCreateComponent, {
+      width: '500px',
+      data: {}
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.isPopupOpened = false;
+      this.getPositions();
+    });
   }
   addPosition(form: NgForm) {
     if (form.value._id) {
@@ -49,8 +67,16 @@ export class PositionComponent implements OnInit {
     this.positionService.getPositions()
       .subscribe(res => {
         this.positionService.positions = res as Position[];
+        this.dataSource = new  MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
         console.log(res);
       });
+  }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
   editPosition(position: Position) {
     this.positionService.selectedPosition = position;
@@ -82,8 +108,5 @@ export class PositionComponent implements OnInit {
         this.employeeService.employees = res as Employee[];
         console.log(res);
       });
-  }
-  a(position) {
-    console.log(position);
-  }
+    }
 }
