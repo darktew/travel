@@ -3,7 +3,7 @@ import { EmployeeService } from './../../../services/employee.service';
 import { PositionService } from './../../../services/position.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Component, OnInit, Inject } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormBuilder } from '@angular/forms';
 import { Employee } from '../../../models/employee';
 
 
@@ -19,6 +19,7 @@ export class PositionCreateComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<PositionCreateComponent>,
               public positionService: PositionService,
               public employeeService: EmployeeService,
+              public _formbuilder: FormBuilder,
               @Inject(MAT_DIALOG_DATA) public data: any) { }
 
     goback(): void {

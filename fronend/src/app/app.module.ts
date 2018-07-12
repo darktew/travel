@@ -28,7 +28,8 @@ import { PositionCreateComponent } from './components/position/position-create/p
 
 const routes: Routes = [
   {path: '', redirectTo: '', pathMatch: 'full'},
-  {path: 'customer', component: EmployeesComponent},
+  {path: 'customer', component: EmployeesComponent},  
+  //{path: 'customer/:id', component: EmployeesDetailComponent},
   {path: 'customer/create', component: EmployeeCreateComponent},
   {path: 'position', component: PositionComponent},
   {path: '**', component: PageNotFoundComponent}];

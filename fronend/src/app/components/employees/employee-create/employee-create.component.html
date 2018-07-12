@@ -10,11 +10,9 @@
   <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id" [ngModelOptions]="{standalone: true}">
   <div class="row">
     <div class="input-field col s12">
-      <input type="text" formControlName="name" id="n">
-      <label for="n">Name</label>
+      <input type="text" formControlName="name" id="name" name="employeeService.selectedEmployee.name" (value)="employeeService.selectedEmployee.name">
     </div>
-      <input type="hidden" name="name" #name="ngModel" [(ngModel)]="employeeService.selectedEmployee.name" id="n" [ngModelOptions]="{standalone: true}">
-    <div class="card-action">
+      <div class="card-action">
       <div class="input-field col s12">
         <button mat-button class="btn btn-success right"><mat-icon>save</mat-icon></button>
       </div>

@@ -22,15 +22,16 @@
               <label for="add">Address</label>
             </div>
             <div class="input-field col s12">
-              <input type="hidden" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
+              <input type="text" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
             </div>
             <div class="input-field col s12">
-              <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
+              <input type="text" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
             </div>
+            
             <div class="card-action">
               <div class="input-field col s12">
                 <button class="btn right" (click)="resetForm(positionForm)">Clean</button>
-                <button class="btn right" style="margin-left:  2px;">Save</button>
+                <button type="submit" class="btn right" style="margin-left:  2px;">Save</button>
             </div>
             </div>
           </div>

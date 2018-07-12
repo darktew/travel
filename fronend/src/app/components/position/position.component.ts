@@ -69,6 +69,7 @@ export class PositionComponent implements OnInit {
         this.positionService.positions = res as Position[];
         this.dataSource = new  MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
+        this.show = false;
         console.log(res);
         console.log("MatTableSource : ",res);
       });
