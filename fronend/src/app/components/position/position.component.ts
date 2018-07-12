@@ -70,10 +70,17 @@ export class PositionComponent implements OnInit {
         this.dataSource = new  MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         console.log(res);
+        console.log("MatTableSource : ",res);
       });
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    this.dataSource.filterPredicate = (data, filter) => {
+      const dataStr = data.name + data.employee.name;
+      return dataStr.indexOf(filter) != -1; 
+    }
+
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
