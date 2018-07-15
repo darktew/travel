@@ -24,7 +24,6 @@ export class PositionComponent implements OnInit {
   show: boolean ;
   displayedColumns: string[] = ['address', 'name', 'action'];
   dataSource;
-  dataSource2;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public positionService: PositionService,
               public employeeService: EmployeeService,
@@ -88,7 +87,15 @@ export class PositionComponent implements OnInit {
   }
   editPosition(position: Position) {
     this.positionService.selectedPosition = position;
-    this.show = true;
+    this.isPopupOpened = true;
+    const dialogRef = this.dialog.open(PositionCreateComponent, {
+      width: '1000px',
+      data: this.positionService.selectedPosition
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      this.isPopupOpened = false;
+      this.getPositions();
+    });
   }
   delePosition(_id: string) {
     if (confirm('Are you sure Delete')) {

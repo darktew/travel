@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { EmployeeCreateComponent } from './employee-create/employee-create.component';
+import { element } from '../../../../node_modules/protractor';
 declare var M: any;
 @Component({
   selector: 'app-employees',
@@ -108,6 +109,9 @@ export class EmployeesComponent implements OnInit {
       this.isPopupOpened = false;
       this.getEmployees();
     });
+  }
+  onSelect(element) {
+    this.router.navigate(['/customer', element._id]);
   }
 }
 

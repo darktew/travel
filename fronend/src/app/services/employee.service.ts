@@ -22,7 +22,9 @@ export class EmployeeService {
   postEmployee(Employee: Employee) {
     return this.http.post(this.URL_API, Employee);
   }
-
+  getEmployee(_id: string): Observable<Employee[]> {
+    return this.http.get<Employee[]>(this.URL_API+ `/${_id}`);
+  }
   putEmployee(employee: Employee) {
     return this.http.put(this.URL_API + `/${employee._id}`, employee);
   }

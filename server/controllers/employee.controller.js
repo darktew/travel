@@ -4,7 +4,9 @@ const mongoose = require('mongoose');
 const employeeCtrl = {};
 
 employeeCtrl.getEmployees = async (req, res) => {
-    const employees = await Employee.find();
+    const employees = await Employee.find()
+        .populate({path:'address'})
+        .exec();
     res.json(employees);
         
 };
@@ -22,7 +24,6 @@ employeeCtrl.createEmployee = async (req, res) => {
 };
 
 employeeCtrl.getEmployee = async (req, res) => {
-  
     const employee = await Employee.findById(req.params.id);
     
     res.json(employee);

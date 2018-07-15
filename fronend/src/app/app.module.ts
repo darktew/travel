@@ -24,12 +24,13 @@ import { PositionComponent } from './components/position/position.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EmployeeCreateComponent } from './components/employees/employee-create/employee-create.component';
 import { PositionCreateComponent } from './components/position/position-create/position-create.component';
+import { EmployeeDetailComponent } from './components/employees/employee-detail/employee-detail.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: '', pathMatch: 'full'},
   {path: 'customer', component: EmployeesComponent},  
-  //{path: 'customer/:id', component: EmployeesDetailComponent},
+  {path: 'customer/:id', component: EmployeeDetailComponent},
   {path: 'customer/create', component: EmployeeCreateComponent},
   {path: 'position', component: PositionComponent},
   {path: '**', component: PageNotFoundComponent}];
@@ -42,7 +43,8 @@ const routes: Routes = [
     PageNotFoundComponent,
     EmployeeCreateComponent,
     EmployeeFilterPipe,
-    PositionCreateComponent
+    PositionCreateComponent,
+    EmployeeDetailComponent
   ],
   imports: [
     BrowserModule,
