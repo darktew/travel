@@ -8,11 +8,11 @@
 <div class="col s4">
     <div class="card">
       <div class="card-content">
-        <!-- <form (ngSubmit)="addPosition(positionForm.form)" #positionForm="ngForm">
+        <form (ngSubmit)="addPosition(positionForm.form)" #positionForm="ngForm">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
           <div class="row">
             <div class="input-field col s12">
-                <select [(ngModel)]="positionService.selectedPosition.id" name="id" #id="ngModel">
+                <select [(ngModel)]="positionService.selectedPosition._id" name="id" #id="ngModel">
                     <option value="" disabled>Select Customer</option>
                     <option *ngFor="let employe of employeeService.employees"  [value]="employe._id">{{ employe.name }}</option>
                 </select>
@@ -35,8 +35,8 @@
             </div>
             </div>
           </div>
-        </form> -->
-        <form  [formGroup]= "_addPosition" (submit)="onSubmit(_addPosition)">
+        </form>
+        <!-- <form  [formGroup]= "_addPosition" (submit)="onSubmit(_addPosition)">
             <input type="hidden" formControlName="_id">
 
           <div class="row">
@@ -58,7 +58,7 @@
               </div>
             </div>
           </div>
-        </form>
+        </form> -->
         <div class="col-s5">
             <agm-map [latitude]="positionService.selectedPosition.lattitude" [longitude]="positionService.selectedPosition.longtitude" (mapClick)="onChosenLocation($event)">
                 <agm-marker [latitude]="positionService.selectedPosition.lattitude"

@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { Position } from './../models/position';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Employee } from '../models/employee';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,9 @@ export class PositionService {
   postPosition(position: Position) {
     return this.http.post(this.URL_API, position);
   }
-
+  getPositionByEmployeeId(employee_id: String) {
+    return this.http.get(this.URL_API+`/employee`+`/${employee_id}`);
+  }
   putPosition(position: Position) {
     return this.http.put(this.URL_API + `/${position._id}`, position);
   }

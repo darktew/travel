@@ -33,6 +33,14 @@ positionCtrl.getPosition = async (req, res) => {
     res.json(position);
 };
 
+positionCtrl.getPositionByEmployeeId = async (req, res) => {
+  
+    const position = await Position.find({employee : req.params.employee_id})
+        .populate({path: 'employee', select: 'name'})
+        .exec();
+    res.json(position);
+};
+
 positionCtrl.editPosition = async (req, res) =>{
     const { id } = req.params;
     const position = {

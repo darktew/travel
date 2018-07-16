@@ -30,7 +30,7 @@ export class PositionCreateComponent implements OnInit {
       this.dialogRef.close();
     }
   ngOnInit() {
-   // this.getEmployees();
+   this.getEmployees();
     this._addPosition = this._formbuilder.group(
       {
         _id: this.data._id,
@@ -41,43 +41,43 @@ export class PositionCreateComponent implements OnInit {
       }
     )
   }
-  onSubmit() {
-    if (this.data._id) {
-      console.log(this.data.lattitude);
-      console.log(this._addPosition.value.lattitude);
-      this.positionService.putPosition(this._addPosition.value)
-        .subscribe(res => {
-          M.toast({html: 'Update Success'});
-          this.dialogRef.close();
-        });
-    } else {
-      this.positionService.postPosition(this._addPosition.value)
-      .subscribe(res => {
-          M.toast({html: 'Save Success'});
-          this.dialogRef.close();
-    });
-    }
-  }
-  // addPosition(form: FormGroup) {
+  // onSubmit() {
   //   if (this.data._id) {
-  //   console.log(form.value);
-  //     this.positionService.putPosition(form.value)
+  //     console.log(this.data.lattitude);
+  //     console.log(this._addPosition.value.lattitude);
+  //     this.positionService.putPosition(this._addPosition.value)
   //       .subscribe(res => {
-  //         this.resetForm(form);
   //         M.toast({html: 'Update Success'});
-  //         this.getPositions();
   //         this.dialogRef.close();
   //       });
   //   } else {
-  //     this.positionService.postPosition(form.value)
+  //     this.positionService.postPosition(this._addPosition.value)
   //     .subscribe(res => {
-  //       this.resetForm(form);
-  //       M.toast({html: 'Save Success'});
-  //       this.getPositions();
-  //       this.dialogRef.close();
-  //     });
+  //         M.toast({html: 'Save Success'});
+  //         this.dialogRef.close();
+  //   });
   //   }
   // }
+  addPosition(form: FormGroup) {
+    if (this.data._id) {
+    console.log(form.value);
+      this.positionService.putPosition(form.value)
+        .subscribe(res => {
+          this.resetForm(form);
+          M.toast({html: 'Update Success'});
+          this.getPositions();
+          this.dialogRef.close();
+        });
+    } else {
+      this.positionService.postPosition(form.value)
+      .subscribe(res => {
+        this.resetForm(form);
+        M.toast({html: 'Save Success'});
+        this.getPositions();
+        this.dialogRef.close();
+      });
+    }
+  }
   resetForm(form?: FormGroup) {
     if (form) {
       form.reset();
