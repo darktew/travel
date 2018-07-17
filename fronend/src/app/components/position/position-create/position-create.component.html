@@ -8,11 +8,16 @@
 <div class="col s4">
     <div class="card">
       <div class="card-content">
+          <agm-map [latitude]="positionService.selectedPosition.lattitude" [longitude]="positionService.selectedPosition.longtitude" (mapClick)="onChosenLocation($event)">
+              <agm-marker [latitude]="positionService.selectedPosition.lattitude"
+                          [longitude]="positionService.selectedPosition.longtitude"
+                          *ngIf="locationChosen"></agm-marker>
+          </agm-map>
         <form (ngSubmit)="addPosition(positionForm.form)" #positionForm="ngForm">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
           <div class="row">
             <div class="input-field col s12">
-                <select [(ngModel)]="positionService.selectedPosition._id" name="id" #id="ngModel">
+                <select [(ngModel)]="positionService.selectedPosition.id" name="id" #id="ngModel">
                     <option value="" disabled>Select Customer</option>
                     <option *ngFor="let employe of employeeService.employees"  [value]="employe._id">{{ employe.name }}</option>
                 </select>
@@ -22,10 +27,10 @@
               <label for="add">Address</label>
             </div>
             <div class="input-field col s12">
-              <input type="text" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
+              <input type="hidden" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
             </div>
             <div class="input-field col s12">
-              <input type="text" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
+              <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
             </div>
             
             <div class="card-action">
@@ -36,36 +41,6 @@
             </div>
           </div>
         </form>
-        <!-- <form  [formGroup]= "_addPosition" (submit)="onSubmit(_addPosition)">
-            <input type="hidden" formControlName="_id">
-
-          <div class="row">
-            <div class="input-field col s12">
-              <input type="text" formControlName="address" id="address" name="positionService.selectedPosition.address" (value)="positionService.selectedPosition.address">
-            </div>
-            <div class="input-field col s12">
-                <input type="text" formControlName="lattitude"  name="positionService.selectedPosition.lattitude" (value)="positionService.selectedPosition.lattitude">
-                <input type="text" name="lattitude" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude " [ngModelOptions]="{standalone: true}">
-              </div>
-              <div class="input-field col s12">
-                  <input type="text" formControlName="longtitude" id="longtitude" name="positionService.selectedPosition.longitude" (value)="positionService.selectedPosition.longtitude">
-                  <input type="text" name="longtitude"#longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude " [ngModelOptions]="{standalone:true}">
-                </div>
-                
-              <div class="card-action">
-              <div class="input-field col s12">
-                <button mat-button class="btn btn-success right">save</button>
-              </div>
-            </div>
-          </div>
-        </form> -->
-        <div class="col-s5">
-            <agm-map [latitude]="positionService.selectedPosition.lattitude" [longitude]="positionService.selectedPosition.longtitude" (mapClick)="onChosenLocation($event)">
-                <agm-marker [latitude]="positionService.selectedPosition.lattitude"
-                            [longitude]="positionService.selectedPosition.longtitude"
-                            *ngIf="locationChosen"></agm-marker>
-            </agm-map>
-      </div>
       </div>
     </div>
   </div>

@@ -14,13 +14,14 @@
 .toolbar {
   background-color: coral;
   color: azure;
-  border-radius: 5px
+  border-radius: 5px;
+  width: 750px;
 }
 .toolbar-spacer{
-  flex: 1 2  auto;
+  flex: 2 1  auto;
 }
 agm-map{
-  height: 500px;
+  height: 300px;
 }
 select{
   display: initial ;

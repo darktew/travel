@@ -17,8 +17,9 @@ declare var M: any;
 export class PositionCreateComponent implements OnInit {
   locationChosen = false;
   _addPosition: FormGroup;
-
-  
+  test: NgForm;
+  position: Position;
+  @ViewChild('positionForm') positionForm: NgForm;
   constructor(private dialogRef: MatDialogRef<PositionCreateComponent>,
               public positionService: PositionService,
               public employeeService: EmployeeService,
@@ -31,34 +32,10 @@ export class PositionCreateComponent implements OnInit {
     }
   ngOnInit() {
    this.getEmployees();
-    this._addPosition = this._formbuilder.group(
-      {
-        _id: this.data._id,
-        address: [this.data.address, Validators.required],
-        lattitude: [this.data.lattitude, Validators.required],
-        longtitude: [this.data.longtitude, Validators.required],
-        id: [this.data.id, Validators.required]
-      }
-    )
+   this.positionService.selectedPosition = this.data;
+    console.log(this.positionService.selectedPosition);
   }
-  // onSubmit() {
-  //   if (this.data._id) {
-  //     console.log(this.data.lattitude);
-  //     console.log(this._addPosition.value.lattitude);
-  //     this.positionService.putPosition(this._addPosition.value)
-  //       .subscribe(res => {
-  //         M.toast({html: 'Update Success'});
-  //         this.dialogRef.close();
-  //       });
-  //   } else {
-  //     this.positionService.postPosition(this._addPosition.value)
-  //     .subscribe(res => {
-  //         M.toast({html: 'Save Success'});
-  //         this.dialogRef.close();
-  //   });
-  //   }
-  // }
-  addPosition(form: FormGroup) {
+  addPosition(form: NgForm) {
     if (this.data._id) {
     console.log(form.value);
       this.positionService.putPosition(form.value)
@@ -78,7 +55,7 @@ export class PositionCreateComponent implements OnInit {
       });
     }
   }
-  resetForm(form?: FormGroup) {
+  resetForm(form?: NgForm) {
     if (form) {
       form.reset();
       this.positionService.selectedPosition = new Position();

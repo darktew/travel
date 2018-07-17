@@ -35,7 +35,6 @@ export class PositionComponent implements OnInit {
   showAddPosition() {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(PositionCreateComponent, {
-      width: '500px',
       data: {}
     });
     dialogRef.afterClosed().subscribe(res => {
