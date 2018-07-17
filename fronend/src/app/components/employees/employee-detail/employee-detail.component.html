@@ -1,12 +1,5 @@
-<p>this is customer Id : {{ employeeId }}</p>
 
-<table>
-    <tr *ngFor="let p of positionService">
-        <td>
-            {{p.address}}
-        </td>
-        <td>
-            {{p.employee.name}}
-        </td>
-    </tr>
-</table>
+<div class="container">
+<ul *ngFor="let p of positionService.positions ">
+    <li>{{p.address}}</li>
+</ul></div>
