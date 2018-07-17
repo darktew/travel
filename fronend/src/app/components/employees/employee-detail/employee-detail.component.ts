@@ -18,7 +18,7 @@ import { Observable } from '../../../../../node_modules/rxjs';
 })
 export class EmployeeDetailComponent implements OnInit {
   public employeeId;
-  employee;
+  employee: Array<Object>;
   dataSource;
   constructor(private route: ActivatedRoute,
               public positionService: PositionService,
@@ -28,7 +28,6 @@ export class EmployeeDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.employeeId = id;
     this.getPositionByEmployeeId();
-    this.getEmployeeId();
   }
   getPositionByEmployeeId() {
     this.positionService.getPositionByEmployeeId(this.employeeId)
@@ -36,12 +35,10 @@ export class EmployeeDetailComponent implements OnInit {
         this.positionService.positions = resault as Position[];
         console.log(resault);
       });
-  }
-  getEmployeeId() {
-   this.employee = this.employeeService.getEmployee(this.employeeId)
+    this.employeeService.getEmployee(this.employeeId)
     .subscribe(res => {
-      this.employeeService.employees = res as Employee[];
-      console.log(res);
-    }); 
+      this.employee = res as Employee[];
+      console.log(this.employee);
+    });
   }
 }

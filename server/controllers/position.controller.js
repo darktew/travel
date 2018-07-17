@@ -34,7 +34,6 @@ positionCtrl.getPosition = async (req, res) => {
 };
 
 positionCtrl.getPositionByEmployeeId = async (req, res) => {
-  
     const position = await Position.find({employee : req.params.employee_id})
         .populate({path: 'employee', select: 'name'})
         .exec();
