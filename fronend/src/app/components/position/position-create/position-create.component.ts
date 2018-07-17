@@ -18,8 +18,7 @@ export class PositionCreateComponent implements OnInit {
   locationChosen = false;
   _addPosition: FormGroup;
   test: NgForm;
-  position: Position;
-  @ViewChild('positionForm') positionForm: NgForm;
+  employee: Array<Object>;
   constructor(private dialogRef: MatDialogRef<PositionCreateComponent>,
               public positionService: PositionService,
               public employeeService: EmployeeService,
@@ -31,8 +30,9 @@ export class PositionCreateComponent implements OnInit {
       this.dialogRef.close();
     }
   ngOnInit() {
-   this.getEmployees();
-   this.positionService.selectedPosition = this.data;
+   this.getEmployee();
+   this.positionService.selectedPosition = this.data.id;
+    console.log(this.data.id);
     console.log(this.positionService.selectedPosition);
   }
   addPosition(form: NgForm) {
@@ -74,10 +74,10 @@ export class PositionCreateComponent implements OnInit {
         console.log(res);
       });
   }
-  getEmployees() {
-    this.employeeService.getEmployees()
+  getEmployee() {
+    this.employeeService.getEmployee(this.data)
       .subscribe(res => {
-        this.employeeService.employees = res as Employee[];
+       this.employee = res as Employee[];
         console.log(res);
       });
     }

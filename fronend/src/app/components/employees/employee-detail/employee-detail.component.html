@@ -3,3 +3,8 @@
 <ul *ngFor="let p of positionService.positions">
     <li>{{p.address}}</li>
 </ul>
+<footer class="footer">
+        <div class="container">
+        <button mat-fab (click)="showAddPosition()" class="right"><i class="low material-icons">add</i></button>
+        </div>
+</footer>

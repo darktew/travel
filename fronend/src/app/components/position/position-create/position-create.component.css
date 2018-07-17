@@ -6,11 +6,6 @@
 .container > * {
   width: 50%;
 }
-
-.example-full-width {
-  width: 100%;
-}
-
 .toolbar {
   background-color: coral;
   color: azure;
@@ -26,3 +21,4 @@ agm-map{
 select{
   display: initial ;
 }
+

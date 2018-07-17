@@ -16,21 +16,21 @@
         <form (ngSubmit)="addPosition(positionForm.form)" #positionForm="ngForm">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
           <div class="row">
-            <div class="input-field col s12">
+            <div class="input-field col s6">
                 <select [(ngModel)]="positionService.selectedPosition.id" name="id" #id="ngModel">
                     <option value="" disabled>Select Customer</option>
                     <option *ngFor="let employe of employeeService.employees"  [value]="employe._id">{{ employe.name }}</option>
                 </select>
             </div>
             <div class="input-field col s12">
-              <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address">
-              <label for="add">Address</label>
+              <label>Address</label>
+              <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address" >
             </div>
             <div class="input-field col s12">
-              <input type="hidden" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
+              <input type="text" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude" [value]="14.397362211054162">
             </div>
             <div class="input-field col s12">
-              <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
+              <input type="text" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude" [value]="100.88234426733038">
             </div>
             
             <div class="card-action">

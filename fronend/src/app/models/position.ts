@@ -1,5 +1,5 @@
 export class Position {
-  constructor(_id= '', address= '', lattitude = 13.736717, longtitude = 100.523186, employee = null, id = '') {
+  constructor(_id= '', address= '', lattitude = 15.294584987456021, longtitude = 100.523186, employee = null, id = '') {
     this._id = _id;
     this.address = address;
     this.lattitude = lattitude;
