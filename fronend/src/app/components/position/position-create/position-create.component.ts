@@ -21,6 +21,7 @@ export class PositionCreateComponent implements OnInit {
   employee: Array<Object>;
   public data : Object;
   public id: string;
+  public a : number;
   constructor(private dialogRef: MatDialogRef<PositionCreateComponent>,
               public positionService: PositionService,
               public employeeService: EmployeeService,
@@ -33,9 +34,13 @@ export class PositionCreateComponent implements OnInit {
     }
   ngOnInit() {
    //this.getEmployee();
+   //this.initVar();
+   //console.log("Global x : ", this.initVar());
+   //this.getPositions();
    this.data = this.new_data;
    this.id = this.new_data.pageID;
    this.positionService.pageID = this.id;
+   this.a = 5;
     console.log(this.data);
     console.log("id:", this.id);
     console.log("positionPageID", this.positionService.pageID);
@@ -43,6 +48,7 @@ export class PositionCreateComponent implements OnInit {
     //console.log("lat : ",this.positionService.selectedPosition.lattitude);
   }
   addPosition(form: NgForm) {
+   
     console.log("Log new data : ",this.new_data, this.data);
     if (this.new_data._id) {
     console.log(form.value);
@@ -82,6 +88,7 @@ export class PositionCreateComponent implements OnInit {
         console.log("postion : ",res);
       });
   }
+  
   // getEmployee() {
   //   this.employeeService.getEmployee(this.id)
   //     .subscribe(res => {

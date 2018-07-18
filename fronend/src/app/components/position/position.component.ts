@@ -28,7 +28,7 @@ export class PositionComponent implements OnInit {
   constructor(public positionService: PositionService,
               public employeeService: EmployeeService,
               private dialog?: MatDialog
-              ) { }
+              ) {  }
   ngOnInit() {
     this.getPositions();
   }
@@ -72,6 +72,7 @@ export class PositionComponent implements OnInit {
         console.log("MatTableSource : ",res);
       });
   }
+  
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 

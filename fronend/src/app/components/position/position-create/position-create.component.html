@@ -22,6 +22,8 @@
                     <option value="" disabled>Select Customer</option>
                     <option *ngFor="let employe of employeeService.employees"  [value]="employe._id">{{ employe.name }}</option>
                 </select> -->
+                <p>{{ a}}</p>
+                <input type="text" name="a2" class="validate" id="a2" #a2="ngModel" [(ngModel)]="x" [value]="x">
                 <input type="text" name="id" class="validate" id="id" #id="ngModel" [(ngModel)]="positionService.pageID" [value]="positionService.pageID">
             </div>
             <div class="input-field col s12">
