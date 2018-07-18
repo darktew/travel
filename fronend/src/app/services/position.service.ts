@@ -9,6 +9,7 @@ import { Employee } from '../models/employee';
 })
 export class PositionService {
   selectedPosition: Position;
+  pageID : String;
   positions: Position[];
   readonly URL_API = 'http://localhost:3000/api/position';
   constructor(private http: HttpClient) {

@@ -47,9 +47,7 @@ export class EmployeeDetailComponent implements OnInit {
   showAddPosition() {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(PositionCreateComponent, {
-      data: {
-        id: this.employeeId
-      }
+      data: {pageID : this.employeeId}
     });
     dialogRef.afterClosed().subscribe(res => {
       this.isPopupOpened = false;
