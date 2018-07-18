@@ -64,7 +64,7 @@ export class PositionCreateComponent implements OnInit {
             //set latitude, longitude and zoom
             this.positionService.selectedPosition.lattitude = place.geometry.location.lat();
             this.positionService.selectedPosition.longtitude = place.geometry.location.lng();
-            this.zoom = 12;
+           
          });
        });
      });
@@ -74,7 +74,6 @@ export class PositionCreateComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.positionService.selectedPosition.lattitude = position.coords.latitude;
         this.positionService.selectedPosition.longtitude = position.coords.longitude;
-        this.zoom = 12;
       });
     }
   }
