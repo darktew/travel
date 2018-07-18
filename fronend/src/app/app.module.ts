@@ -64,7 +64,8 @@ const routes: Routes = [
     NgxPaginationModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw'
+      apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw',
+      libraries: ['places']
     }),
     RouterModule.forRoot(routes)
 

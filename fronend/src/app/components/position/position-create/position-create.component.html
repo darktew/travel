@@ -8,23 +8,19 @@
 <div class="col s4">
     <div class="card">
       <div class="card-content">
-          <div class="mylat" *ngIf=""></div>
-          <agm-map [latitude]="14" [longitude]="101" (mapClick)="onChosenLocation($event)">
+        <div>
+            <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+          <agm-map [latitude]="14" [longitude]="101" (mapClick)="onChosenLocation($event)" [zoom]="zoom">
               <agm-marker [latitude]="positionService.selectedPosition.lattitude"
                           [longitude]="positionService.selectedPosition.longtitude"
-                          *ngIf="locationChosen"></agm-marker>
+                          ></agm-marker>
           </agm-map>
+        </div>
         <form (ngSubmit)="addPosition(positionForm)" #positionForm="ngForm">
             <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
           <div class="row">
             <div class="input-field col s6">
-                <!-- <select [(ngModel)]="positionService.selectedPosition.id" name="id" #id="ngModel">
-                    <option value="" disabled>Select Customer</option>
-                    <option *ngFor="let employe of employeeService.employees"  [value]="employe._id">{{ employe.name }}</option>
-                </select> -->
-                <p>{{ a}}</p>
-                <input type="text" name="a2" class="validate" id="a2" #a2="ngModel" [(ngModel)]="x" [value]="x">
-                <input type="text" name="id" class="validate" id="id" #id="ngModel" [(ngModel)]="positionService.pageID" [value]="positionService.pageID">
+                <input type="hidden" name="id" class="validate" id="id" #id="ngModel" [(ngModel)]="positionService.pageID" [value]="positionService.pageID">
             </div>
             <div class="input-field col s12">
               <label>Address</label>
