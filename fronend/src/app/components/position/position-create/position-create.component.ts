@@ -6,10 +6,9 @@ import { Component, OnInit, Inject, ViewChild, ElementRef, NgZone } from '@angul
 import { NgForm, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Employee } from '../../../models/employee';
 import { MapsAPILoader } from '../../../../../node_modules/@agm/core';
-
-
+import {} from 'googlemaps';
 declare var M: any;
-
+declare var google: any;
 @Component({
   selector: 'app-position-create',
   templateUrl: './position-create.component.html',
@@ -40,7 +39,8 @@ export class PositionCreateComponent implements OnInit {
   ngOnInit() {
    this.data = this.new_data;
    this.id = this.new_data.pageID;
-   this.positionService.pageID = this.id;
+   this.positionService.pageID = this.id
+   this.positionService.selectedPosition = this.new_data;
   //set google maps defaults
   this.zoom = 4;
 

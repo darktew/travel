@@ -11,7 +11,6 @@ import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 
 declare var M: any;
 
-
 @Component({
   selector: 'app-position',
   templateUrl: './position.component.html',

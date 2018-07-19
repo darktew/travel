@@ -21,6 +21,7 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  font-family: 'Prompt', sans-serif;
 }
 a.active{
   color: blue;

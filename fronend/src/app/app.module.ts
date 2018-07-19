@@ -17,6 +17,8 @@ import {MatPaginatorModule, MatIconModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
+import {MatGridListModule} from '@angular/material/grid-list';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -25,14 +27,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EmployeeCreateComponent } from './components/employees/employee-create/employee-create.component';
 import { PositionCreateComponent } from './components/position/position-create/position-create.component';
 import { EmployeeDetailComponent } from './components/employees/employee-detail/employee-detail.component';
+import { JobComponent } from './components/job/job.component';
 
 
 const routes: Routes = [
   {path: '', redirectTo: '', pathMatch: 'full'},
   {path: 'customer', component: EmployeesComponent},  
   {path: 'customer/:id', component: EmployeeDetailComponent},
-  {path: 'customer/create', component: EmployeeCreateComponent},
-  {path: 'position', component: PositionComponent},
+  //{path: 'customer/create', component: EmployeeCreateComponent},
+  //{path: 'position', component: PositionComponent},
+  {path: 'job', component: JobComponent},
   {path: '**', component: PageNotFoundComponent}];
 
 @NgModule({
@@ -44,7 +48,8 @@ const routes: Routes = [
     EmployeeCreateComponent,
     EmployeeFilterPipe,
     PositionCreateComponent,
-    EmployeeDetailComponent
+    EmployeeDetailComponent,
+    JobComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +66,8 @@ const routes: Routes = [
     MatIconModule,
     MatListModule,
     MatDialogModule,
+    MatCardModule,
+    MatGridListModule,
     NgxPaginationModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
