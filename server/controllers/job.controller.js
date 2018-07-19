@@ -16,7 +16,7 @@ jobCtrl.createJob = async (req, res) => {
      const position = req.body.id;
      const latitude = req.body.lattitude;
      const longtitude = req.body.longtitude;
-
+    console.log("position",position,"lat", latitude, "lng", longtitude);
     //Step 1 : input lat lng position
     var unorder_list = [];
     for (i=0;i<latitude.length;i++) {
@@ -26,7 +26,7 @@ jobCtrl.createJob = async (req, res) => {
             longtitude : longtitude[i]
         });
     };
-
+    console.log(unorder_list);
      //STEP 2 : set order origins
     var origins = {
         address: "VRU",
@@ -35,7 +35,7 @@ jobCtrl.createJob = async (req, res) => {
     };
     var order = [];
     order.push(origins);
-
+    console.log(origins);
      //STEP 3 : 
     var distance = [];
     do{

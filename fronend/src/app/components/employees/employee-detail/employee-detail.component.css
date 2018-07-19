@@ -4,3 +4,6 @@
 .back {
   align-items: baseline;
 }
+.list {
+  font-family: 'Prompt', sans-serif;
+}

@@ -4,7 +4,7 @@
         <mat-card-header>
             <div mat-card-avatar class="example-header-image"></div>
             <mat-card-title>
-                <div *ngIf="employee" style="text-align: left"><b>ชื่อลูกค้า :</b> {{ employee.name }}</div>
+                <div *ngIf="employee" style="text-align: left" style="font-family: 'Prompt', sans-serif;"><b>ชื่อลูกค้า :</b> {{ employee.name }}</div>
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
@@ -12,7 +12,7 @@
                     <h3 mat-subheader>ที่อยู่</h3>
                 <div class="row">
                 <div class="col s10">
-                    <mat-list-item *ngFor="let p of positionService.positions">
+                    <mat-list-item *ngFor="let p of positionService.positions" class="list">
                         {{p.address}}
                     </mat-list-item>
                 </div>
@@ -23,10 +23,10 @@
                                       </button>
                                <mat-menu #Menu="matMenu">
                           <button mat-menu-item (click)="editPosition(p)" style="background-color: aliceblue;text-align: center">
-                              <mat-icon>edit</mat-icon><span>แก้ไข</span>
+                              <mat-icon>edit</mat-icon><span style="font-family: 'Prompt', sans-serif;">แก้ไข</span>
                             </button>
                             <button  mat-menu-item (click)="delePosition(p._id)" style="background-color: aliceblue;text-align: center">
-                                <mat-icon>delete</mat-icon><span>ลบ</span>
+                                <mat-icon>delete</mat-icon><span style="font-family: 'Prompt', sans-serif;">ลบ</span>
                               </button>
                         </mat-menu>
                         </mat-list-item>

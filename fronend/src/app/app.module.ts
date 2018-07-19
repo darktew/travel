@@ -19,6 +19,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -28,6 +29,7 @@ import { EmployeeCreateComponent } from './components/employees/employee-create/
 import { PositionCreateComponent } from './components/position/position-create/position-create.component';
 import { EmployeeDetailComponent } from './components/employees/employee-detail/employee-detail.component';
 import { JobComponent } from './components/job/job.component';
+import { JobCreateComponent } from './components/job/job-create/job-create.component';
 
 
 const routes: Routes = [
@@ -49,13 +51,15 @@ const routes: Routes = [
     EmployeeFilterPipe,
     PositionCreateComponent,
     EmployeeDetailComponent,
-    JobComponent
+    JobComponent,
+    JobCreateComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     MatToolbarModule,
+    MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,
     MatInputModule,
@@ -85,12 +89,14 @@ const routes: Routes = [
     MatMenuModule,
     MatIconModule,
     MatListModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule
   ],
   providers: [],
   entryComponents: [
     EmployeeCreateComponent,
-    PositionCreateComponent],
+    PositionCreateComponent,
+    JobCreateComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -30,26 +30,6 @@ export class EmployeesComponent implements OnInit {
   ngOnInit() {
     this.getEmployees();
   }
-  // addEmployee(form: NgForm) {
-  //  if (form.value._id) {
-  //     this.employeeService.putEmployee(form.value)
-  //       .subscribe(res => {
-  //         this.resetForm(form);
-  //         M.toast({html: 'Update Success'});
-  //         this.getEmployees();
-  //         this.show = false;
-  //       });
-  //   } else {
-  //     this.employeeService.postEmployee(form.value)
-  //     .subscribe(res => {
-  //       this.resetForm(form);
-  //       M.toast({html: 'Save Success'});
-  //       this.getEmployees();
-  //       this.show = false;
-  //     });
-  //   }
-  // }
-
   getEmployees() {
     this.employeeService.getEmployees()
       .subscribe(res => {
@@ -65,11 +45,6 @@ export class EmployeesComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
-  // editEmployee(employee: Employee) {
-  //     this.employeeService.selectedEmployee = employee;
-  // }
-
   deleteEmployee(_id: string) {
           if (confirm('Are you sure you want to delete it?')) {
             this.employeeService.deleteEmployee(_id)

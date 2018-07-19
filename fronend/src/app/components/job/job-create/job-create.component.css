@@ -1,0 +1,33 @@
+.toolbar {
+    background-color: coral;
+    color: azure;
+    border-radius: 5px
+}
+.container {
+    display: flex;
+    flex-direction: column;
+}
+.toolbar-spacer{
+    flex: 1 1 auto;
+}
+.container > * {
+    width: 50%;
+}
+.example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }  
+input{
+    border: none;
+    border-color: transparent;
+    border-bottom: none!important;
+    box-shadow: none!important;
+}
+.example-card {
+    max-width: 400px;
+    font-family: 'Prompt', sans-serif;
+}
