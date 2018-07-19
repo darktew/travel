@@ -31,3 +31,9 @@ input{
     max-width: 400px;
     font-family: 'Prompt', sans-serif;
 }
+.save {
+    position: relative;
+    left: 280px;
+    background:rgb(42, 110, 2); 
+    color: white;
+}
