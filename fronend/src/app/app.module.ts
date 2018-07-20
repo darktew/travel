@@ -30,6 +30,7 @@ import { PositionCreateComponent } from './components/position/position-create/p
 import { EmployeeDetailComponent } from './components/employees/employee-detail/employee-detail.component';
 import { JobComponent } from './components/job/job.component';
 import { JobCreateComponent } from './components/job/job-create/job-create.component';
+import { DraggaleModule } from './draggale/draggale.module';
 
 
 const routes: Routes = [
@@ -73,6 +74,7 @@ const routes: Routes = [
     MatCardModule,
     MatGridListModule,
     NgxPaginationModule,
+    DraggaleModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw',

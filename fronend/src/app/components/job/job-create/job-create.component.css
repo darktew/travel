@@ -37,3 +37,12 @@ input{
     background:rgb(42, 110, 2); 
     color: white;
 }
+.box {
+ background:gold;
+ border: 1px solid black;
+ padding:  10px 20px;
+ display: inline-block;
+}
+.box.dragging {
+    background: coral;
+}

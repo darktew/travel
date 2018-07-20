@@ -20,4 +20,13 @@ export class JobCreateComponent implements OnInit {
   goback(): void {
     this.dialogRef.close();
   }
+  onDragStart(): void {
+    console.log('got drag start');
+  }
+  onDragMove(event: PointerEvent): void {
+    console.log(`got drag move ${Math.round(event.clientX)} ${Math.round(event.clientY)}`);
+  }
+  onDragEnd(): void {
+    console.log('got drag end');
+  }
 }

@@ -4,7 +4,7 @@
     <span class="toolbar-spacer"></span>
     <mat-icon (click)="goback()">cancel</mat-icon>
   </mat-toolbar>
-  <div class="row">
+  <div appMovable class="row" appMovableArea>
     <div class="col s6">
       <form #positionForm="ngForm">
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="_idjob">
@@ -18,7 +18,9 @@
             <mat-card-subtitle>โปรดลากข้อมูลจากตาราง</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            asdsaer2wqrsafsa
+            <div appDraggale class="box">
+              Box
+            </div>
           </mat-card-content>
           <mat-card-actions>
             <button type="submit" mat-raised-button class="save">Save</button>
@@ -27,7 +29,11 @@
       </form>
     </div>
     <div class="col s6">
-      sadsadsaewq
+      <div class="box">
+        <div appMovable class="box" [appMovableReset]="true">
+          Box
+        </div>
+      </div>
     </div>
   </div>
 </div>
