@@ -23,7 +23,7 @@ export class MovableDirective extends DraggaleDirective {
   private startPosition: Position;
   @Input('appMovableReset') reset = false;
   constructor(private sanitizer: DomSanitizer,public element: ElementRef) {
-    super();
+    super(element);
   }
  // HostListener
   @HostListener('dragStart', ['$event'])

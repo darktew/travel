@@ -46,3 +46,17 @@ input{
 .box.dragging {
     background: coral;
 }
+.dropzone {
+    padding: 20px;
+    margin: 20px;
+    background: lightgray;
+    min-height: 200px;
+    border: 1px solid black;
+}
+.dropzone.dropzone-activated {
+    border: 1px solid red;
+}
+.dropzone.dropzone-entered {
+    background: #efefef;
+}
+

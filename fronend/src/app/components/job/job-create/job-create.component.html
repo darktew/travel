@@ -18,8 +18,19 @@
             <mat-card-subtitle>โปรดลากข้อมูลจากตาราง</mat-card-subtitle>
           </mat-card-header>
           <mat-card-content>
-            <div appDraggale class="box">
-              Box
+            <div class="dropzone" appDropzone 
+            (drop)="move(currentBox,jobs)" 
+            (remove)="move(currentBox, positionService.positions)">
+              <ul>
+                <li *ngFor="let j of jobs" 
+                appDroppable 
+                (dragStart)="currentBox = j">{{j.address}}
+                  <div class="box" *appDraggableHelper>
+                    {{j.address}}
+                  </div>
+                </li>
+              </ul>
+
             </div>
           </mat-card-content>
           <mat-card-actions>
@@ -29,11 +40,32 @@
       </form>
     </div>
     <div class="col s6">
-      <div class="box">
+      <!-- <div class="box">
         <div appMovable class="box" [appMovableReset]="true">
           Box
         </div>
       </div>
+      <div style="overflow: hidden;">
+        <div appDraggale class="box">
+          Box
+          <div class="box helper" *appDraggableHelper>
+            Helper 2
+          </div>
+        </div>
+      </div> -->
+      <ul>
+        <li *ngFor="let p of positionService.positions" 
+        appDroppable 
+        (dragStart)="currentBox = p">{{p.address}}
+          <div class="box box-helper" *appDraggableHelper>
+            {{p.address}}
+          </div>
+        </li>
+      </ul>
+      <div>
+
+      </div>
+
     </div>
   </div>
 </div>
