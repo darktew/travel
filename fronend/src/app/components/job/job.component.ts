@@ -15,7 +15,7 @@ export class JobComponent implements OnInit {
   seletedJobs: Job;
   Jobs: Job[];
   dataSource;
-  displayedColumns: string[] = ['jobname', 'action'];
+  displayedColumns: string[] = ['jobname','total', 'action'];
   isPopupOpened = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private jobservice: JobService,
@@ -61,6 +61,7 @@ export class JobComponent implements OnInit {
     });
   }
   editJob(job: Job) {
+    console.log(job);
     this.isPopupOpened = true;
     this.seletedJobs = job;
     const dialogRef = this.dialog.open(JobCreateComponent, {

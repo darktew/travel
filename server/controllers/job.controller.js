@@ -3,8 +3,7 @@ const Position = require('../models/position');
 const mongoose = require('mongoose');
 
 const jobCtrl = {};
-
-
+var total = 0;
 jobCtrl.getJobs = async (req, res) => {
     const job = await Job.find()
     .populate({path: "address"})
@@ -26,7 +25,6 @@ jobCtrl.createJob = async (req, res) => {
             longtitude : longtitude[i]
         });
     };
-    console.log(unorder_list);
      //STEP 2 : set order origins
     var origins = {
         address: "VRU",
@@ -35,7 +33,6 @@ jobCtrl.createJob = async (req, res) => {
     };
     var order = [];
     order.push(origins);
-    console.log(origins);
      //STEP 3 : 
     var distance = [];
     do{
@@ -43,8 +40,12 @@ jobCtrl.createJob = async (req, res) => {
         var dist = getDistanceFromLatLonInKm(
             order[order.length-1].lattitude,order[order.length-1].longtitude,
             unorder_list[i].lattitude,unorder_list[i].longtitude);
+        
         unorder_list[i].distance = dist;
         distance.push(unorder_list[i]);
+        console.log("dist",dist);
+        total = total + dist;
+        console.log("total",total);
      }
     var min = distance[0].distance;
     var point = 0;
@@ -61,8 +62,12 @@ jobCtrl.createJob = async (req, res) => {
     order.push(unorder_list[point]);  
     unorder_list.splice(point,1);
 }while(unorder_list.length !==0)
-    console.log("order: ",order, "unorder",unorder_list);
-
+    // for (var i = 1; i< order.length; i++) {
+    //     var total_distance = 0;
+    //     total_distance += order[i].distance;
+    //     console.log("list",i,"order",order[i].distance);
+    //     console.log("total", total_distance);
+    // }
      //Step 4 : save
     const job = new Job({
         _id: new mongoose.Types.ObjectId(),
@@ -70,7 +75,8 @@ jobCtrl.createJob = async (req, res) => {
         address: position,
         dis: order,
         date: new Date,
-        delivery: req.body.delivery
+        delivery: req.body.delivery,
+        total: total
     });
     await job.save();
     res.json({
