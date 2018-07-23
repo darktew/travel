@@ -1,5 +1,7 @@
+import { Employee } from "./employee";
+
 export class Job {
-    constructor (_id = '', jobname = '', address = [], id = [], dis = []) {
+    constructor ( _id = '', jobname = '', address = [], id = [], dis = [], lattitude = [], longtitude = []) {
         this._id = _id;
         this.jobname = jobname;
         this.address = address;
@@ -7,6 +9,8 @@ export class Job {
         this.dis = dis;
         this.date = new Date;
         this.delivery = 0;
+        this.lattitude = lattitude;
+        this.longtitude = longtitude;
     }
     _id: string;
     jobname: string;

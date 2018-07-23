@@ -4,7 +4,7 @@
     <span class="toolbar-spacer"></span>
     <mat-icon (click)="goback()">cancel</mat-icon>
   </mat-toolbar>
-  <div appMovable class="row" appMovableArea>
+  <div appMovable class="row disable-select" appMovableArea>
     <div class="col s6">
       <form #positionForm="ngForm">
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="_idjob">
@@ -19,10 +19,10 @@
           </mat-card-header>
           <mat-card-content>
             <div class="dropzone" appDropzone 
-            (drop)="move(currentBox,jobs)" 
+            (drop)="move(currentBox,dropzone1)" 
             (remove)="move(currentBox, positionService.positions)">
               <ul>
-                <li *ngFor="let j of jobs" 
+                <li *ngFor="let j of dropzone1" 
                 appDroppable 
                 (dragStart)="currentBox = j">{{j.address}}
                   <div class="box" *appDraggableHelper>
