@@ -4,11 +4,15 @@ const { Schema } = mongoose;
 const JobSchema = new Schema({
     _id: Schema.Types.ObjectId,
     jobname: String,
-    address: [{type: Schema.Types.ObjectId, ref: 'Position', required: true}],
+    id: [{type: Schema.Types.ObjectId, ref: 'Position', required: true}],
+    address: Object,
     dis: Object,
     date: Date,
     delivery: Number,
-    total: Number
+    total: Number,
+    lattitude: [Number],
+    longtitude: [Number]
+    
 });
 
 
