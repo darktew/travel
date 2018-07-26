@@ -35,6 +35,13 @@ jobCtrl.createJob = async (req, res) => {
     //STEP 3 : 
     var distance = [];
     var total = 0;
+    var hour_time = 0;
+    var min_time = 0;
+    var full_min = 0;
+    var full_hour = 0;
+    var time_alldist = [];
+    var arrMin = [];
+    var arrHour = []
     do {
         for (i = 0; i < unorder_list.length; i++) {
             var dist = getDistanceFromLatLonInKm(
@@ -46,7 +53,19 @@ jobCtrl.createJob = async (req, res) => {
             console.log("dist", dist);
             total = total + dist;
             console.log("total", total);
-
+            if (Math.floor(dist/60) == hour_time ) {
+                console.log("No Hour");
+            } else  {
+                 hour_time = Math.floor(dist/60);
+                 arrHour.push(hour_time);
+            }
+            
+            if (Math.round(dist%60) == 0) {
+                console.log("No Min");
+            } else {
+                min_time = Math.round(dist%60);
+                arrMin.push(min_time);
+            }
             var min = distance[0].distance;
             var point = 0;
             for (var i = 1; i < distance.length; i++) {
@@ -63,6 +82,8 @@ jobCtrl.createJob = async (req, res) => {
         order.push(unorder_list[point]);
         unorder_list.splice(point, 1);
     } while (unorder_list.length !== 0)
+    
+    console.log(arrMin,"Min Array", arrHour, "Hour Array");
     console.log("orderNew", order);
     // for (var i = 1; i< order.length; i++) {
     //     var total_distance = 0;
