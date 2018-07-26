@@ -9,17 +9,11 @@
       <form (ngSubmit)="addJob(jobForm)" #jobForm="ngForm">
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="select._id">
         <input type="hidden" name="id" #_id="ngModel" [(ngModel)]="select.id">
+        <input type="hidden" placeholder="ที่อยู่" name="address" #address="ngModel" [(ngModel)]="select.address">
+        <input type="hidden" placeholder="lat" name="lattitude" #lattitude="ngModel" [(ngModel)]="select.lattitude">
+        <input type="hidden" placeholder="lng" name="longtitude" #longtitude="ngModel" [(ngModel)]="select.longtitude">
         <mat-form-field>
           <input matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="select.jobname">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="ที่อยู่" name="address" #address="ngModel" [(ngModel)]="select.address">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="lat" name="lattitude" #lattitude="ngModel" [(ngModel)]="select.lattitude">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="lng" name="longtitude" #longtitude="ngModel" [(ngModel)]="select.longtitude">
         </mat-form-field>
         <mat-card class="example-card">
           <mat-card-header>
