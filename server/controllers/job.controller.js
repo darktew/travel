@@ -39,9 +39,10 @@ jobCtrl.createJob = async (req, res) => {
     var min_time = 0;
     var full_min = 0;
     var full_hour = 0;
-    var time_alldist = [];
+    var arr_fullhour = [];
+    var arr_fullmin = [];
     var arrMin = [];
-    var arrHour = []
+    var arrHour = [];
     do {
         for (i = 0; i < unorder_list.length; i++) {
             var dist = getDistanceFromLatLonInKm(
@@ -53,15 +54,18 @@ jobCtrl.createJob = async (req, res) => {
             console.log("dist", dist);
             total = total + dist;
             console.log("total", total);
+            //Get hour for round 
             if (Math.floor(dist/60) == hour_time ) {
-                console.log("No Hour");
+                hour_time = 0;
+                arrHour.push(hour_time);
             } else  {
                  hour_time = Math.floor(dist/60);
                  arrHour.push(hour_time);
             }
-            
+            //Get min for round 
             if (Math.round(dist%60) == 0) {
-                console.log("No Min");
+                min_time = 0;
+                arrMin.push(min_time);
             } else {
                 min_time = Math.round(dist%60);
                 arrMin.push(min_time);
@@ -82,9 +86,14 @@ jobCtrl.createJob = async (req, res) => {
         order.push(unorder_list[point]);
         unorder_list.splice(point, 1);
     } while (unorder_list.length !== 0)
-    
+    for (j=0;j<arrHour.length;j++) {
+        full_hour = full_hour + arrHour[j];
+        full_min = full_min + arrMin[j];
+    }
+    arr_fullhour.push(full_hour);
+    arr_fullmin.push(full_min);
     console.log(arrMin,"Min Array", arrHour, "Hour Array");
-    console.log("orderNew", order);
+    console.log(arr_fullhour,"Full Hour", arr_fullmin,"Full Min");
     // for (var i = 1; i< order.length; i++) {
     //     var total_distance = 0;
     //     total_distance += order[i].distance;
@@ -102,10 +111,13 @@ jobCtrl.createJob = async (req, res) => {
         delivery: req.body.delivery,
         total: total,
         lattitude: latitude,
-        longtitude: longtitude
-
-
+        longtitude: longtitude,
+        hour: arrHour,
+        min: arrMin,
+        full_hour: arr_fullhour,
+        full_min: arr_fullmin
     });
+    console.log("Job new Time",job);
     await job.save();
     res.json({
         'status': 'Job Saved'

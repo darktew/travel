@@ -15,7 +15,7 @@ export class JobComponent implements OnInit {
   seletedJobs: Job;
   Jobs: Job[];
   dataSource;
-  displayedColumns: string[] = ['jobname','total', 'action'];
+  displayedColumns: string[] = ['jobname','total', 'time', 'action'];
   isPopupOpened = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private jobservice: JobService,
@@ -65,11 +65,16 @@ export class JobComponent implements OnInit {
     this.isPopupOpened = true;
     this.seletedJobs = job;
     const dialogRef = this.dialog.open(JobCreateComponent, {
+      width: '1000px',
+      height: '500px',
       data: this.seletedJobs
     });
     dialogRef.afterClosed().subscribe(result => {
       this.isPopupOpened = false;
       this.getJobs();
     });
+  }
+  showTime() {
+    console.log(this.seletedJobs.full_hour);
   }
 }

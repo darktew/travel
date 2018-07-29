@@ -11,8 +11,11 @@ const JobSchema = new Schema({
     delivery: Number,
     total: Number,
     lattitude: [Number],
-    longtitude: [Number]
-    
+    longtitude: [Number],
+    min: [Number],
+    hour: [Number],
+    full_hour: [Number],
+    full_min: [Number]
 });
 
 

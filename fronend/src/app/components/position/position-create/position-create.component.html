@@ -1,47 +1,39 @@
 <div class="card-header">
-    <mat-toolbar class="toolbar">
-      <h3>Information</h3>
-      <span class="toolbar-spacer"></span>
-      <mat-icon (click)="goback()">cancel</mat-icon>
-</mat-toolbar>
+  <mat-toolbar class="toolbar">
+    <h3>Information</h3>
+    <span class="toolbar-spacer"></span>
+    <mat-icon (click)="goback()">cancel</mat-icon>
+  </mat-toolbar>
 
-<div class="col s4">
+  <div class="col s4">
     <div class="card">
       <div class="card-content">
         <div>
-            <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+          <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
+            #search [formControl]="searchControl">
           <agm-map [latitude]="14" [longitude]="101" (mapClick)="onChosenLocation($event)" [zoom]="zoom">
-              <agm-marker [latitude]="positionService.selectedPosition.lattitude"
-                          [longitude]="positionService.selectedPosition.longtitude"
-                          ></agm-marker>
+            <agm-marker [latitude]="positionService.selectedPosition.lattitude" [longitude]="positionService.selectedPosition.longtitude"></agm-marker>
           </agm-map>
         </div>
         <form (ngSubmit)="addPosition(positionForm)" #positionForm="ngForm">
-            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
+          <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="positionService.selectedPosition._id">
           <div class="row">
             <div class="input-field col s6">
-                <input type="hidden" name="id" class="validate" id="id" #id="ngModel" [(ngModel)]="positionService.pageID" [value]="positionService.pageID">
-            </div>
-            <div class="input-field col s12">
-              <label>Address</label>
-              <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address" >
-            </div>
-            <div class="input-field col s12">
+              <input type="hidden" name="id" class="validate" id="id" #id="ngModel" [(ngModel)]="positionService.pageID" [value]="positionService.pageID">
+              <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
               <input type="hidden" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
             </div>
             <div class="input-field col s12">
-              <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude" >
+              <label>Address</label>
+              <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address">
             </div>
-            
+
             <div class="card-action">
-              <div class="input-field col s12">
-                <button class="btn right" (click)="resetForm(positionForm)">Clean</button>
-                <button type="submit" class="btn right" style="margin-left:  2px;">Save</button>
-            </div>
+              <button type="submit" class="btn right" style="margin-left:  2px;">Save</button>
             </div>
           </div>
-        </form>
-      </div>
+      
+      </form>
     </div>
   </div>
-
+</div>
