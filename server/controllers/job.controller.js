@@ -51,9 +51,7 @@ jobCtrl.createJob = async (req, res) => {
 
             unorder_list[i].distance = dist;
             distance.push(unorder_list[i]);
-            console.log("dist", dist);
             total = total + dist;
-            console.log("total", total);
             //Get hour for round 
             if (Math.floor(dist/60) == hour_time ) {
                 hour_time = 0;

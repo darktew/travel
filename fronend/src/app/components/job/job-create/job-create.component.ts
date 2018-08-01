@@ -32,8 +32,10 @@ export class JobCreateComponent implements OnInit {
 
   ngOnInit() {
     this.select = this.data;
-    this.getPosition();
     this.getJob();
+
+      this.getPosition();
+    
   }
   getJob() {
     this.jobservice.getJobs()
@@ -42,10 +44,17 @@ export class JobCreateComponent implements OnInit {
 
       });
   }
+
   getPosition() {
     this.positionService.getPositions()
       .subscribe(res => {
         this.positionService.positions = res as Position[];
+        if (this.data._id) {
+          this.dropzone1.push(this.data);
+           for (var i=0;i<this.data.id.length;i++) {
+           };
+           this.positionService.positions.splice(0, this.select.address.length);
+        }  
       });
   }
   goback(): void {
@@ -59,7 +68,6 @@ export class JobCreateComponent implements OnInit {
           this.dialogRef.close();
           });
     } else {
-      console.log(form.value);
       this.jobservice.postJob(form.value)
         .subscribe(res => {
           M.toast({html: 'Save Success'});
@@ -71,7 +79,6 @@ export class JobCreateComponent implements OnInit {
     remove(j, this.positionService.positions);
     remove(j, this.dropzone1);
     toList.push(j);
-    console.log(toList);
 
 
     //INPUT    
@@ -80,7 +87,7 @@ export class JobCreateComponent implements OnInit {
     
     //PROCESS
     //var b = [];
-    console.log("dropzone",a,this.select);
+    console.log("dropzone",a);
     for (var i = 0; i < a.length; i++) {
       this.select.address.push(a[i].address);
       this.select.id.push(a[i]._id);
