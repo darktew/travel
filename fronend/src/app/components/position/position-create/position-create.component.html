@@ -11,7 +11,7 @@
         <div>
           <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control"
             #search [formControl]="searchControl">
-          <agm-map [latitude]="14" [longitude]="101" (mapClick)="onChosenLocation($event)" [zoom]="zoom">
+          <agm-map [latitude]="14" [longitude]="101" (mapClick)="onChosenLocation($event)" [scrollwheel]="false" [zoom]="zoom" (mapReady)="mapReady($event)">
             <agm-marker [latitude]="positionService.selectedPosition.lattitude" [longitude]="positionService.selectedPosition.longtitude"></agm-marker>
           </agm-map>
         </div>
@@ -22,12 +22,8 @@
               <input type="hidden" name="id" class="validate" id="id" #id="ngModel" [(ngModel)]="positionService.pageID" [value]="positionService.pageID">
               <input type="hidden" name="longtitude" class="validate" id="long" #longtitude="ngModel" [(ngModel)]="positionService.selectedPosition.longtitude">
               <input type="hidden" name="lattitude" class="validate" id="lat" #lattitude="ngModel" [(ngModel)]="positionService.selectedPosition.lattitude">
+              <input type="hidden" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address">
             </div>
-            <div class="input-field col s12">
-              <label>Address</label>
-              <input type="text" name="address" class="validate" id="add" #address="ngModel" [(ngModel)]="positionService.selectedPosition.address">
-            </div>
-
             <div class="card-action">
               <button type="submit" class="btn right" style="margin-left:  2px;">Save</button>
             </div>

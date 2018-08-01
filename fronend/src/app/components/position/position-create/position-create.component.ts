@@ -22,6 +22,7 @@ export class PositionCreateComponent implements OnInit {
   public id: string;
   public a : number;
   public zoom: number;
+  protected map: any;
   @ViewChild("search") public searchElementRef: ElementRef;
   constructor(private dialogRef: MatDialogRef<PositionCreateComponent>,
               public positionService: PositionService,
@@ -36,6 +37,10 @@ export class PositionCreateComponent implements OnInit {
   goback(): void {
     this.dialogRef.close();
   }
+  protected mapReady(map) {
+    this.map = map;
+  }
+  
   ngOnInit() {
    this.data = this.new_data;
    this.id = this.new_data.pageID;
@@ -64,12 +69,14 @@ export class PositionCreateComponent implements OnInit {
             //set latitude, longitude and zoom
             this.positionService.selectedPosition.lattitude = place.geometry.location.lat();
             this.positionService.selectedPosition.longtitude = place.geometry.location.lng();
-           
+            this.positionService.selectedPosition.address = place.formatted_address;
+            this.map.setCenter({lat: place.geometry.location.lat(), lng: place.geometry.location.lng()});
+            this.zoom = 15;
          });
        });
      });
   }
-  private setCurrentPosition() {
+  setCurrentPosition() {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.positionService.selectedPosition.lattitude = position.coords.latitude;
