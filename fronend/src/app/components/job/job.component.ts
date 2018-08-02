@@ -23,6 +23,7 @@ export class JobComponent implements OnInit {
 
   ngOnInit() {
     this.getJobs();
+    
   }
   getJobs() {
     this.jobservice.getJobs()
@@ -38,6 +39,11 @@ export class JobComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+    // this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    // this.dataSource.filterPredicate = (data, filter) => {
+    //   const dataStr = data.name + data.employee.name;
+    //   return dataStr.indexOf(filter) != -1; 
   }
   deleteJob(_id: string) {
     if (confirm('Are you sure you want to delete it?')) {

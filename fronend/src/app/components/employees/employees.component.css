@@ -8,4 +8,7 @@ table {
 button.menu{
   float: right;
 }
+li.customer-item{
+  cursor: pointer;
+}
 

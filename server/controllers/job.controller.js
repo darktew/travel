@@ -98,6 +98,17 @@ jobCtrl.createJob = async (req, res) => {
     //     console.log("list",i,"order",order[i].distance);
     //     console.log("total", total_distance);
     // }
+    //Step 3.5 Create Object like dropzone
+    var dropzone = [];
+    for(i=0;i<latitude.length;i++){
+        dropzone.push({
+            address : req.body.address[i],
+            lattitude: latitude[i],
+            longtitude: longtitude[i],
+            _id: position[i]
+        });
+    }
+    console.log("Dropzone:",dropzone);
     //Step 4 : save
     const job = new Job({
         _id: new mongoose.Types.ObjectId(),
@@ -112,10 +123,13 @@ jobCtrl.createJob = async (req, res) => {
         longtitude: longtitude,
         hour: arrHour,
         min: arrMin,
-        full_hour: arr_fullhour,
-        full_min: arr_fullmin
+        //full_hour: arr_fullhour,
+        //full_min: arr_fullmin,
+
+        full_hour: Math.floor(total / 60),
+        full_min: Math.round(total % 60),
+        // dropzone: dropzone
     });
-    console.log("Job new Time",job);
     await job.save();
     res.json({
         'status': 'Job Saved'

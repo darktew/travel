@@ -59,9 +59,9 @@
       <ul>
         <li *ngFor="let p of positionService.positions" 
         appDroppable 
-        (dragStart)="currentBox = p">{{p.address}}
+        (dragStart)="currentBox = p">{{p.employee.name}} -{{p.address}}
           <div class="box box-helper" *appDraggableHelper>
-            {{p.address}}
+            {{p.employee.name}} - {{p.address}} 
           </div>
         </li>
       </ul>

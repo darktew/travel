@@ -15,7 +15,8 @@ const JobSchema = new Schema({
     min: [Number],
     hour: [Number],
     full_hour: [Number],
-    full_min: [Number]
+    full_min: [Number],
+    dropzone : [Object]
 });
 
 
