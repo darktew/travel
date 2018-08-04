@@ -44,17 +44,17 @@ export class JobCreateComponent implements OnInit {
 
       });
   }
-
   getPosition() {
     this.positionService.getPositions()
       .subscribe(res => {
-        this.positionService.positions = res as Position[];
         if (this.data._id) {
-          this.dropzone1.push(this.data);
-           for (var i=0;i<this.data.id.length;i++) {
-           };
-           this.positionService.positions.splice(0, this.select.address.length);
-        }  
+          this.positionService.positions = res as Position[];
+          this.dropzone1 = this.data.dropzone;
+          this.positionService.positions.splice(this.dropzone1.indexOf(this.select),this.dropzone1.length);
+          console.log(this.positionService.positions);
+        } else {
+          this.positionService.positions = res as Position[];
+        }
       });
   }
   goback(): void {
@@ -68,6 +68,7 @@ export class JobCreateComponent implements OnInit {
           this.dialogRef.close();
           });
     } else {
+      console.log(form.value,"Form Add");
       this.jobservice.postJob(form.value)
         .subscribe(res => {
           M.toast({html: 'Save Success'});

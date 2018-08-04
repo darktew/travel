@@ -14,9 +14,9 @@ const JobSchema = new Schema({
     longtitude: [Number],
     min: [Number],
     hour: [Number],
-    full_hour: [Number],
-    full_min: [Number],
-    dropzone : [Object]
+    full_hour: Number,
+    full_min: Number,
+    dropzone : {type: Object, ref: 'Position', ref: 'Employee'}
 });
 
 

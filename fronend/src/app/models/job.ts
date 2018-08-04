@@ -12,8 +12,9 @@ export class Job {
         total = 0,
         hour = [],
         min = [],
-        full_hour = [],
-        full_min = []) {
+        full_hour = 0,
+        full_min = 0,
+        dropzone = {}) {
         this._id = _id;
         this.jobname = jobname;
         this.address = address;
@@ -28,6 +29,7 @@ export class Job {
         this.min = min;
         this.full_hour = full_hour;
         this.full_min = full_min;
+        this.dropzone = dropzone;
     }
     _id: string;
     jobname: string;
@@ -38,9 +40,10 @@ export class Job {
     dis: Array<Object>;
     date: Date;
     delivery: Number;
-    total: Number;
+    total: Number; 
     hour: Array<Object>;
     min: Array<Object>;
-    full_hour: Array<Object>;
-    full_min: Array<Object>;
+    full_hour: Number;
+    full_min: Number;
+    dropzone: Object;
 }

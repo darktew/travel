@@ -1,11 +1,13 @@
 const Job = require('../models/job');
 const Position = require('../models/position');
+const Employee = require('../models/employee');
 const mongoose = require('mongoose');
 
 const jobCtrl = {};
 jobCtrl.getJobs = async (req, res) => {
     const job = await Job.find()
         .populate({ path: "id" })
+        .populate({path: "dropzone.employee", model: Position, populate: {path: "employee", model: Employee}})
         .exec();
     res.json(job);
 
@@ -37,10 +39,8 @@ jobCtrl.createJob = async (req, res) => {
     var total = 0;
     var hour_time = 0;
     var min_time = 0;
-    var full_min = 0;
-    var full_hour = 0;
-    var arr_fullhour = [];
-    var arr_fullmin = [];
+
+
     var arrMin = [];
     var arrHour = [];
     do {
@@ -84,14 +84,7 @@ jobCtrl.createJob = async (req, res) => {
         order.push(unorder_list[point]);
         unorder_list.splice(point, 1);
     } while (unorder_list.length !== 0)
-    for (j=0;j<arrHour.length;j++) {
-        full_hour = full_hour + arrHour[j];
-        full_min = full_min + arrMin[j];
-    }
-    arr_fullhour.push(full_hour);
-    arr_fullmin.push(full_min);
-    console.log(arrMin,"Min Array", arrHour, "Hour Array");
-    console.log(arr_fullhour,"Full Hour", arr_fullmin,"Full Min");
+    
     // for (var i = 1; i< order.length; i++) {
     //     var total_distance = 0;
     //     total_distance += order[i].distance;
@@ -99,16 +92,17 @@ jobCtrl.createJob = async (req, res) => {
     //     console.log("total", total_distance);
     // }
     //Step 3.5 Create Object like dropzone
-    var dropzone = [];
+    var dropzone1 = [];
     for(i=0;i<latitude.length;i++){
-        dropzone.push({
+        dropzone1.push({
+            _id: position[i],
             address : req.body.address[i],
             lattitude: latitude[i],
             longtitude: longtitude[i],
-            _id: position[i]
+            employee: position[i]
         });
     }
-    console.log("Dropzone:",dropzone);
+    console.log("Dropzone:",dropzone1);
     //Step 4 : save
     const job = new Job({
         _id: new mongoose.Types.ObjectId(),
@@ -128,7 +122,7 @@ jobCtrl.createJob = async (req, res) => {
 
         full_hour: Math.floor(total / 60),
         full_min: Math.round(total % 60),
-        // dropzone: dropzone
+        dropzone: dropzone1
     });
     await job.save();
     res.json({

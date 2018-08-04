@@ -8,7 +8,7 @@
     <div class="col s6">
       <form (ngSubmit)="addJob(jobForm)" #jobForm="ngForm">
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="select._id">
-        <input type="hidden" name="id" #_id="ngModel" [(ngModel)]="select.id">
+        <input type="hidden" name="id" #id="ngModel" [(ngModel)]="select.id">
         <input type="hidden" placeholder="ที่อยู่" name="address" #address="ngModel" [(ngModel)]="select.address">
         <input type="hidden" placeholder="lat" name="lattitude" #lattitude="ngModel" [(ngModel)]="select.lattitude">
         <input type="hidden" placeholder="lng" name="longtitude" #longtitude="ngModel" [(ngModel)]="select.longtitude">
@@ -24,13 +24,14 @@
           <mat-card-content>
             <div class="dropzone" appDropzone 
             (drop)="move(currentBox,dropzone1)" 
-            (remove)="move(currentBox, positionService.positions)">
+            (remove)="move(currentBox, positionService.positions)"
+            name="zone" #dropzone>
               <ul>
-                <li *ngFor="let j of dropzone1" 
+                <li *ngFor="let j of dropzone1;let p of positionService.positions" 
                 appDroppable 
-                (dragStart)="currentBox = j">{{j.address}}
+                (dragStart)="currentBox = j">{{p.employee.name}} - {{j.address}}
                   <div class="box" *appDraggableHelper>
-                    {{j.address}}
+                    {{p.employee.name}} - {{j.address}}
                   </div>
                 </li>
               </ul>
@@ -59,7 +60,7 @@
       <ul>
         <li *ngFor="let p of positionService.positions" 
         appDroppable 
-        (dragStart)="currentBox = p">{{p.employee.name}} -{{p.address}}
+        (dragStart)="currentBox = p"> {{p.employee.name}} -  {{p.address}}
           <div class="box box-helper" *appDraggableHelper>
             {{p.employee.name}} - {{p.address}} 
           </div>
