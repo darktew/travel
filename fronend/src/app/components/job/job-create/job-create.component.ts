@@ -7,11 +7,13 @@ import { Position } from '../../../models/position';
 import { Employee } from '../../../models/employee';
 import { NgForm } from '../../../../../node_modules/@angular/forms';
 
-function remove(item: Array<Object>, list: Array<Object>) {
+
+function remove(item: Object, list: Array<Object>) {
   if (list.indexOf(item) !== -1) {
     list.splice(list.indexOf(item), 1);
   }
 }
+
 declare var M: any;
 @Component({
   selector: 'app-job-create',
@@ -23,7 +25,7 @@ export class JobCreateComponent implements OnInit {
   jobs: Job[];
   employee: Employee;
   currentBox?: Object[];
-  dropzone1: Job[] = [];
+  dropzone1: Position[] = [];
   constructor(private dialogRef: MatDialogRef<JobCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public jobservice: JobService,
@@ -31,11 +33,16 @@ export class JobCreateComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    this.select = this.data;
+    console.log("Data", this.data);
+    if (this.data._id) {
+      console.log("Edit");
+      this.select = this.data;
+    } else {
+      console.log("Create");
+      this.select = new Job();
+    }
     this.getJob();
-
-      this.getPosition();
-    
+    this.getPosition();
   }
   getJob() {
     this.jobservice.getJobs()
@@ -50,8 +57,23 @@ export class JobCreateComponent implements OnInit {
         if (this.data._id) {
           this.positionService.positions = res as Position[];
           this.dropzone1 = this.data.dropzone;
-          this.positionService.positions.splice(this.dropzone1.indexOf(this.select),this.dropzone1.length);
-          console.log(this.positionService.positions);
+          console.log("Position:",this.positionService.positions);
+          //SPLICE BY DROPZONE
+          var count = 0;
+          for(var i=0;i < this.dropzone1.length;i++){  
+            console.log("Length Dropzone",this.dropzone1.length);
+            var p_id = this.dropzone1[i]._id;
+           for (var j=0;j<this.positionService.positions.length;j++) {
+              if (p_id === this.positionService.positions[j]._id) {
+                this.positionService.positions.splice(j,1);
+                count++;
+                break;
+              }
+           }
+           //...
+          //this.positionService.positions.splice(this.positionService.positions.indexOf(this.dropzone1[i]));
+          }
+          console.log("Count",count);
         } else {
           this.positionService.positions = res as Position[];
         }
@@ -61,13 +83,15 @@ export class JobCreateComponent implements OnInit {
     this.dialogRef.close();
   }
   addJob(form: NgForm) {
-    if (this.select._id) {
+    if (this.data._id) {
+      //EDIT
       this.jobservice.putjob(form.value)
           .subscribe(res => {
           M.toast({html: 'Update Success'});
           this.dialogRef.close();
           });
     } else {
+      //CREATE
       console.log(form.value,"Form Add");
       this.jobservice.postJob(form.value)
         .subscribe(res => {
@@ -82,20 +106,21 @@ export class JobCreateComponent implements OnInit {
     toList.push(j);
 
 
-    //INPUT    
-    this.select = new Job();
+    //INPUT  
     var a = this.dropzone1;
-    
+    //this.select = new Job();
     //PROCESS
     //var b = [];
-    console.log("dropzone",a);
-    for (var i = 0; i < a.length; i++) {
-      this.select.address.push(a[i].address);
-      this.select.id.push(a[i]._id);
-      this.select.lattitude.push(a[i].lattitude);
-      this.select.longtitude.push(a[i].longtitude);
-      // this.select.address.push(a[i].address);
-      // this.select.address.push(a[i].address);
+    this.select.address = [];
+      this.select.id=[];
+      this.select.lattitude=[];
+      this.select.longtitude=[];
+    console.log("dropzone",a,"select",this.select);
+    for (var i = 0; i < this.dropzone1.length; i++) {
+      this.select.address.push(this.dropzone1[i].address);
+      this.select.id.push(this.dropzone1[i]._id);
+      this.select.lattitude.push(this.dropzone1[i].lattitude);
+      this.select.longtitude.push(this.dropzone1[i].longtitude);
     }
     //OUTPUT
     var z = [

@@ -27,11 +27,11 @@
             (remove)="move(currentBox, positionService.positions)"
             name="zone" #dropzone>
               <ul>
-                <li *ngFor="let j of dropzone1;let p of positionService.positions" 
+                <li *ngFor="let j of dropzone1" 
                 appDroppable 
-                (dragStart)="currentBox = j">{{p.employee.name}} - {{j.address}}
+                (dragStart)="currentBox = j">{{j.employee.name}} - {{j.address}}
                   <div class="box" *appDraggableHelper>
-                    {{p.employee.name}} - {{j.address}}
+                    {{j.employee.name}} - {{j.address}}
                   </div>
                 </li>
               </ul>

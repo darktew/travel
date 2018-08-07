@@ -7,7 +7,7 @@ const jobCtrl = {};
 jobCtrl.getJobs = async (req, res) => {
     const job = await Job.find()
         .populate({ path: "id" })
-        .populate({path: "dropzone.employee", model: Position, populate: {path: "employee", model: Employee}})
+        .populate({path: "dropzone", model: Position, populate: {path: "employee", model: Employee}})
         .exec();
     res.json(job);
 
@@ -35,7 +35,7 @@ jobCtrl.createJob = async (req, res) => {
     var order = [];
     order.push(origins);
     //STEP 3 : 
-    var distance = [];
+   
     var total = 0;
     var hour_time = 0;
     var min_time = 0;
@@ -43,7 +43,12 @@ jobCtrl.createJob = async (req, res) => {
 
     var arrMin = [];
     var arrHour = [];
+    //LOOP UNTIL UNORDER IS EMPTY
     do {
+        //reset distance for loop times
+        var distance = [];
+        //FIND DISTANCE FROM A CURRENT POINT
+        console.log("unorder_list : ", unorder_list);
         for (i = 0; i < unorder_list.length; i++) {
             var dist = getDistanceFromLatLonInKm(
                 order[order.length - 1].lattitude, order[order.length - 1].longtitude,
@@ -68,6 +73,8 @@ jobCtrl.createJob = async (req, res) => {
                 min_time = Math.round(dist%60);
                 arrMin.push(min_time);
             }
+        }
+            //FIND MIN DISTANCE POINT
             var min = distance[0].distance;
             var point = 0;
             for (var i = 1; i < distance.length; i++) {
@@ -78,12 +85,13 @@ jobCtrl.createJob = async (req, res) => {
                 } else {
                     min = min;
                     point = point;
-                }
+                } 
             }
-        }
+        
         order.push(unorder_list[point]);
+        console.log("Distance", order);
         unorder_list.splice(point, 1);
-    } while (unorder_list.length !== 0)
+    } while (unorder_list.length > 0)
     
     // for (var i = 1; i< order.length; i++) {
     //     var total_distance = 0;
@@ -94,14 +102,9 @@ jobCtrl.createJob = async (req, res) => {
     //Step 3.5 Create Object like dropzone
     var dropzone1 = [];
     for(i=0;i<latitude.length;i++){
-        dropzone1.push({
-            _id: position[i],
-            address : req.body.address[i],
-            lattitude: latitude[i],
-            longtitude: longtitude[i],
-            employee: position[i]
-        });
+        dropzone1.push(position[i]);
     }
+    console.log(dropzone1);
     console.log("Dropzone:",dropzone1);
     //Step 4 : save
     const job = new Job({
@@ -138,6 +141,7 @@ jobCtrl.getJob = async (req, res) => {
 
 jobCtrl.editJob = async (req, res) => {
     const { id } = req.params;
+    const position = req.body.id;
     const latitude = req.body.lattitude;
     const longtitude = req.body.longtitude;
     console.log("position", position, "lat", latitude, "lng", longtitude);
@@ -159,20 +163,45 @@ jobCtrl.editJob = async (req, res) => {
     var order = [];
     order.push(origins);
     //STEP 3 : 
-    var distance = [];
+   
     var total = 0;
+    var hour_time = 0;
+    var min_time = 0;
+
+
+    var arrMin = [];
+    var arrHour = [];
+    //LOOP UNTIL UNORDER IS EMPTY
     do {
+        //reset distance for loop times
+        var distance = [];
+        //FIND DISTANCE FROM A CURRENT POINT
+        console.log("unorder_list : ", unorder_list);
         for (i = 0; i < unorder_list.length; i++) {
             var dist = getDistanceFromLatLonInKm(
                 order[order.length - 1].lattitude, order[order.length - 1].longtitude,
                 unorder_list[i].lattitude, unorder_list[i].longtitude);
-
+                
             unorder_list[i].distance = dist;
             distance.push(unorder_list[i]);
-            console.log("dist", dist);
             total = total + dist;
-            console.log("total", total);
-
+            //Get hour for round 
+            if (Math.floor(dist/60) == hour_time ) {
+                hour_time = 0;
+                arrHour.push(hour_time);
+            } else  {
+                 hour_time = Math.floor(dist/60);
+                 arrHour.push(hour_time);
+            }
+            //Get min for round 
+            if (Math.round(dist%60) == 0) {
+                min_time = 0;
+                arrMin.push(min_time);
+            } else {
+                min_time = Math.round(dist%60);
+                arrMin.push(min_time);
+            }
+            //FIND MIN DISTANCE POINT
             var min = distance[0].distance;
             var point = 0;
             for (var i = 1; i < distance.length; i++) {
@@ -183,23 +212,45 @@ jobCtrl.editJob = async (req, res) => {
                 } else {
                     min = min;
                     point = point;
-                }
+                } 
             }
         }
         order.push(unorder_list[point]);
+        console.log("Distance", order);
         unorder_list.splice(point, 1);
-    } while (unorder_list.length !== 0)
-    console.log("orderNew", order);
+    } while (unorder_list.length > 0)
+    
+    // for (var i = 1; i< order.length; i++) {
+    //     var total_distance = 0;
+    //     total_distance += order[i].distance;
+    //     console.log("list",i,"order",order[i].distance);
+    //     console.log("total", total_distance);
+    // }
+    //Step 3.5 Create Object like dropzone
+    var dropzone1 = [];
+    for(i=0;i<latitude.length;i++){
+        dropzone1.push(position[i]);
+    }
+    console.log(dropzone1);
+    console.log("Dropzone:",dropzone1);
     const job = {
         jobname: req.body.jobname,
         id: position,
-        dis: order,
         address: req.body.address,
+        dis: order,
         date: new Date,
         delivery: req.body.delivery,
         total: total,
         lattitude: latitude,
-        longtitude: longtitude
+        longtitude: longtitude,
+        hour: arrHour,
+        min: arrMin,
+        //full_hour: arr_fullhour,
+        //full_min: arr_fullmin,
+
+        full_hour: Math.floor(total / 60),
+        full_min: Math.round(total % 60),
+        dropzone: dropzone1
     }
     await Job.findByIdAndUpdate(id, { $set: job }, { new: true });
     res.json({
