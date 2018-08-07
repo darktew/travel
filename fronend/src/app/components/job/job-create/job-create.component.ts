@@ -33,7 +33,8 @@ export class JobCreateComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    console.log("Data", this.data);
+    this.getJob();
+    this.getPosition();
     if (this.data._id) {
       console.log("Edit");
       this.select = this.data;
@@ -41,14 +42,11 @@ export class JobCreateComponent implements OnInit {
       console.log("Create");
       this.select = new Job();
     }
-    this.getJob();
-    this.getPosition();
   }
   getJob() {
     this.jobservice.getJobs()
       .subscribe(res => {
         this.jobs = res as Job[];
-
       });
   }
   getPosition() {
