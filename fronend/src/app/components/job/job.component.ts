@@ -3,6 +3,7 @@ import { Job } from '../../models/job';
 import { JobService } from '../../services/job.service';
 import { MatTableDataSource, MatPaginator, MatDialog } from '../../../../node_modules/@angular/material';
 import { JobCreateComponent } from './job-create/job-create.component';
+import { Router } from '@angular/router';
 
 declare var M: any;
 @Component({
@@ -19,7 +20,9 @@ export class JobComponent implements OnInit {
   isPopupOpened = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private jobservice: JobService,
-              private dialog?: MatDialog) { }
+              public router: Router,
+              private dialog?: MatDialog,
+              ) { }
 
   ngOnInit() {
     this.getJobs();
@@ -80,7 +83,7 @@ export class JobComponent implements OnInit {
       this.getJobs();
     });
   }
-  showTime() {
-    console.log(this.seletedJobs.full_hour);
+  onSelect(element) {
+    this.router.navigate(['/job', element._id])
   }
 }

@@ -32,6 +32,7 @@ import { EmployeeDetailComponent } from './components/employees/employee-detail/
 import { JobComponent } from './components/job/job.component';
 import { JobCreateComponent } from './components/job/job-create/job-create.component';
 import { DraggaleModule } from './draggale/draggale.module';
+import { JobDetailComponent } from './components/job/job-detail/job-detail.component';
 
 
 const routes: Routes = [
@@ -41,6 +42,7 @@ const routes: Routes = [
   //{path: 'customer/create', component: EmployeeCreateComponent},
   //{path: 'position', component: PositionComponent},
   {path: 'job', component: JobComponent},
+  {path: 'job/:id', component: JobDetailComponent},
   {path: '**', component: PageNotFoundComponent}];
 
 @NgModule({
@@ -54,7 +56,8 @@ const routes: Routes = [
     PositionCreateComponent,
     EmployeeDetailComponent,
     JobComponent,
-    JobCreateComponent
+    JobCreateComponent,
+    JobDetailComponent
   ],
   imports: [
     BrowserModule,
