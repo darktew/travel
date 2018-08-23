@@ -104,8 +104,6 @@ jobCtrl.createJob = async (req, res) => {
     for(i=0;i<latitude.length;i++){
         dropzone1.push(position[i]);
     }
-    console.log(dropzone1);
-    console.log("Dropzone:",dropzone1);
     //Step 4 : save
     const job = new Job({
         _id: new mongoose.Types.ObjectId(),
@@ -135,6 +133,7 @@ jobCtrl.createJob = async (req, res) => {
 jobCtrl.getJob = async (req, res) => {
     const job = await Job.findById(req.params.id)
         .populate({ path: "id" })
+        .populate({path: "dropzone", model: Position, populate: {path: "employee", model: Employee}})
         .exec();
     res.json(job);
 };
@@ -231,8 +230,6 @@ jobCtrl.editJob = async (req, res) => {
     for(i=0;i<latitude.length;i++){
         dropzone1.push(position[i]);
     }
-    console.log(dropzone1);
-    console.log("Dropzone:",dropzone1);
     const job = {
         jobname: req.body.jobname,
         id: position,
