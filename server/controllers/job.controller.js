@@ -16,7 +16,6 @@ jobCtrl.createJob = async (req, res) => {
     const position = req.body.id;
     const latitude = req.body.lattitude;
     const longtitude = req.body.longtitude;
-    console.log("position", position, "lat", latitude, "lng", longtitude);
     //Step 1 : input lat lng position
     var unorder_list = [];
     for (i = 0; i < latitude.length; i++) {
@@ -37,12 +36,7 @@ jobCtrl.createJob = async (req, res) => {
     //STEP 3 : 
    
     var total = 0;
-    var hour_time = 0;
-    var min_time = 0;
-
-
-    var arrMin = [];
-    var arrHour = [];
+    var objcreate_time = {};
     //LOOP UNTIL UNORDER IS EMPTY
     do {
         //reset distance for loop times
@@ -57,23 +51,9 @@ jobCtrl.createJob = async (req, res) => {
             unorder_list[i].distance = dist;
             distance.push(unorder_list[i]);
             total = total + dist;
-            //Get hour for round 
-            if (Math.floor(dist/60) == hour_time ) {
-                hour_time = 0;
-                arrHour.push(hour_time);
-            } else  {
-                 hour_time = Math.floor(dist/60);
-                 arrHour.push(hour_time);
+            //Get hour and min for round 
+                objcreate_time = calTimeHour(dist);
             }
-            //Get min for round 
-            if (Math.round(dist%60) == 0) {
-                min_time = 0;
-                arrMin.push(min_time);
-            } else {
-                min_time = Math.round(dist%60);
-                arrMin.push(min_time);
-            }
-        }
             //FIND MIN DISTANCE POINT
             var min = distance[0].distance;
             var point = 0;
@@ -89,16 +69,9 @@ jobCtrl.createJob = async (req, res) => {
             }
         
         order.push(unorder_list[point]);
-        console.log("Distance", order);
         unorder_list.splice(point, 1);
     } while (unorder_list.length > 0)
     
-    // for (var i = 1; i< order.length; i++) {
-    //     var total_distance = 0;
-    //     total_distance += order[i].distance;
-    //     console.log("list",i,"order",order[i].distance);
-    //     console.log("total", total_distance);
-    // }
     //Step 3.5 Create Object like dropzone
     var dropzone1 = [];
     for(i=0;i<latitude.length;i++){
@@ -116,11 +89,8 @@ jobCtrl.createJob = async (req, res) => {
         total: total,
         lattitude: latitude,
         longtitude: longtitude,
-        hour: arrHour,
-        min: arrMin,
-        //full_hour: arr_fullhour,
-        //full_min: arr_fullmin,
-
+        hour: objcreate_time.hour,
+        min: objcreate_time.min,
         full_hour: Math.floor(total / 60),
         full_min: Math.round(total % 60),
         dropzone: dropzone1
@@ -143,7 +113,7 @@ jobCtrl.editJob = async (req, res) => {
     const position = req.body.id;
     const latitude = req.body.lattitude;
     const longtitude = req.body.longtitude;
-    console.log("position", position, "lat", latitude, "lng", longtitude);
+    
     //Step 1 : input lat lng position
     var unorder_list = [];
     for (i = 0; i < latitude.length; i++) {
@@ -161,21 +131,15 @@ jobCtrl.editJob = async (req, res) => {
     };
     var order = [];
     order.push(origins);
-    //STEP 3 : 
-   
+    //STEP 3 : Calculate distance and time
     var total = 0;
-    var hour_time = 0;
-    var min_time = 0;
-
-
-    var arrMin = [];
-    var arrHour = [];
+    var objedit_time = {}; 
     //LOOP UNTIL UNORDER IS EMPTY
     do {
         //reset distance for loop times
         var distance = [];
         //FIND DISTANCE FROM A CURRENT POINT
-        console.log("unorder_list : ", unorder_list);
+       
         for (i = 0; i < unorder_list.length; i++) {
             var dist = getDistanceFromLatLonInKm(
                 order[order.length - 1].lattitude, order[order.length - 1].longtitude,
@@ -184,22 +148,9 @@ jobCtrl.editJob = async (req, res) => {
             unorder_list[i].distance = dist;
             distance.push(unorder_list[i]);
             total = total + dist;
-            //Get hour for round 
-            if (Math.floor(dist/60) == hour_time ) {
-                hour_time = 0;
-                arrHour.push(hour_time);
-            } else  {
-                 hour_time = Math.floor(dist/60);
-                 arrHour.push(hour_time);
-            }
-            //Get min for round 
-            if (Math.round(dist%60) == 0) {
-                min_time = 0;
-                arrMin.push(min_time);
-            } else {
-                min_time = Math.round(dist%60);
-                arrMin.push(min_time);
-            }
+            objedit_time = calTimeHour(dist);
+           
+          
             //FIND MIN DISTANCE POINT
             var min = distance[0].distance;
             var point = 0;
@@ -215,16 +166,11 @@ jobCtrl.editJob = async (req, res) => {
             }
         }
         order.push(unorder_list[point]);
-        console.log("Distance", order);
+       
         unorder_list.splice(point, 1);
     } while (unorder_list.length > 0)
     
-    // for (var i = 1; i< order.length; i++) {
-    //     var total_distance = 0;
-    //     total_distance += order[i].distance;
-    //     console.log("list",i,"order",order[i].distance);
-    //     console.log("total", total_distance);
-    // }
+    
     //Step 3.5 Create Object like dropzone
     var dropzone1 = [];
     for(i=0;i<latitude.length;i++){
@@ -240,11 +186,8 @@ jobCtrl.editJob = async (req, res) => {
         total: total,
         lattitude: latitude,
         longtitude: longtitude,
-        hour: arrHour,
-        min: arrMin,
-        //full_hour: arr_fullhour,
-        //full_min: arr_fullmin,
-
+        hour: objedit_time.hour,
+        min: objedit_time.min,
         full_hour: Math.floor(total / 60),
         full_min: Math.round(total % 60),
         dropzone: dropzone1
@@ -260,6 +203,8 @@ jobCtrl.deleteJob = async (req, res) => {
         status: 'Job Deleted success'
     });
 };
+
+//Function Calculate 
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
     var R = 6371; // Radius of the earth in km
     var dLat = deg2rad(lat2 - lat1);  // deg2rad below
@@ -276,5 +221,35 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
 
 function deg2rad(deg) {
     return deg * (Math.PI / 180)
+}
+function calTimeHour(dist) {
+    var Hour = [];
+    var Min = [];
+     var Obj_time = {
+        hour: Hour,
+        min: Min
+     };
+    
+    if (Math.floor(dist/60) == hour_time ) {
+        var hour_time = 0;
+        Hour.push(hour_time);
+    } else  {
+        var hour_time = Math.floor(dist/60);
+         Hour.push(hour_time);
+    }
+    //Get min for round 
+    if (Math.round(dist%60) == 0) {
+        var min_time = 0;
+        Min.push(min_time);
+    } else {
+        var min_time = Math.round(dist%60);
+        Min.push(min_time);
+    }
+    Obj_time = {
+        hour: Hour,
+        min: Min
+    }
+    console.log("Obj_time Set", Obj_time);
+    return Obj_time;
 }
 module.exports = jobCtrl;
