@@ -16,7 +16,7 @@ export class JobComponent implements OnInit {
   seletedJobs: Job;
   Jobs: Job[];
   dataSource;
-  displayedColumns: string[] = ['jobname','total', 'time', 'action'];
+  displayedColumns: string[] = ['jobname', 'total', 'time', 'action'];
   isPopupOpened = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private jobservice: JobService,
@@ -26,7 +26,6 @@ export class JobComponent implements OnInit {
 
   ngOnInit() {
     this.getJobs();
-    
   }
   getJobs() {
     this.jobservice.getJobs()
@@ -46,7 +45,7 @@ export class JobComponent implements OnInit {
 
     // this.dataSource.filterPredicate = (data, filter) => {
     //   const dataStr = data.name + data.employee.name;
-    //   return dataStr.indexOf(filter) != -1; 
+    //   return dataStr.indexOf(filter) != -1;
   }
   deleteJob(_id: string) {
     if (confirm('Are you sure you want to delete it?')) {
@@ -84,6 +83,6 @@ export class JobComponent implements OnInit {
     });
   }
   onSelect(element) {
-    this.router.navigate(['/job', element._id])
+    this.router.navigate(['/job/user', element._id]);
   }
 }

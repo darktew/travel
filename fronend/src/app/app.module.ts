@@ -37,12 +37,12 @@ import { JobDetailComponent } from './components/job/job-detail/job-detail.compo
 
 const routes: Routes = [
   {path: '', redirectTo: '', pathMatch: 'full'},
-  {path: 'customer', component: EmployeesComponent},  
+  {path: 'customer', component: EmployeesComponent},
   {path: 'customer/:id', component: EmployeeDetailComponent},
-  //{path: 'customer/create', component: EmployeeCreateComponent},
-  //{path: 'position', component: PositionComponent},
+  // {path: 'customer/create', component: EmployeeCreateComponent},
+  // {path: 'position', component: PositionComponent},
   {path: 'job', component: JobComponent},
-  {path: 'job/:id', component: JobDetailComponent},
+  {path: 'job/user/:id', component: JobDetailComponent},
   {path: '**', component: PageNotFoundComponent}];
 
 @NgModule({
