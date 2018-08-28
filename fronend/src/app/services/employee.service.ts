@@ -22,7 +22,7 @@ export class EmployeeService {
     return this.http.post(this.URL_API, Employee);
   }
   getEmployee(_id: string) {
-    return this.http.get(this.URL_API+ `/${_id}`);
+    return this.http.get(this.URL_API + `/${_id}`);
   }
   putEmployee(employee: Employee) {
     return this.http.put(this.URL_API + `/${employee._id}`, employee);

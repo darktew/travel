@@ -9,7 +9,7 @@ import { Injectable } from '@angular/core';
 })
 export class PositionService {
   selectedPosition: Position;
-  pageID : String;
+  pageID: String;
   positions: Position[];
   readonly URL_API = 'http://localhost:3000/api/position';
   constructor(private http: HttpClient) {
@@ -24,7 +24,7 @@ export class PositionService {
     return this.http.post(this.URL_API, position);
   }
   getPositionByEmployeeId(employee_id: String) {
-    return this.http.get(this.URL_API+`/employee`+`/${employee_id}`);
+    return this.http.get(this.URL_API + `/employee` + `/${employee_id}`);
   }
   putPosition(position: Position) {
     return this.http.put(this.URL_API + `/${position._id}`, position);
