@@ -83,6 +83,7 @@ export class JobComponent implements OnInit {
     });
   }
   onSelect(element) {
-    this.router.navigate(['/job/user', element._id]);
+  
+    this.router.navigate(['/job/detail', element._id]);
   }
 }

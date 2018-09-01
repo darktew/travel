@@ -17,7 +17,7 @@ export class JobService {
     return this.http.post(this.URL_API, job);
   }
   getJob(_id: string) {
-    return this.http.get(this.URL_API + `/user` + `/${_id}`);
+    return this.http.get(this.URL_API + `/detail` + `/${_id}`);
   }
   // getPositionByEmployeeId(employee_id: String) {
   //   return this.http.get(this.URL_API+`/employee`+`/${employee_id}`);

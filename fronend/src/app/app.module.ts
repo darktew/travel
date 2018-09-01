@@ -42,7 +42,7 @@ const routes: Routes = [
   // {path: 'customer/create', component: EmployeeCreateComponent},
   // {path: 'position', component: PositionComponent},
   {path: 'job', component: JobComponent},
-  {path: 'job/user/:id', component: JobDetailComponent},
+  {path: 'job/detail/:id', component: JobDetailComponent},
   {path: '**', component: PageNotFoundComponent}];
 
 @NgModule({
