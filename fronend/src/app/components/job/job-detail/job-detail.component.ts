@@ -14,7 +14,6 @@ export class JobDetailComponent implements OnInit {
   job: Job[];
   dis: any;
   dropzone: any;
-  protected map: any;
   zoom: any;
   constructor(
     private jobService: JobService,
@@ -24,7 +23,8 @@ export class JobDetailComponent implements OnInit {
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
     this.getJobdetail(id);
-    this.zoom = 6;
+    this.zoom = 7;
+  
   }
   getJobdetail(id) {
     this.job = [];
@@ -39,7 +39,6 @@ export class JobDetailComponent implements OnInit {
             console.log(this.dis);
         }
       });
-    
-  }
-
+    }
+ 
 }
