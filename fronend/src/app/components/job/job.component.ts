@@ -69,7 +69,6 @@ export class JobComponent implements OnInit {
     });
   }
   editJob(job: Job) {
-    console.log(job);
     this.isPopupOpened = true;
     this.seletedJobs = job;
     const dialogRef = this.dialog.open(JobCreateComponent, {

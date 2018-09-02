@@ -1,0 +1,11 @@
+.example-card {
+    max-width: 400px;
+    font-family: 'Prompt', sans-serif;
+  }
+  agm-map {
+    height: 400px;
+    width: 500px;
+  }
+  .list-item {
+    margin-bottom: 2px;
+  }

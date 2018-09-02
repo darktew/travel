@@ -31,6 +31,11 @@ jobCtrl.getJob = async (req, res) => {
       model: Position,
       populate: { path: "employee", model: Employee }
     })
+    // .populate({
+    //   path: "dis",
+    //   model: Position,
+    //   populate : { path : "address", model: Position }
+    // })
     .exec();
   res.json(job);
 };
@@ -73,9 +78,9 @@ function calDistance(req, _id) {
   }
   //STEP 2 : set order origins
   var origins = {
-    address: "VRU",
-    lattitude: 13.762089,
-    longtitude: 100.485557
+    address: {address: "VRU"},
+    lattitude: 14.134615,
+    longtitude: 100.617575
   };
   var order = [];
   order.push(origins);

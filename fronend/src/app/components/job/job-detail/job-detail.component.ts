@@ -12,7 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class JobDetailComponent implements OnInit {
   job: Job[];
-  id_sub: any; 
+  dis: any;
+  dropzone: any;
+  protected map: any;
+  zoom: any;
   constructor(
     private jobService: JobService,
     public route: ActivatedRoute
@@ -20,7 +23,23 @@ export class JobDetailComponent implements OnInit {
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
-    this.id_sub = id;
+    this.getJobdetail(id);
+    this.zoom = 6;
+  }
+  getJobdetail(id) {
+    this.job = [];
+    this.jobService.getJob(id)
+      .subscribe(res => {
+        var test: any = res as Job[];
+        this.job.push(test);
+        console.log("job",this.job);
+        for (let j = 0; j < this.job.length; j++) {
+            this.dropzone = this.job[j].dropzone;
+            this.dis = this.job[j].dis;
+            console.log(this.dis);
+        }
+      });
+    
   }
 
 }
