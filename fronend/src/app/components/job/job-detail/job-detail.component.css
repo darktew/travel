@@ -9,3 +9,19 @@
   .list-item {
     margin-bottom: 2px;
   }
+  .box {
+    border: 1px solid black;
+    padding:  10px 20px;
+    display: inline-block;
+   }
+   .box.dragging {
+       /* background: coral; */
+       background: #efefef;
+   }
+   .disable-select {
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+  }
+   

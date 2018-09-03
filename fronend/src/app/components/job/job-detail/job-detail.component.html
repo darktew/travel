@@ -7,8 +7,11 @@
                     <mat-card-title>รายละเอียด</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <div *ngFor="let j of dropzone">
+                    <div class="disable-select" *ngFor="let j of dropzone" appDroppable>
                         {{j.address}}
+                        <div class="box" *appDraggableHelper>
+                            {{j.address}}
+                          </div>
                     </div>
                 </mat-card-content>
                 <button mat-raised-button color="warn" (click)="goback()" class="back">Back</button>
