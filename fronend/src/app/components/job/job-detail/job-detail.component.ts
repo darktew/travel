@@ -28,7 +28,6 @@ export class JobDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.getJobdetail(id);
     this.zoom = 7;
-    this.getDirection();
   }
   goback() {
     this.location.back();
@@ -44,10 +43,10 @@ export class JobDetailComponent implements OnInit {
         for (let j = 0; j < this.job.length; j++) {
           this.dropzone = this.job[j].dropzone;
           this.dis = this.job[j].dis;
-          for (let k = 0; k < this.dis.length; k++) {
-            this.origin = { lat: this.dis[0].lattitude, lng: this.dis[0].longtitude };
-            this.destination = { lat: this.dis[this.dis.length - 1].lattitude, lng: this.dis[this.dis.length - 1].longtitude };
-          }
+        }
+        for (let k = 0; k < this.dis.length; k++) {
+          this.origin = { lat: this.dis[0].lattitude, lng: this.dis[0].longtitude };
+          this.destination = { lat: this.dis[this.dis.length - 1].lattitude, lng: this.dis[this.dis.length - 1].longtitude };
         }
         for (let b = 1 ; b < this.dis.length -1 ; b++) {
           this.waypoints.push({
@@ -57,10 +56,4 @@ export class JobDetailComponent implements OnInit {
         }
       });
   }
-  getDirection() {
-    for (let j = 0; j < this.job.length; j++) {
-      
-    }
-  }
-
 }
