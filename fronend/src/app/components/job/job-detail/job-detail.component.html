@@ -11,6 +11,7 @@
                         {{j.address}}
                     </div>
                 </mat-card-content>
+                <button mat-raised-button color="warn" (click)="goback()" class="back">Back</button>
             </mat-card>
         </div>
         <div class="col s6">
@@ -21,17 +22,21 @@
                 </mat-card-header>
                 <mat-card-content>
                     <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom">
-                        <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker>
+                        <!-- <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker> -->
                         <!-- <ng-container>
                             <agm-polyline [strokeColor]="'blue'">
                                 <agm-polyline-point *ngFor="let i of dis" [latitude]="i.lattitude" [longitude]="i.longtitude"></agm-polyline-point>
                             </agm-polyline>
                         </ng-container> -->
-                        <agm-direction [origin]="origin" [waypoints]="waypoints" [destination]="destination">
+                        <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints">
 
                         </agm-direction>
                     </agm-map>
+                    
                 </mat-card-content>
+               
+                
+               
             </mat-card>
         </div>
     </div>

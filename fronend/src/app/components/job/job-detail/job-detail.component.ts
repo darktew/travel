@@ -3,7 +3,7 @@ import { Job } from '../../../models/job';
 import { JobService } from '../../../services/job.service';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-job-detail',
@@ -20,7 +20,8 @@ export class JobDetailComponent implements OnInit {
   public waypoints: any;
   constructor(
     private jobService: JobService,
-    public route: ActivatedRoute
+    public route: ActivatedRoute,
+    public location: Location
   ) { }
 
   ngOnInit() {
@@ -28,6 +29,9 @@ export class JobDetailComponent implements OnInit {
     this.getJobdetail(id);
     this.zoom = 7;
     this.getDirection();
+  }
+  goback() {
+    this.location.back();
   }
   getJobdetail(id) {
     this.job = [];
@@ -41,20 +45,15 @@ export class JobDetailComponent implements OnInit {
           this.dropzone = this.job[j].dropzone;
           this.dis = this.job[j].dis;
           for (let k = 0; k < this.dis.length; k++) {
-            this.origin = { lat: this.dis[this.dis.length - this.dis.length].lattitude, lng: this.dis[this.dis.length - this.dis.length].longtitude };
+            this.origin = { lat: this.dis[0].lattitude, lng: this.dis[0].longtitude };
             this.destination = { lat: this.dis[this.dis.length - 1].lattitude, lng: this.dis[this.dis.length - 1].longtitude };
-            console.log("lattitude", this.dis[k].lattitude, "longtitude", this.dis[k].longtitude);
-            console.log("origin",this.origin,"des",this.destination);
-            for (let b = 1 ; b < this.dis.length -1 ; b++) {
-              console.log("length -1 ",this.dis.length -1 );
-              this.waypoints.push({
-                location: { lat: this.dis[b].lattitude, lng: this.dis[b].longtitude },
-                stopover: true
-              });
-         
-            }
-            
           }
+        }
+        for (let b = 1 ; b < this.dis.length -1 ; b++) {
+          this.waypoints.push({
+            location: { lat: this.dis[b].lattitude, lng: this.dis[b].longtitude },
+            stopover: true
+          });
         }
       });
   }
