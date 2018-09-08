@@ -2,7 +2,8 @@ const Job = require("../models/job");
 const Position = require("../models/position");
 const Employee = require("../models/employee");
 const mongoose = require("mongoose");
-
+const google_distance = require("google-distance");
+google_distance.apiKey = "AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw";
 const jobCtrl = {};
 jobCtrl.getJobs = async (req, res) => {
   const job = await Job.find()
@@ -17,11 +18,10 @@ jobCtrl.getJobs = async (req, res) => {
 };
 jobCtrl.createJob = async (req, res) => {
   const id = "";
-  const job = calDistance(req, id);
-  await job.save();
-  res.json({
-    status: "Job Saved"
-  });
+  const job = calDistance(req, id,res);
+  //-------
+  
+  //-------
 };
 jobCtrl.getJob = async (req, res) => {
   const job = await Job.findById(req.params.id)
@@ -42,11 +42,8 @@ jobCtrl.getJob = async (req, res) => {
 
 jobCtrl.editJob = async (req, res) => {
   const { id } = req.params;
-  const job = calDistance(req, id);
-  await Job.findByIdAndUpdate(id, { $set: job }, { new: true });
-  res.json({
-    status: "Job Updated"
-  });
+  const job = calDistance(req, id, res);
+  
 };
 jobCtrl.deleteJob = async (req, res) => {
   await Job.findByIdAndRemove(req.params.id);
@@ -56,7 +53,8 @@ jobCtrl.deleteJob = async (req, res) => {
 };
 
 //Function Calculate
-function calDistance(req, _id) {
+function calDistance(req, _id, res) {
+  // Check method post or put
   var id;
   if (_id == "") {
     console.log("id Create", id);
@@ -65,10 +63,12 @@ function calDistance(req, _id) {
     console.log("Id edit", id);
   }
 
+  // req values
   const position = req.body.id;
   const latitude = req.body.lattitude;
   const longtitude = req.body.longtitude;
   var unorder_list = [];
+  //insert values into unorder_list
   for (i = 0; i < latitude.length; i++) {
     unorder_list.push({
       address: position[i],
@@ -98,7 +98,6 @@ function calDistance(req, _id) {
         unorder_list[i].lattitude,
         unorder_list[i].longtitude
       );
-
       unorder_list[i].distance = dist;
       distance.push(unorder_list[i]);
       //total = total + dist;
@@ -131,8 +130,27 @@ function calDistance(req, _id) {
   for (j = 1; j < order.length; j++) {
     total += order[j].distance;
   }
-  //Step 4 : save
+  // pack value to obj
+  var obj = {
+    id
+  };
+
+  //google Distance and Time
+  google_distance.get({
+    origin: "" ,
+    destination: ""
+  }, function(err,data) {
+    if (err) return console.log(err);
+    console.log(data);
+    //SAVE
+    save_callback(req,res,obj)
+  });
+}
+
+function save_callback(req,res, obj) {
+  //Step 4 : save job
   var job;
+  //edit
   if (id !== undefined) {
     job = new Job({
       jobname: req.body.jobname,
@@ -144,13 +162,19 @@ function calDistance(req, _id) {
       total: total,
       lattitude: latitude,
       longtitude: longtitude,
-      hour: objcreate_time.hour,
-      min: objcreate_time.min,
-      full_hour: Math.floor(total / 60),
-      full_min: Math.round(total % 60),
+      //hour: objcreate_time.hour,
+      //min: objcreate_time.min,
+      //full_hour: Math.floor(total / 60),
+      //full_min: Math.round(total % 60),
       dropzone: dropzone1
     });
-  } else {
+    await Job.findByIdAndUpdate(id, { $set: job }, { new: true });
+      res.json({
+    status: "Job Updated"
+  });
+  } 
+  //create
+  else {
     job = new Job({
       _id: new mongoose.Types.ObjectId(),
       jobname: req.body.jobname,
@@ -168,8 +192,12 @@ function calDistance(req, _id) {
       full_min: Math.round(total % 60),
       dropzone: dropzone1
     });
+    await job.save();
+    res.json({
+      status: "Job Create Saved"
+    });
   }
-  return job;
+ 
 }
 function calTimeHour(dist) {
   var Hour = [];
