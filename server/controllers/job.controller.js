@@ -18,9 +18,9 @@ jobCtrl.getJobs = async (req, res) => {
 };
 jobCtrl.createJob = async (req, res) => {
   const id = "";
-  const job = calDistance(req, id,res);
+  await calDistance(req, id, res);
   //-------
-  
+
   //-------
 };
 jobCtrl.getJob = async (req, res) => {
@@ -42,8 +42,7 @@ jobCtrl.getJob = async (req, res) => {
 
 jobCtrl.editJob = async (req, res) => {
   const { id } = req.params;
-  const job = calDistance(req, id, res);
-  
+  await calDistance(req, id, res);
 };
 jobCtrl.deleteJob = async (req, res) => {
   await Job.findByIdAndRemove(req.params.id);
@@ -67,20 +66,22 @@ function calDistance(req, _id, res) {
   const position = req.body.id;
   const latitude = req.body.lattitude;
   const longtitude = req.body.longtitude;
+  const address = req.body.address;
   var unorder_list = [];
   //insert values into unorder_list
   for (i = 0; i < latitude.length; i++) {
     unorder_list.push({
-      address: position[i],
+      id: position[i],
+      address: address[i],
       lattitude: latitude[i],
       longtitude: longtitude[i]
     });
   }
   //STEP 2 : set order origins
   var origins = {
-    address: {address: "VRU"},
-    lattitude: 14.134615,
-    longtitude: 100.617575
+    address: "Unnamed Road, Tambon Chiang Rak Noi, Amphoe Bang Pa-in, Chang Wat Phra Nakhon Si Ayutthaya 13180, Thailand",
+    lattitude: 14.133635,
+    longtitude: 100.616024
   };
   var order = [];
   order.push(origins);
@@ -130,74 +131,97 @@ function calDistance(req, _id, res) {
   for (j = 1; j < order.length; j++) {
     total += order[j].distance;
   }
-  // pack value to obj
-  var obj = {
-    id
-  };
-
   //google Distance and Time
-  google_distance.get({
-    origin: "" ,
-    destination: ""
-  }, function(err,data) {
-    if (err) return console.log(err);
-    console.log(data);
-    //SAVE
-    save_callback(req,res,obj)
-  });
+  var origin = 0;
+  var des = 0;
+  for (i = 0; i < order.length; i++) {
+    origin = i;
+    des = i+1;
+    console.log("origin", order[origin].address,"sum_origin",origin);
+    console.log("des", order[des].address,"sum_origin",des);
+    google_distance.get({
+      origin: order[origin].address ,
+      destination: order[des].address
+    }, function (err,data)  {
+      if (err) return console.log(err);
+      return res.json(data);
+      // console.log(data);
+      // var obj = {
+      //   _id : id,
+      //   jobname: req.body.jobname,
+      //   id: position,
+      //   address: address,
+      //   dis: order,
+      //   delivery: req.body.delivery,
+      //   total: total,
+      //   lattitude: latitude,
+      //   longtitude: longtitude,
+      //   dropzone: dropzone1
+      // };
+      // //SAVE
+      // await setTimeout(()=>{}, 2000);
+      // save_callback(req,res,obj,data);
+    });
+    if (order[origin].address == order[order.length-2].address) {
+      break;
+    } else if (order[des].address == undefined) {
+      break;
+    }
+  }
+
 }
 
-function save_callback(req,res, obj) {
+function save_callback(req, res, obj, data) {
   //Step 4 : save job
   var job;
   //edit
-  if (id !== undefined) {
+  if (obj._id !== undefined) {
     job = new Job({
-      jobname: req.body.jobname,
-      id: position,
-      address: req.body.address,
-      dis: order,
+      jobname: obj.jobname,
+      id: obj.id,
+      address: obj.address,
+      dis: obj.dis,
       date: new Date(),
-      delivery: req.body.delivery,
-      total: total,
-      lattitude: latitude,
-      longtitude: longtitude,
+      delivery: obj.delivery,
+      total: obj.total,
+      lattitude: obj.lattitude,
+      longtitude: obj.longtitude,
       //hour: objcreate_time.hour,
       //min: objcreate_time.min,
       //full_hour: Math.floor(total / 60),
       //full_min: Math.round(total % 60),
-      dropzone: dropzone1
+      dropzone: obj.dropzone
     });
-    await Job.findByIdAndUpdate(id, { $set: job }, { new: true });
-      res.json({
-    status: "Job Updated"
-  });
-  } 
+    
+    Job.findByIdAndUpdate(id, { $set: job }, { new: true });
+    return res.json({
+      status: "Job Updated Saved"
+    });
+  }
   //create
   else {
     job = new Job({
       _id: new mongoose.Types.ObjectId(),
-      jobname: req.body.jobname,
-      id: position,
-      address: req.body.address,
-      dis: order,
+      jobname: obj.jobname,
+      id: obj.id,
+      address: obj.address,
+      dis: obj.dis,
       date: new Date(),
-      delivery: req.body.delivery,
-      total: total,
-      lattitude: latitude,
-      longtitude: longtitude,
-      hour: objcreate_time.hour,
-      min: objcreate_time.min,
-      full_hour: Math.floor(total / 60),
-      full_min: Math.round(total % 60),
-      dropzone: dropzone1
+      delivery: obj.delivery,
+      total: obj.total,
+      lattitude: obj.lattitude,
+      longtitude: obj.longtitude,
+      // hour: objcreate_time.hour,
+      // min: objcreate_time.min,
+      // full_hour: Math.floor(total / 60),
+      // full_min: Math.round(total % 60),
+      dropzone: obj.dropzone
     });
-    await job.save();
-    res.json({
+     job.save();
+    return res.json({
       status: "Job Create Saved"
     });
   }
- 
 }
 function calTimeHour(dist) {
   var Hour = [];
@@ -226,7 +250,6 @@ function calTimeHour(dist) {
     hour: Hour,
     min: Min
   };
-  console.log("Obj_time Set", Obj_time);
   return Obj_time;
 }
 function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
@@ -236,9 +259,9 @@ function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
   var a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(deg2rad(lat1)) *
-      Math.cos(deg2rad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(deg2rad(lat2)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   var d = R * c; // Distance in km
   return d;
