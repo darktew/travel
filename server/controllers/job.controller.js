@@ -144,23 +144,22 @@ function calDistance(req, _id, res) {
       destination: order[des].address
     }, function (err,data)  {
       if (err) return console.log(err);
-      return res.json(data);
-      // console.log(data);
-      // var obj = {
-      //   _id : id,
-      //   jobname: req.body.jobname,
-      //   id: position,
-      //   address: address,
-      //   dis: order,
-      //   delivery: req.body.delivery,
-      //   total: total,
-      //   lattitude: latitude,
-      //   longtitude: longtitude,
-      //   dropzone: dropzone1
-      // };
-      // //SAVE
-      // await setTimeout(()=>{}, 2000);
-      // save_callback(req,res,obj,data);
+      console.log(data);
+      var obj = {
+        _id : id,
+        jobname: req.body.jobname,
+        id: position,
+        address: address,
+        dis: order,
+        delivery: req.body.delivery,
+        total: total,
+        lattitude: latitude,
+        longtitude: longtitude,
+        dropzone: dropzone1
+      };
+      //SAVE
+      await setTimeout(()=>{}, 2000);
+      save_callback(req,res,obj,data);
     });
     if (order[origin].address == order[order.length-2].address) {
       break;
