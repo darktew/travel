@@ -70,13 +70,14 @@ function calDistance(req, _id, res) {
   var unorder_list = [];
   //insert values into unorder_list
   for (i = 0; i < latitude.length; i++) {
-    unorder_list.push({
+    unorder_list.push({  
       id: position[i],
       address: address[i],
       lattitude: latitude[i],
       longtitude: longtitude[i]
-    });
+    }); 
   }
+  
   //STEP 2 : set order origins
   var origins = {
     address: "Unnamed Road, Tambon Chiang Rak Noi, Amphoe Bang Pa-in, Chang Wat Phra Nakhon Si Ayutthaya 13180, Thailand",
@@ -132,95 +133,109 @@ function calDistance(req, _id, res) {
     total += order[j].distance;
   }
   //google Distance and Time
+  var arr_origin = [];
+  var arr_des = [];
   var origin = 0;
   var des = 0;
-  for (i = 0; i < order.length; i++) {
+  var i = 0;
+  do {
     origin = i;
-    des = i+1;
-    console.log("origin", order[origin].address,"sum_origin",origin);
-    console.log("des", order[des].address,"sum_origin",des);
-    google_distance.get({
-      origin: order[origin].address ,
-      destination: order[des].address
-    }, function (err,data)  {
-      if (err) return console.log(err);
-      console.log(data);
-      var obj = {
-        _id : id,
-        jobname: req.body.jobname,
-        id: position,
-        address: address,
-        dis: order,
-        delivery: req.body.delivery,
-        total: total,
-        lattitude: latitude,
-        longtitude: longtitude,
-        dropzone: dropzone1
-      };
-      //SAVE
-      await setTimeout(()=>{}, 2000);
-      save_callback(req,res,obj,data);
-    });
-    if (order[origin].address == order[order.length-2].address) {
-      break;
-    } else if (order[des].address == undefined) {
-      break;
-    }
-  }
-
+    des = i + 1;
+    var str_origin = order[origin].lattitude+","+order[origin].longtitude;
+    var str_des = order[des].lattitude+","+order[des].longtitude;
+    arr_origin.push(str_origin);
+    arr_des.push(str_des);
+    i++;
+  } while(order[des].address !== undefined && order[origin].address !== order[order.length - 2 ].address);
+  google_distance.get({
+    origins: arr_origin,
+    destinations: arr_des
+  }, function (err, data) {
+    if (err) return console.log(err);
+    console.log(data);
+    var obj = {
+      _id: id,
+      jobname: req.body.jobname,
+      id: position,
+      address: address,
+      dis: order,
+      delivery: req.body.delivery,
+      total: total,
+      lattitude: latitude,
+      longtitude: longtitude,
+      dropzone: dropzone1
+    };
+    //SAVE
+    save_callback(req, res, obj, data);
+  });
+  // google_distance.get(
+  //   {
+  //     origins: ['San Francisco, CA','San Diego, CA'],
+  //     destinations: ['San Diego, CA','Seattle, WA']
+  //   },
+  //   function(err, data) {
+  //     if (err) return console.log(err);
+  //     for(i = 0; i< data.length;i++) {
+  //     console.log(data[i].distance);
+  //     }
+  //   });
 }
 
 function save_callback(req, res, obj, data) {
   //Step 4 : save job
   var job;
   //edit
-  if (obj._id !== undefined) {
-    job = new Job({
-      jobname: obj.jobname,
-      id: obj.id,
-      address: obj.address,
-      dis: obj.dis,
-      date: new Date(),
-      delivery: obj.delivery,
-      total: obj.total,
-      lattitude: obj.lattitude,
-      longtitude: obj.longtitude,
-      //hour: objcreate_time.hour,
-      //min: objcreate_time.min,
-      //full_hour: Math.floor(total / 60),
-      //full_min: Math.round(total % 60),
-      dropzone: obj.dropzone
-    });
-    
-    Job.findByIdAndUpdate(id, { $set: job }, { new: true });
-    return res.json({
-      status: "Job Updated Saved"
-    });
-  }
-  //create
-  else {
-    job = new Job({
-      _id: new mongoose.Types.ObjectId(),
-      jobname: obj.jobname,
-      id: obj.id,
-      address: obj.address,
-      dis: obj.dis,
-      date: new Date(),
-      delivery: obj.delivery,
-      total: obj.total,
-      lattitude: obj.lattitude,
-      longtitude: obj.longtitude,
-      // hour: objcreate_time.hour,
-      // min: objcreate_time.min,
-      // full_hour: Math.floor(total / 60),
-      // full_min: Math.round(total % 60),
-      dropzone: obj.dropzone
-    });
-     job.save();
-    return res.json({
-      status: "Job Create Saved"
-    });
-  }
+ 
+    if (obj._id !== undefined) {
+      job = new Job({
+        jobname: obj.jobname,
+        id: obj.id,
+        address: obj.address,
+        dis: obj.dis,
+        date: new Date(),
+        delivery: obj.delivery,
+        total: obj.total,
+        lattitude: obj.lattitude,
+        longtitude: obj.longtitude,
+        //hour: objcreate_time.hour,
+        //min: objcreate_time.min,
+        //full_hour: Math.floor(total / 60),
+        //full_min: Math.round(total % 60),
+        dropzone: obj.dropzone
+      });
+
+      Job.findByIdAndUpdate(obj._id, { $set: job }, { new: true });
+      return res.json({
+        status: "Job Updated Saved"
+      });
+    }
+    //create
+    else {
+      job = new Job({
+        _id: new mongoose.Types.ObjectId(),
+        jobname: obj.jobname,
+        id: obj.id,
+        address: obj.address,
+        dis: obj.dis,
+        date: new Date(),
+        delivery: obj.delivery,
+        total: obj.total,
+        lattitude: obj.lattitude,
+        longtitude: obj.longtitude,
+        // hour: objcreate_time.hour,
+        // min: objcreate_time.min,
+        // full_hour: Math.floor(total / 60),
+        // full_min: Math.round(total % 60),
+        dropzone: obj.dropzone
+      });
+      job.save();
+
+      return res.json({
+        status: "Job Create Saved"
+      });
+
+    }
+  
 }
 function calTimeHour(dist) {
   var Hour = [];
