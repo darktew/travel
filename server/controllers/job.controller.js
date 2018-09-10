@@ -132,6 +132,22 @@ function calDistance(req, _id, res) {
   for (j = 1; j < order.length; j++) {
     total += order[j].distance;
   }
+  //  Save manual
+  //SAVE
+  var obj = {
+    _id: id,
+    jobname: req.body.jobname,
+    id: position,
+    address: address,
+    dis: order,
+    delivery: req.body.delivery,
+    total: total,
+    lattitude: latitude,
+    longtitude: longtitude,
+    dropzone: dropzone1
+  };
+  save_callback(req, res, obj);
+  
   //google Distance and Time
   var arr_origin = [];
   var arr_des = [];
@@ -147,24 +163,16 @@ function calDistance(req, _id, res) {
     arr_des.push(str_des);
     i++;
   } while(order[des].address !== undefined && order[origin].address !== order[order.length - 2 ].address);
+     
+  
+  //cal distance by google remit 10 
   google_distance.get({
     origins: arr_origin,
     destinations: arr_des
   }, function (err, data) {
     if (err) return console.log(err);
     console.log(data);
-    var obj = {
-      _id: id,
-      jobname: req.body.jobname,
-      id: position,
-      address: address,
-      dis: order,
-      delivery: req.body.delivery,
-      total: total,
-      lattitude: latitude,
-      longtitude: longtitude,
-      dropzone: dropzone1
-    };
+    
     //SAVE
     save_callback(req, res, obj, data);
   });
@@ -197,7 +205,7 @@ function save_callback(req, res, obj, data) {
         total: obj.total,
         lattitude: obj.lattitude,
         longtitude: obj.longtitude,
-        //hour: objcreate_time.hour,
+        //hour: objcXreate_time.hour,
         //min: objcreate_time.min,
         //full_hour: Math.floor(total / 60),
         //full_min: Math.round(total % 60),
