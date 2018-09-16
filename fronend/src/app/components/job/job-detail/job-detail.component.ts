@@ -4,6 +4,7 @@ import { JobService } from '../../../services/job.service';
 import { MatTableDataSource } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { SortEvent } from '../../../draggale/sortable-list.directive';
 
 @Component({
   selector: 'app-job-detail',
@@ -15,6 +16,7 @@ export class JobDetailComponent implements OnInit {
   dis: any;
   dropzone: any;
   zoom: any;
+  selectJob: Job;
   public origin: any;
   public destination: any;
   public waypoints: any;
@@ -28,9 +30,11 @@ export class JobDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.getJobdetail(id);
     this.zoom = 7;
+    this.selectJob = new Job();
   }
   goback() {
     this.location.back();
+ 
   }
   getJobdetail(id) {
     this.job = [];
@@ -39,7 +43,6 @@ export class JobDetailComponent implements OnInit {
       .subscribe(res => {
         var test: any = res as Job[];
         this.job.push(test);
-        console.log("job", this.job);
         for (let j = 0; j < this.job.length; j++) {
           this.dropzone = this.job[j].dropzone;
           this.dis = this.job[j].dis;
@@ -55,5 +58,11 @@ export class JobDetailComponent implements OnInit {
           });
         }
       });
+  }
+  sort(event: SortEvent) {
+   const current = this.job[0].dropzone[event.currentIndex];
+   const swapWith = this.job[0].dropzone[event.newIndex];
+  this.job[0].dropzone[event.currentIndex] = swapWith;
+  this.job[0].dropzone[event.newIndex] = current;
   }
 }

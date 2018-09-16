@@ -7,12 +7,20 @@
                     <mat-card-title>รายละเอียด</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <div class="disable-select" *ngFor="let j of dropzone" appDroppable>
+                    <!-- <div class="disable-select" *ngFor="let j of dropzone" appDraggale>
                         {{j.address}}
                         <div class="box" *appDraggableHelper>
                             {{j.address}}
                           </div>
-                    </div>
+                    </div> -->
+
+                    
+                    
+                    <ul *ngFor = "let j of job" class="list-address" appSortableList (sort)="sort($event)" >
+                        <li  class="box" *ngFor="let d of j.dropzone" appSortable>{{ d.address }}
+                            <div class="box" *appDraggableHelper> {{d.address}}</div>
+                        </li>
+                    </ul>
                 </mat-card-content>
                 <button mat-raised-button color="warn" (click)="goback()" class="back">Back</button>
             </mat-card>

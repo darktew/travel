@@ -9,6 +9,8 @@ import { OverlayModule } from '../../../node_modules/@angular/cdk/overlay';
 import { DropzoneDirective } from './dropzone.directive';
 import { DroppableDirective } from './droppable.directive';
 import { DroppableService } from './droppable.service';
+import { SortableListDirective } from './sortable-list.directive';
+import { SortableDirective } from './sortable.directive';
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import { DroppableService } from './droppable.service';
     MovableAreaDirective, 
     DraggableHelperDirective, 
     DropzoneDirective, 
-    DroppableDirective
+    DroppableDirective, 
+    SortableListDirective, 
+    SortableDirective
   ],
   exports: [
     DraggaleDirective, 
@@ -29,7 +33,9 @@ import { DroppableService } from './droppable.service';
     MovableAreaDirective,
     DraggableHelperDirective,
     DropzoneDirective, 
-    DroppableDirective
+    DroppableDirective,
+    SortableListDirective,
+    SortableDirective
   ],
   providers: [
     DroppableService

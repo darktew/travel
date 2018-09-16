@@ -16,9 +16,18 @@
    }
    .box.dragging {
        /* background: coral; */
-       background: #efefef;
+       background: green;
    }
-   .disable-select {
+   .box.sortable.dragging {
+      background: none;
+      border: 1px dashed black;
+      color: transparent;
+   }
+  .list-address{
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
     -webkit-user-select: none;  
     -moz-user-select: none;    
     -ms-user-select: none;      
