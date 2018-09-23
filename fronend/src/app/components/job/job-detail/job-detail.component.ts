@@ -95,7 +95,9 @@ export class JobDetailComponent implements OnInit {
       this.jobService.putuserJob(form.value)
         .subscribe(res => {
           M.toast({html: "Job Update Success"});
-         window.location.reload();
+        //  window.location.reload();
+        this.getJobdetail(this.id_param);
+        this.sorts = true;
         });
   }
 }
