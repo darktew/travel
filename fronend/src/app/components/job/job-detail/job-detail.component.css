@@ -1,5 +1,5 @@
 .example-card {
-    max-width: 400px;
+    max-width: 100%;
     font-family: 'Prompt', sans-serif;
   }
   agm-map {
@@ -10,7 +10,6 @@
     margin-bottom: 2px;
   }
   .box {
-    border: 1px solid black;
     padding:  10px 20px;
     display: inline-block;
    }
@@ -20,7 +19,6 @@
    }
    .box.sortable.dragging {
       background: none;
-      border: 1px dashed black;
       color: transparent;
    }
   .list-address{
@@ -33,4 +31,23 @@
     -ms-user-select: none;      
     user-select: none;
   }
+  .disablelist {
+    pointer-events: none;
+  }
+  .disablemap {
+    pointer-events: none;
+    opacity: 0.4;
+  }
+  .right:focus{
+    background-color: azure!important;
+  }
+  .buttonedit {
+    float: right;
+  }
+  input{
+    border: none;
+    border-color: transparent;
+    border-bottom: none!important;
+    box-shadow: none!important;
+}
    

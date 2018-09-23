@@ -2,27 +2,38 @@
     <div class="row">
         <div class="col s6">
             <mat-card class="example-card">
+                <button mat-icon-button (click)="disablelist()" class="right">
+                    <i class="low material-icons">edit</i>
+                </button>
                 <mat-card-header>
                     <div mat-card-avatar class="example-header-image"></div>
                     <mat-card-title>รายละเอียด</mat-card-title>
+                    <mat-card-subtitle>ชื่อรอบงาน {{ selectJob.jobname}}</mat-card-subtitle>
                 </mat-card-header>
-                <mat-card-content>
-                    <!-- <div class="disable-select" *ngFor="let j of dropzone" appDraggale>
-                        {{j.address}}
-                        <div class="box" *appDraggableHelper>
-                            {{j.address}}
-                          </div>
-                    </div> -->
-
-                    
-                    
-                    <ul *ngFor = "let j of job" class="list-address" appSortableList (sort)="sort($event)" >
-                        <li  class="box" *ngFor="let d of j.dropzone" appSortable>{{ d.address }}
-                            <div class="box" *appDraggableHelper> {{d.address}}</div>
-                        </li>
-                    </ul>
-                </mat-card-content>
-                <button mat-raised-button color="warn" (click)="goback()" class="back">Back</button>
+                <form (ngSubmit)="editJobByUser(userlist)" #userlist="ngForm">
+                    <mat-card-content>
+                        <mat-form-field *ngIf="!sorts">
+                            <input matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="selectJob.jobname">
+                        </mat-form-field>
+                        <!-- Set list sort dragable -->
+                        <div [ngClass]="{'disablelist': sorts}">
+                            <ul *ngFor="let j of job" class="list-address" appSortableList (sort)="sort($event)">
+                                <li class="box" *ngFor="let d of j.dropzone" appSortable>{{ d.address }}
+                                    <div class="box" *appDraggableHelper> {{d.address}}</div>
+                                </li>
+                            </ul>
+                        </div>
+                    </mat-card-content>
+                    <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="selectJob._id">
+                    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="selectJob.id">
+                    <input type="text" placeholder="ที่อยู่" name="address" #address="ngModel" [(ngModel)]="selectJob.address">
+                    <input type="hidden" placeholder="lat" name="lattitude" #lattitude="ngModel" [(ngModel)]="selectJob.lattitude">
+                    <input type="hidden" placeholder="lng" name="longtitude" #longtitude="ngModel" [(ngModel)]="selectJob.longtitude">
+                    <mat-card-actions>
+                        <button *ngIf="sorts" mat-raised-button color="warn" (click)="goback()" class="buttonedit">Back</button>
+                        <button *ngIf="!sorts" mat-raised-button type="submit" class="buttonedit">แก้ไข</button>
+                    </mat-card-actions>
+                </form>
             </mat-card>
         </div>
         <div class="col s6">
@@ -32,22 +43,18 @@
                     <mat-card-title>แผนที่</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom">
-                        <!-- <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker> -->
-                        <!-- <ng-container>
+                    <div [ngClass]="{'disablemap': !sorts}">
+                        <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom">
+                            <!-- <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker> -->
+                            <!-- <ng-container>
                             <agm-polyline [strokeColor]="'blue'">
                                 <agm-polyline-point *ngFor="let i of dis" [latitude]="i.lattitude" [longitude]="i.longtitude"></agm-polyline-point>
                             </agm-polyline>
                         </ng-container> -->
-                        <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints">
-
-                        </agm-direction>
-                    </agm-map>
-                    
+                            <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
+                        </agm-map>
+                    </div>
                 </mat-card-content>
-               
-                
-               
             </mat-card>
         </div>
     </div>
