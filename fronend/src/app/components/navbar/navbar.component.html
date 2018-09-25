@@ -1,0 +1,25 @@
+<mat-toolbar class="mat-toolbar">
+    <mat-toolbar-row>
+      <a routerLink="/" style="color:black" mat-button style="font-size: 20px">TravelSaleMan</a>
+      <a routerLink="/customer" mat-button style="width: 20px;" routerLinkActive="active">ข้อมูลลูกค้า</a>
+      <a routerLink="/job" mat-button style="width: 20px;" routerLinkActive="active">ข้อมูลรอบงาน</a>
+      <span class="example-spacer"></span>
+      <a *ngIf="!authService.loggedIn()"  routerLink="/profile"  routerLinkActive="active" class="loginandregister">ข้อมูลส่วนตัว</a>
+      <a *ngIf="authService.loggedIn()" routerLink="/login"  routerLinkActive="active" class="loginandregister">เข้าสู่ระบบ</a>
+      <a  *ngIf="authService.loggedIn()" routerLink="/register"  routerLinkActive="active" class="loginandregister">สมัครสมาชิก</a>
+      <a  *ngIf="!authService.loggedIn()" href="#" (click)="onLogoutClick()"  class="loginandregister">ออกจากระบบ</a>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <!-- <nav>
+    <div class="nav-wrapper">
+      <a routerLink="'/'" routerLinkActive="active" class="brand-logo">TravelSaleMan</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="sass.html">Sass</a></li>
+        <li><a href="badges.html">Components</a></li>
+        <li><a href="collapsible.html">JavaScript</a></li>
+      </ul>
+    </div>
+  </nav> -->
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>

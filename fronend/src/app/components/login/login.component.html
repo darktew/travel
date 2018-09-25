@@ -1,0 +1,12 @@
+<h2 class="header">เข้าสู่ระบบ</h2>
+<form (submit)="onLoginSubmit()">
+  <div class="example-container">
+    <mat-form-field class="example-full-width">
+      <input type="text" matInput placeholder="Username" [(ngModel)]="username" name="username">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <input type="password" matInput placeholder="Password" [(ngModel)]="password" name="password">
+    </mat-form-field>
+    <button type="submit" mat-button>เข้าสู่ระบบ</button>
+  </div>
+</form>

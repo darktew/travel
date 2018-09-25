@@ -1,0 +1,22 @@
+
+<div class="container">
+  <h2 class="header">สมัครสมาชิก</h2>
+  <flash-messages></flash-messages>
+  <form (submit)="onRegisterSubmit()">
+    <div class="example-container">
+      <mat-form-field>
+        <input type="text" matInput placeholder="ชื่อ" [(ngModel)]="name" name="name">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="text" matInput placeholder="รหัสผู้ใช้" [(ngModel)]="username" name="username">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="email" matInput placeholder="อีเมล์" [(ngModel)]="email" name="email">
+      </mat-form-field>
+      <mat-form-field>
+        <input type="password" matInput placeholder="รหัสผ่าน" [(ngModel)]="password" name="password">
+      </mat-form-field>
+      <button mat-button type="submit" >สมัครสมาชิก</button>
+    </div>
+  </form>
+</div>

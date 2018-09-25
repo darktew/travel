@@ -1,0 +1,46 @@
+.example-container {
+    position: absolute;
+    top: 60px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    border: 2px;
+    border-color: black;
+  }
+  
+  .example-sidenav {
+    display: flex;
+    align-items: top;
+    justify-content: center;
+    width: 200px;
+    border-color: black;
+    border: 2px;
+  }
+  a {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-family: 'Prompt', sans-serif;
+  }
+  a.active{
+    color: blue;
+  }
+  .example-spacer {
+    flex: 1 1 auto;
+    font-family: 'Prompt', sans-serif;
+  }
+  .loginandregister {
+    font-size: 15px!important;
+    width: 100px;
+    color: black;
+    font-family: 'Prompt', sans-serif;
+  }
+  .mat-toolbar {
+    background: #ff5252;
+    font-family: 'Prompt', sans-serif;
+  }
+  
+  
+  
+  

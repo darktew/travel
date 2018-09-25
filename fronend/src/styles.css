@@ -3,12 +3,6 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 
-nav a.active {
-  color: aqua;
-}
-.mat-toolbar {
-  font-family: 'Prompt', sans-serif;
-}
 body {
   display: flex;
   min-height: 100vh;

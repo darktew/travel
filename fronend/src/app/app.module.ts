@@ -3,7 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-
 import { RouterModule, Routes } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
@@ -34,10 +33,27 @@ import { JobComponent } from './components/job/job.component';
 import { JobCreateComponent } from './components/job/job-create/job-create.component';
 import { DraggaleModule } from './draggale/draggale.module';
 import { JobDetailComponent } from './components/job/job-detail/job-detail.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
+import {FlashMessagesModule} from 'angular2-flash-messages';
+import { HttpModule } from '@angular/http';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { JwtModule } from '@auth0/angular-jwt';
+import { AuthGuard }  from '../app/guards/auth.guards';
 
+export function tokenGetter() {
+  return localStorage.getItem('id_token');
+}
 const routes: Routes = [
   {path: '', redirectTo: '', pathMatch: 'full'},
+  {path: '', component: NavbarComponent},
+  {path: 'register', component: RegisterComponent,},
+  {path: 'login', component: LoginComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'customer', component: EmployeesComponent},
   {path: 'customer/:id', component: EmployeeDetailComponent},
   // {path: 'customer/create', component: EmployeeCreateComponent},
@@ -58,12 +74,18 @@ const routes: Routes = [
     EmployeeDetailComponent,
     JobComponent,
     JobCreateComponent,
-    JobDetailComponent
+    JobDetailComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
+    ProfileComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    HttpModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatTableModule,
@@ -81,6 +103,14 @@ const routes: Routes = [
     NgxPaginationModule,
     DraggaleModule,
     ReactiveFormsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:3000'],
+        blacklistedRoutes: ['localhost:3001/api/users']
+      }
+    }),
+    FlashMessagesModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw',
       libraries: ['places']
@@ -100,7 +130,7 @@ const routes: Routes = [
     MatDialogModule,
     MatFormFieldModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   entryComponents: [
     EmployeeCreateComponent,
     PositionCreateComponent,
