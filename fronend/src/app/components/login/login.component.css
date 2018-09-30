@@ -6,8 +6,14 @@
     padding-top: 50px;
     padding-left: 20px;
   }
-  input {
+  .register {
+    font-family: 'Prompt', sans-serif;
+    padding-left: 148px;
+    padding-top: 50px;
+  }
+  .input {
     padding-left: 20px;
+    font-family: 'Prompt', sans-serif;
   }
 .example-card {
   width: 400px;
@@ -23,12 +29,22 @@
 .input {
   width: 80%!important;
 }
+.input-field .prefix.active {
+  color: rgba(30, 150, 187, 0.993)!important;
+ 
+}
+.input:not(.brower-default):focus:not([readonly])+label {
+  color: rgba(30, 150, 187, 0.993)!important;
+  background: transparent;
+  
+}
 .button-login {
   font-family: 'Prompt', sans-serif;
   background: rgba(30, 150, 187, 0.993);
   color: white;
   margin-left: 45px;
   width: 80%;
+  margin-bottom: 10px;
 }
 .toolbar-login {
   background: rgba(24, 174, 219, 0.747);
@@ -64,6 +80,7 @@
   margin-top: 100px!important;
   -webkit-animation: slideInLeft 0.5s linear;
   animation: slideInLeft 0.5s linear;
+  
 }
 .moveimage {
   -webkit-animation:  move 1s both;

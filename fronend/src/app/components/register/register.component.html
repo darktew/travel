@@ -1,22 +1,41 @@
+<mat-card class="card-register">
 
-<div class="container">
-  <h2 class="header">สมัครสมาชิก</h2>
-  <flash-messages></flash-messages>
-  <form (submit)="onRegisterSubmit()">
-    <div class="example-container">
-      <mat-form-field>
-        <input type="text" matInput placeholder="ชื่อ" [(ngModel)]="name" name="name">
-      </mat-form-field>
-      <mat-form-field>
-        <input type="text" matInput placeholder="รหัสผู้ใช้" [(ngModel)]="username" name="username">
-      </mat-form-field>
-      <mat-form-field>
-        <input type="email" matInput placeholder="อีเมล์" [(ngModel)]="email" name="email">
-      </mat-form-field>
-      <mat-form-field>
-        <input type="password" matInput placeholder="รหัสผ่าน" [(ngModel)]="password" name="password">
-      </mat-form-field>
-      <button mat-button type="submit" >สมัครสมาชิก</button>
-    </div>
-  </form>
-</div>
+  <div class="header">สมัครสมาชิก</div>
+  <div class="row" style="padding-top: 30px; ">
+    <form (submit)="onRegisterSubmit()" class="col s12">
+      <div class="row" style="margin-left: 20px;margin-bottom: 0px; ">
+        <div class="input-field col s6 " style="width: 100%; ">
+          <i class="material-icons prefix">assignment_ind</i>
+          <input id="name" type="text" [(ngModel)]="name" name="name" class="input">
+          <label for="name">ชื่อ</label>
+        </div>
+      </div>
+      <div class="row" style="margin-left: 20px; margin-bottom: 0px; ">
+        <div class="input-field col s6"  style="width: 100%; ">
+          <i class="material-icons prefix">account_circle</i>
+          <input id="username" type="text" [(ngModel)]="username" name="username" class="input">
+          <label for="username">รหัสผู้ใช้</label>
+        </div>
+      </div>
+      <div class="row" style="margin-left: 20px; margin-bottom: 0px; ">
+        <div class="input-field col s6"  style="width: 100%; ">
+          <i class="material-icons prefix">email</i>
+          <input id="emaill" type="email"  [(ngModel)]="email" name="email" class="input">
+          <label for="email">อีเมล์</label>
+        </div>
+      </div>
+      <div class="row" style="margin-left: 20px;margin-bottom: 20px; ">
+        <div class="input-field col s6"  style="width: 100%; ">
+          <i class="material-icons prefix">lock</i>
+          <input id="password" type="password" [(ngModel)]="password" name="password" class="input">
+          <label for="password">รหัสผ่าน</label>
+        </div>
+      </div>
+      <button mat-button type="submit" class="button-register" >สมัครสมาชิก</button>
+      <div class="go-login">
+        คุณมีบัญชีผู้ใช้แล้ว ?
+        <a *ngIf="authService.loggedIn()" routerLink="/login" routerLinkActive="active" class="login">เข้าสู่ระบบ</a>
+      </div>
+    </form>
+  </div>
+</mat-card>

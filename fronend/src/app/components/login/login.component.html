@@ -13,23 +13,23 @@
       <div class="header">เข้าสู่ระบบ</div>
       <div class="row">
         <form (submit)="onLoginSubmit()" class="col s12">
-          <div class="row" style="padding-top: 30px; ">
+          <div class="row" style="padding-top: 30px; margin-bottom: 0px; ">
             <div class="input-field col s6" style="width: 100%; ">
               <i class="material-icons prefix">person</i>
               <input id="username" type="text" [(ngModel)]="username" name="username" class="input">
-              <label for="username">Username</label>
+              <label for="username" style="font-family: 'Prompt', sans-serif;">รหัสผู้ใช้</label>
             </div>
           </div>
-          <div class="row">
+          <div class="row" style="padding-top: 30px; margin-bottom: 0px; ">
             <div class="input-field col s6" style="width: 100%;">
               <i class="material-icons prefix">lock</i>
               <input id="password" type="password" [(ngModel)]="password" name="password" class="input">
-              <label for="password">Password</label>
+              <label for="password" style="font-family: 'Prompt', sans-serif;">รหัสผ่าน</label>
             </div>
           </div>
           
           <button type="submit" mat-button class="button-login">เข้าสู่ระบบ</button>
-      
+          <a *ngIf="authService.loggedIn()" routerLink="/register" routerLinkActive="active" class="register">สมัครสมาชิก</a>
         </form>
       </div>
       

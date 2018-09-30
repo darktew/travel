@@ -7,13 +7,57 @@
     width: 100%;
     background-color: white;
   }
-  input{
-    border: none;
-    border-color: transparent;
-    border-bottom: none!important;
-    box-shadow: none!important;
+  .input{
+   color: white!important;
+   border-color: white!important;
+   width: 80%!important;
 }
 .rounded {
   align-items: center;
+}
+.header {
+  font-family: 'Prompt', sans-serif;
+  font-size: 28px;
+  color: white;
+  padding-top: 50px;
+  padding-left: 30px;
+}
+.card-register {
+  width: 500px;
+  height: 620px;
+  margin-top: 50px;
+  margin-left: 30%;
+  box-shadow: 3px 4px 5px;
+  border-radius: 3%;
+  background-color:  rgba(30, 150, 187, 0.993);
+  -webkit-animation: zoomIn 0.5s linear;
+  animation:zoomIn 0.5s linear;
+}
+.button-register {
+  width: 75%;
+  background-color: white;
+  color: rgba(30, 150, 187, 0.993);
+  margin-left: 75px;
+  font-family: 'Prompt', sans-serif;
+  margin-bottom: 20px;
+}
+.go-login{
+  padding-left: 130px;
+  color: white;
+  font-family: 'Prompt', sans-serif;
+}
+.login{
+  color: black;
+}
+.input-field .prefix.active {
+  color: white!important;
+}
+.input:not(.brower-default):focus:not([readonly])+label {
+  color: white!important;
+  background: transparent;
+}
+label {
+  color: white;
+  font-family: 'Prompt', sans-serif;
 }
 
