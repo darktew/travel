@@ -2,12 +2,14 @@
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-
 body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
-  font-family: 'Prompt', sans-serif;
+  font-family: 'Prompt', sans-serif, Helvetica, sans-serif;
+}
+* {
+  box-sizing: border-box;
 }
 main {
   flex: 1 0 auto;
@@ -17,6 +19,9 @@ main {
     bottom: 30px;
     right: 0;
     width: 300px;
+}
+.mat-fab:not([class*=mat-elevation-z]) {
+  background-color: rgba(28, 93, 212, 0.884);
 }
 .draggale{
   cursor: move;
@@ -28,4 +33,5 @@ main {
 }
 .draggable-helper-overlay {
   pointer-events: none !important;
+  
 }

@@ -1,61 +1,94 @@
-<div class="container">
-    <div class="row">
-        <div class="col s6">
-            <mat-card class="example-card">
-                <button mat-icon-button (click)="disablelist()" class="right">
-                    <i class="low material-icons">edit</i>
-                </button>
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title>รายละเอียด</mat-card-title>
-                    <mat-card-subtitle>ชื่อรอบงาน {{ selectJob.jobname}}</mat-card-subtitle>
-                </mat-card-header>
-                <form (ngSubmit)="editJobByUser(userlist)" #userlist="ngForm">
-                    <mat-card-content>
-                        <mat-form-field *ngIf="!sorts">
-                            <input matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="selectJob.jobname">
-                        </mat-form-field>
-                        <!-- Set list sort dragable -->
-                        <div [ngClass]="{'disablelist': sorts}">
-                            <ul *ngFor="let j of job" class="list-address" appSortableList (sort)="sort($event)">
-                                <li class="box" *ngFor="let d of j.dropzone" appSortable>{{ d.address }}
-                                    <div class="box" *appDraggableHelper> {{d.address}}</div>
-                                </li>
-                            </ul>
-                        </div>
-                    </mat-card-content>
-                    <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="selectJob._id">
-                    <input type="hidden" name="id" #id="ngModel" [(ngModel)]="selectJob.id">
-                    <input type="hidden" placeholder="ที่อยู่" name="address" #address="ngModel" [(ngModel)]="selectJob.address">
-                    <input type="hidden" placeholder="lat" name="lattitude" #lattitude="ngModel" [(ngModel)]="selectJob.lattitude">
-                    <input type="hidden" placeholder="lng" name="longtitude" #longtitude="ngModel" [(ngModel)]="selectJob.longtitude">
-                    <mat-card-actions>
-                        <button *ngIf="sorts" mat-raised-button color="warn" (click)="goback()" class="buttonedit">Back</button>
-                        <button *ngIf="!sorts" mat-raised-button type="submit" class="buttonedit">แก้ไข</button>
-                    </mat-card-actions>
-                </form>
-            </mat-card>
-        </div>
-        <div class="col s6">
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image"></div>
-                    <mat-card-title>แผนที่</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                    <div [ngClass]="{'disablemap': !sorts}">
-                        <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom">
-                            <!-- <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker> -->
-                            <!-- <ng-container>
+<mat-card class="example-card">
+    <a *ngIf="sorts" (click)="goback()" class="buttonback">
+        <mat-icon>arrow_back</mat-icon>
+    </a>
+    <button mat-icon-button (click)="disablelist()" class="right">
+        <i class="low material-icons">edit</i>
+    </button>
+    <form (ngSubmit)="editJobByUser(userlist)" #userlist="ngForm">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>
+            <span *ngIf="sorts">ชื่อรอบงาน {{ selectJob.jobname}}</span>
+            <mat-form-field *ngIf="!sorts">
+                    <input matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="selectJob.jobname">
+            </mat-form-field>
+        </mat-card-title>
+        <mat-card-subtitle>รายละเอียด</mat-card-subtitle>
+    </mat-card-header>
+        <mat-card-content>    
+            <div [ngClass]="{'disablemap': !sorts}">
+                <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom">
+                    <!-- <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker> -->
+                    <!-- <ng-container>
                             <agm-polyline [strokeColor]="'blue'">
                                 <agm-polyline-point *ngFor="let i of dis" [latitude]="i.lattitude" [longitude]="i.longtitude"></agm-polyline-point>
                             </agm-polyline>
                         </ng-container> -->
-                            <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
-                        </agm-map>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </div>
-</div>
+                    <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
+                </agm-map>
+            </div>
+            
+            <!-- Set list sort dragable -->
+            <!-- <div [ngClass]="{'disablelist': sorts}">
+                <ul *ngFor="let j of job" class="list-address" appSortableList (sort)="sort($event)">
+                    <li class="box" *ngFor="let d of j.dropzone" appSortable>{{ d.address }}
+                        <div class="box" *appDraggableHelper> {{d.address}}</div>
+                    </li>
+                </ul>
+            </div> -->
+            <!-- <div [ngClass]="{'disablelist': sorts}">
+                    <section id="timeline" class="timeline-outer">
+                      <div class="container" id="content">
+                        <div class="row">
+                          <div class="col s12 m12 l12">
+                            <h1 class="blue-text lighten-1 header">ไทม์ไลน์เส้นทางการขนส่ง</h1>
+                            
+                            <ul *ngFor="let j of job;let i = index" class="timeline" appSortableList (sort)="sort($event)">
+                                
+                              <li class="event" *ngFor="let d of j.dropzone" appSortable data-date="2015/Present">
+                                 <div> {{ d.address }} </div>
+                                  <div class="event" *appDraggableHelper> {{d.address}}</div>
+                              </li>
+                            </ul>
+                        
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                  </div> -->
+                  <button *ngIf="!sorts" mat-mini-fab color="black" (click)="AddJob(data)" class="buttonadd" matTooltip="เพิ่มเส้นทางในการขนส่ง" 
+                  matTooltipClass="font-tooltip" 
+                  [matTooltipPosition]="position[0]"
+                  aria-label="Button that displays a tooltip when focused or hovered over">
+                        <i class="low material-icons">add</i>
+                      </button>
+                  <div [ngClass]="{'disablelist': sorts}">
+                      
+                      <h3 class="timeline-header"> ไทม์ไลน์เส้นทางการขนส่ง</h3>
+                      <ul class="timeline scale-transition" *ngFor="let j of job;let i = index" appSortableList (sort)="sort($event)">
+                          <li  *ngFor="let d of j.dropzone" appSortable>
+                              <div class="item">
+                                  <span>
+                                    {{ i }}
+                                  </span>
+                                  <div class="content">
+                                      {{ d.address }}
+                                      <div class="event" *appDraggableHelper> {{d.address}}</div>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>  
+        </mat-card-content>
+        <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="selectJob._id">
+        <input type="hidden" name="id" #id="ngModel" [(ngModel)]="selectJob.id">
+        <input type="hidden" placeholder="ที่อยู่" name="address" #address="ngModel" [(ngModel)]="selectJob.address">
+        <input type="hidden" placeholder="lat" name="lattitude" #lattitude="ngModel" [(ngModel)]="selectJob.lattitude">
+        <input type="hidden" placeholder="lng" name="longtitude" #longtitude="ngModel" [(ngModel)]="selectJob.longtitude">
+        <mat-card-actions>
+            <button *ngIf="!sorts" mat-raised-button type="submit" class="buttonedit">บันทึก</button>
+          
+        </mat-card-actions>
+    </form>
+</mat-card>

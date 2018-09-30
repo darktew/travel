@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Job } from '../../../models/job';
 import { JobService } from '../../../services/job.service';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatDialog, TooltipPosition } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { SortEvent } from '../../../draggale/sortable-list.directive';
 import { NgForm } from '@angular/forms';
+import { JobCreateComponent } from '../job-create/job-create.component';
 declare var M: any;
 @Component({
   selector: 'app-job-detail',
   templateUrl: './job-detail.component.html',
-  styleUrls: ['./job-detail.component.css']
+  styleUrls: ['./job-detail.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class JobDetailComponent implements OnInit {
+  position: TooltipPosition[] = ['right']
   job: Job[];
   dis: any;
   dropzone: any;
@@ -20,13 +23,15 @@ export class JobDetailComponent implements OnInit {
   selectJob: Job;
   sorts: boolean;
   id_param: any;
+  isPopupOpened = false;
   public origin: any;
   public destination: any;
   public waypoints: any;
   constructor(
     private jobService: JobService,
     public route: ActivatedRoute,
-    public location: Location
+    public location: Location,
+    private dialog?: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -37,8 +42,27 @@ export class JobDetailComponent implements OnInit {
     this.sorts = true;
     this.id_param = id;
   }
+  AddJob() {
+    this.isPopupOpened = true;
+    this.sorts = true;
+    console.log(this.dropzone);
+    const dialogRef = this.dialog.open(JobCreateComponent, {
+      width: '1000px',
+      height: '500px',
+      data: {
+        data: this.dropzone,
+        Id: this.id_param,
+        jobname: this.selectJob.jobname
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.isPopupOpened = false;
+      this.sorts = false;
+    });
+  }
   goback() {
     this.location.back();
+    this.sorts = false;
   }
   disablelist() {
     if (this.sorts == true) {

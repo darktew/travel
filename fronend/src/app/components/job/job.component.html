@@ -1,8 +1,6 @@
-<div class="container">
-  <h3>ข้อมูลรอบงาน</h3>
-</div>
+<mat-card class="example-card">
+  <h3>ข้อมูลการจัดส่ง</h3>
 <div class="row">
-  <div class="container">
     <!-- Search Item -->
     <div class="input-field col s12">
       <input type="text" name="name" (keyup)="applyFilter($event.target.value)" id="n">
@@ -46,8 +44,9 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
-  </div>
+
 </div>
+</mat-card>
 <footer class="footer">
   <div class="container">
     <button mat-fab (click)="AddJob()" class="right">

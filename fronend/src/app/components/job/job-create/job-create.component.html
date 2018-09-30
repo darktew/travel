@@ -13,8 +13,8 @@
         <input type="hidden" placeholder="lat" name="lattitude" #lattitude="ngModel" [(ngModel)]="select.lattitude">
         <input type="hidden" placeholder="lng" name="longtitude" #longtitude="ngModel" [(ngModel)]="select.longtitude">
         <br>
-        <mat-form-field>
-          <input matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="select.jobname">
+        <mat-form-field  >
+          <input [hidden]="detailCheck"  matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="select.jobname">
         </mat-form-field>
         <mat-card class="example-card">
           <mat-card-header>

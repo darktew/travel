@@ -1,16 +1,68 @@
-<mat-toolbar class="mat-toolbar">
-    <mat-toolbar-row>
+<mat-sidenav-container class="example-container "  [ngClass]="{'checklogin': authService.loggedIn()}" >
+  <mat-sidenav mode="side" opened class="sidenav"  *ngIf="!authService.loggedIn()" >
+    <mat-toolbar class="mat-toolbar-sidenav" >
       <a routerLink="/" style="color:black" mat-button style="font-size: 20px">TravelSaleMan</a>
-      <a routerLink="/customer" mat-button style="width: 20px;" routerLinkActive="active">ข้อมูลลูกค้า</a>
-      <a routerLink="/job" mat-button style="width: 20px;" routerLinkActive="active">ข้อมูลรอบงาน</a>
-      <span class="example-spacer"></span>
-      <a *ngIf="!authService.loggedIn()"  routerLink="/profile"  routerLinkActive="active" class="loginandregister">ข้อมูลส่วนตัว</a>
-      <a *ngIf="authService.loggedIn()" routerLink="/login"  routerLinkActive="active" class="loginandregister">เข้าสู่ระบบ</a>
-      <a  *ngIf="authService.loggedIn()" routerLink="/register"  routerLinkActive="active" class="loginandregister">สมัครสมาชิก</a>
-      <a  *ngIf="!authService.loggedIn()" href="#" (click)="onLogoutClick()"  class="loginandregister">ออกจากระบบ</a>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <!-- <nav>
+    </mat-toolbar>
+    <div class="imageprofile">
+      <a><img src="assets/img/download.png" class="circle"></a>
+    </div>
+    <div class="process">
+    <div class="button">
+        <a class="button-display " routerLink="/home" mat-button routerLinkActive="active">
+          <mat-icon class="icon-home">home</mat-icon>หน้าหลัก
+        </a>
+      </div>
+    <div class="button">
+      <a class="button-display" routerLink="/customer" mat-button routerLinkActive="active">
+        <mat-icon class="icon-home">account_circle</mat-icon>ข้อมูลลูกค้า
+      </a>
+    </div>
+    <div class="button">
+        <a class="button-display" routerLink="/job"   mat-button routerLinkActive="active">
+          <mat-icon class="icon-home">directions_car</mat-icon>ข้อมูลการจัดส่ง
+        </a>
+    </div>
+  </div>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+    <mat-toolbar class="mat-toolbar-content" *ngIf="!authService.loggedIn()">
+      <mat-toolbar-row>
+        <span class="example-spacer"></span>
+        <a *ngIf="authService.loggedIn()" routerLink="/login" routerLinkActive="active" class="loginandregister">เข้าสู่ระบบ</a>
+        <a *ngIf="authService.loggedIn()" routerLink="/register" routerLinkActive="active" class="loginandregister">สมัครสมาชิก</a>
+        <!-- <div class="fixed-action-btn">
+            <a mat-icon-button class="btn">
+                <mat-icon>menu</mat-icon>
+            </a>
+            <ul>
+              <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
+              <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
+              <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
+              <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+            </ul>
+          </div> -->
+        <button *ngIf="!authService.loggedIn()" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" >
+        <a *ngIf="!authService.loggedIn()" routerLink="/profile" routerLinkActive="active" class="loginandregister">ข้อมูลส่วนตัว</a>
+        <a *ngIf="!authService.loggedIn()" href="#" (click)="onLogoutClick()" class="loginandregister">ออกจากระบบ</a>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="main-content">
+      <router-outlet></router-outlet>
+      
+    </div>
+   
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+
+
+
+<!-- <nav>
     <div class="nav-wrapper">
       <a routerLink="'/'" routerLinkActive="active" class="brand-logo">TravelSaleMan</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
@@ -20,6 +72,3 @@
       </ul>
     </div>
   </nav> -->
-  <div class="container">
-    <router-outlet></router-outlet>
-  </div>

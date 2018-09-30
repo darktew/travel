@@ -1,32 +1,4 @@
-.example-container {
-    position: absolute;
-    top: 60px;
-    bottom: 60px;
-    left: 0;
-    right: 0;
-    border: 2px;
-    border-color: black;
-  }
-  
-  .example-sidenav {
-    display: flex;
-    align-items: top;
-    justify-content: center;
-    width: 200px;
-    border-color: black;
-    border: 2px;
-  }
-  a {
-    width: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-family: 'Prompt', sans-serif;
-  }
-  a.active{
-    color: blue;
-  }
-  .example-spacer {
+ .example-spacer {
     flex: 1 1 auto;
     font-family: 'Prompt', sans-serif;
   }
@@ -37,9 +9,71 @@
     font-family: 'Prompt', sans-serif;
   }
   .mat-toolbar {
-    background: #ff5252;
     font-family: 'Prompt', sans-serif;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
   }
+  .example-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+  }
+  .mat-toolbar-sidenav {
+    background-color:rgba(43, 43, 43, 0.89);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    color: white;
+  }
+  
+  .sidenav {
+    background-color:rgba(30, 28, 34, 0.952);
+    margin-right: 10px;  
+    color: white;
+    width: 250px;
+  }
+  .imageprofile {
+    margin: auto;
+    padding-top: 20px;
+    padding-left: 70px;
+  }
+  .sidenav-content {
+   padding-left: 5px;
+  }
+  .circle {
+    height: 100px;
+    width: 100px;
+  }
+  .process {
+    padding-top: 20px; 
+  }
+  .button {
+    width: 100%;
+  }
+  .button-display {
+    font-family: 'Prompt', sans-serif;
+    width: 100%;
+    height: 60px;
+    padding-right: 50px;
+    padding-top: 10px;
+  }
+  .icon-home {
+    padding-top: 5px;
+    float: left;
+  }
+  .main-content {
+    padding-top: 20px;
+    padding-left: 10px;
+    height: 721px;
+  }
+  .checklogin {
+    background: rgba(43, 43, 43, 0.89)
+  }
+
+ 
+ 
+
+
   
   
   

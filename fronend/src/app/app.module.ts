@@ -1,7 +1,7 @@
 import { EmployeeFilterPipe } from './components/employees/employee-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 
 import { RouterModule, Routes } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
@@ -21,6 +21,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './components/employees/employees.component';
@@ -37,7 +38,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { ProfileComponent } from './components/profile/profile.component';
-
 import {FlashMessagesModule} from 'angular2-flash-messages';
 import { HttpModule } from '@angular/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -48,8 +48,8 @@ export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
 const routes: Routes = [
-  {path: '', redirectTo: '', pathMatch: 'full'},
-  {path: '', component: NavbarComponent},
+  {path: '', redirectTo:  '/login', pathMatch: 'full'},
+  {path: '', component: NavbarComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent,},
   {path: 'login', component: LoginComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
@@ -87,6 +87,7 @@ const routes: Routes = [
     HttpClientModule,
     HttpModule,
     MatToolbarModule,
+    MatTooltipModule,
     MatFormFieldModule,
     MatTableModule,
     MatPaginatorModule,

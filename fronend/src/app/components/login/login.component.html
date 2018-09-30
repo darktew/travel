@@ -1,12 +1,38 @@
-<h2 class="header">เข้าสู่ระบบ</h2>
-<form (submit)="onLoginSubmit()">
-  <div class="example-container">
-    <mat-form-field class="example-full-width">
-      <input type="text" matInput placeholder="Username" [(ngModel)]="username" name="username">
-    </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <input type="password" matInput placeholder="Password" [(ngModel)]="password" name="password">
-    </mat-form-field>
-    <button type="submit" mat-button>เข้าสู่ระบบ</button>
+<div class="row">
+  <div class="col s6">
+    <mat-card class="welcome-login">
+      <div class="moveimage">
+        <img src="assets/img/travel.png" class="image">
+        <h3 class="welcome">TRAVEL SALEMAN</h3>
+        <div class="subwelcome" >ยินดีต้อนรับ</div>  
+    </div>
+    </mat-card>
   </div>
-</form>
+  <div class="col s6">
+    <mat-card class="example-card animated zoomIn">
+      <div class="header">เข้าสู่ระบบ</div>
+      <div class="row">
+        <form (submit)="onLoginSubmit()" class="col s12">
+          <div class="row" style="padding-top: 30px; ">
+            <div class="input-field col s6" style="width: 100%; ">
+              <i class="material-icons prefix">person</i>
+              <input id="username" type="text" [(ngModel)]="username" name="username" class="input">
+              <label for="username">Username</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s6" style="width: 100%;">
+              <i class="material-icons prefix">lock</i>
+              <input id="password" type="password" [(ngModel)]="password" name="password" class="input">
+              <label for="password">Password</label>
+            </div>
+          </div>
+          
+          <button type="submit" mat-button class="button-login">เข้าสู่ระบบ</button>
+      
+        </form>
+      </div>
+      
+    </mat-card>
+  </div>
+</div>

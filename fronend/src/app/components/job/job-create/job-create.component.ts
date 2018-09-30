@@ -28,6 +28,7 @@ export class JobCreateComponent implements OnInit {
   employee: Employee;
   currentBox?: Object[];
   dropzone1: Position[] = [];
+  detailCheck:boolean = false;
   constructor(
     private dialogRef: MatDialogRef<JobCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -38,11 +39,13 @@ export class JobCreateComponent implements OnInit {
   ngOnInit() {
     this.getJob();
     this.getPosition();
+    
     if (this.data._id) {
       this.select = this.data;
     } else {
       this.select = new Job();
     }
+    
   }
   getJob() {
     this.jobservice.getJobs().subscribe(res => {
@@ -51,14 +54,12 @@ export class JobCreateComponent implements OnInit {
   }
   getPosition() {
     this.positionService.getPositions().subscribe(res => {
-      if (this.data._id) {
+      if (this.data._id && !this.data.data) {
         this.positionService.positions = res as Position[];
         this.dropzone1 = this.data.dropzone;
-        console.log('Position:', this.positionService.positions);
         // Set Dropzone
         let count = 0;
         for (let i = 0; i < this.dropzone1.length; i++) {
-          console.log('Length Dropzone', this.dropzone1.length);
           const p_id = this.dropzone1[i]._id;
           for (let j = 0; j < this.positionService.positions.length; j++) {
             if (p_id === this.positionService.positions[j]._id) {
@@ -68,10 +69,27 @@ export class JobCreateComponent implements OnInit {
             }
           }
         }
-        console.log('Count', count);
+      } else if(this.data.Id) {
+        this.detailCheck = true;
+        this.select.jobname = this.data.jobname;
+        this.select._id = this.data.Id
+        this.positionService.positions = res as Position[];
+        this.dropzone1 = this.data.data;
+        let count = 0;
+        for (let i = 0; i < this.dropzone1.length; i++) {
+          const p_id = this.dropzone1[i]._id;
+          for (let j = 0; j < this.positionService.positions.length; j++) {
+            if (p_id === this.positionService.positions[j]._id) {
+              this.positionService.positions.splice(j, 1);
+              count++;
+              break;
+            }
+          }
+        }
       } else {
         this.positionService.positions = res as Position[];
       }
+    
     });
   }
   goback(): void {
@@ -84,6 +102,12 @@ export class JobCreateComponent implements OnInit {
         M.toast({ html: 'Update Success' });
         this.dialogRef.close();
       });
+    } else if (this.data.Id) {
+      console.log(form.value,'form');
+      this.jobservice.putuserJob(form.value).subscribe(res => {
+        M.toast({html: 'Add Position Success'});
+        this.dialogRef.close();
+      })
     } else {
       // CREATE
       console.log(form.value, 'Form Add');
