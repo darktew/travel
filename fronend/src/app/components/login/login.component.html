@@ -2,9 +2,13 @@
   <div class="col s6">
     <mat-card class="welcome-login">
       <div class="moveimage">
-        <img src="assets/img/travel.png" class="image">
-        <h3 class="welcome">TRAVEL SALEMAN</h3>
-        <div class="subwelcome" >ยินดีต้อนรับ</div>  
+        <img src="assets/img/TRAVEL1.png" class="image">
+        <h3 class="welcome">ยินดีต้อนรับ</h3>
+        <div class="subwelcome" >
+          เป็นเว็ปไซต์ที่ให้บริการทางด้าน
+          <br>การขนส่งสินค้าที่มีระบบตัวช่วยตัดสินใจ
+          <br>ในการเลือกเส้นทาง
+        </div>  
     </div>
     </mat-card>
   </div>
@@ -12,7 +16,7 @@
     <mat-card class="example-card animated zoomIn">
       <div class="header">เข้าสู่ระบบ</div>
       <div class="row">
-        <form (submit)="onLoginSubmit()" class="col s12">
+        <form (submit)="onLoginSubmit()" #mylogin="ngForm" class="col s12">
           <div class="row" style="padding-top: 30px; margin-bottom: 0px; ">
             <div class="input-field col s6" style="width: 100%; ">
               <i class="material-icons prefix">person</i>
@@ -27,12 +31,12 @@
               <label for="password" style="font-family: 'Prompt', sans-serif;">รหัสผ่าน</label>
             </div>
           </div>
-          
-          <button type="submit" mat-button class="button-login">เข้าสู่ระบบ</button>
-          <a *ngIf="authService.loggedIn()" routerLink="/register" routerLinkActive="active" class="register">สมัครสมาชิก</a>
+         <div class="action">
+           <button type="submit" mat-button class="button-login" >เข้าสู่ระบบ</button>
+           <a href="#register" id="one" *ngIf="authService.loggedIn()" routerLink="/register" routerLinkActive="active" class="register">สมัครสมาชิก</a>
+          </div>
         </form>
       </div>
-      
     </mat-card>
   </div>
 </div>

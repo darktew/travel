@@ -20,6 +20,10 @@
     right: 0;
     background: #eee;
   }
+  .input {
+    padding-left: 20px;
+    font-family: 'Prompt', sans-serif;
+  }
   .mat-toolbar-sidenav {
     background-color:rgba(43, 43, 43, 0.89);
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
@@ -65,12 +69,32 @@
     padding-top: 20px;
     padding-left: 10px;
     height: 721px;
+    position: relative;
+  }
+  .main-content>* {
+    display: block;
   }
   .checklogin {
     background: rgba(43, 43, 43, 0.89)
   }
+  router-outlet{
+    display: none;
+  }
+  .hr {
+    width: 80%;
+  }
+  .button-img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+  }
+  .logo-travel {
+    margin-top: 15px;
+    margin-right: 20px;
+    width: 200px;
+    height: 200px;
+  }
 
- 
  
 
 

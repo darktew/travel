@@ -30,8 +30,6 @@
   box-shadow: 3px 4px 5px;
   border-radius: 3%;
   background-color:  rgba(30, 150, 187, 0.993);
-  -webkit-animation: zoomIn 0.5s linear;
-  animation:zoomIn 0.5s linear;
 }
 .button-register {
   width: 75%;

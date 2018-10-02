@@ -14,7 +14,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
-import {MatPaginatorModule, MatIconModule} from '@angular/material';
+import {MatPaginatorModule, MatIconModule, MatProgressBarBase} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -43,24 +43,24 @@ import { HttpModule } from '@angular/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard }  from '../app/guards/auth.guards';
-
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
 const routes: Routes = [
   {path: '', redirectTo:  '/login', pathMatch: 'full'},
-  {path: '', component: NavbarComponent, canActivate: [AuthGuard]},
-  {path: 'register', component: RegisterComponent,},
-  {path: 'login', component: LoginComponent},
+  {path: '', component: NavbarComponent, canActivate: [AuthGuard], data:{ depth: 4}},
+  {path: 'register', component: RegisterComponent, data: {depth: 2}},
+  {path: 'login', component: LoginComponent, data: {depth: 1}},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard], data:{ depth: 3}},
   {path: 'customer', component: EmployeesComponent},
   {path: 'customer/:id', component: EmployeeDetailComponent},
   // {path: 'customer/create', component: EmployeeCreateComponent},
   // {path: 'position', component: PositionComponent},
   {path: 'job', component: JobComponent},
   {path: 'job/detail/:id', component: JobDetailComponent},
-  {path: '**', component: PageNotFoundComponent}];
+  {path: '**', component: PageNotFoundComponent}
+];
 
 @NgModule({
   declarations: [

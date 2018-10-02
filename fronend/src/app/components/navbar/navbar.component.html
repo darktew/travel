@@ -1,7 +1,7 @@
-<mat-sidenav-container class="example-container " [ngClass]="{'checklogin': authService.loggedIn()}">
+<mat-sidenav-container class="example-container" [ngClass]="{'checklogin': authService.loggedIn()}">
   <mat-sidenav mode="side" opened class="sidenav" *ngIf="!authService.loggedIn()">
     <mat-toolbar class="mat-toolbar-sidenav">
-      <a routerLink="/" style="color:black" mat-button style="font-size: 20px">TravelSaleMan</a>
+      <img src="assets/img/TRAVEL2.png" class="logo-travel">
     </mat-toolbar>
     <div class="imageprofile">
       <a><img src="assets/img/download.png" class="circle"></a>
@@ -22,27 +22,31 @@
           <mat-icon class="icon-home">directions_car</mat-icon>ข้อมูลการจัดส่ง
         </a>
       </div>
+      <hr class="hr">
+      <div class="button">
+          <a *ngIf="!authService.loggedIn()" routerLink="/profile" mat-button routerLinkActive="active" class="button-display">
+            <mat-icon class="icon-home">person</mat-icon>ข้อมูลส่วนตัว
+          </a>
+        </div>
     </div>
+    <div class="button">
+        <a *ngIf="!authService.loggedIn()" href="#" (click)="onLogoutClick()" mat-button class="button-display">
+          <mat-icon class="icon-home">lock_open</mat-icon>ออกจากระบบ
+        </a>
+    </div>
+    
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <mat-toolbar class="mat-toolbar-content" *ngIf="!authService.loggedIn()">
       <mat-toolbar-row>
         <span class="example-spacer"></span>
-        <button *ngIf="!authService.loggedIn()" mat-icon-button [matMenuTriggerFor]="menu">
-          <mat-icon>menu</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <div class="row">
-            <ul>
-              <li><a *ngIf="!authService.loggedIn()" routerLink="/profile" routerLinkActive="active" class="loginandregister">ข้อมูลส่วนตัว</a></li>
-              <li><a *ngIf="!authService.loggedIn()" href="#" (click)="onLogoutClick()" class="loginandregister">ออกจากระบบ</a></li>
-            </ul>
-          </div>
-        </mat-menu>
+        <button mat-button disabled> 
+            <img src="assets/img/download.png" class="button-img">
+        </button> 
       </mat-toolbar-row>
     </mat-toolbar>
-    <div class="main-content">
-      <router-outlet></router-outlet>
+    <div class="main-content" [@routeAnimation]="getDept(myOutlet)">
+      <router-outlet #myOutlet="outlet"></router-outlet>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

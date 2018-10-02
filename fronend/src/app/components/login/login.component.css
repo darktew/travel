@@ -8,8 +8,7 @@
   }
   .register {
     font-family: 'Prompt', sans-serif;
-    padding-left: 148px;
-    padding-top: 50px;
+    margin-left: 148px;
   }
   .input {
     padding-left: 20px;
@@ -18,20 +17,21 @@
 .example-card {
   width: 400px;
   height: 500px;
-  margin-top: 50px;
+  margin-top: 95px;
   box-shadow: 3px 4px 5px;
   border-radius: 3%;
-  animation-duration: 3s;
-  animation-delay: 3s;
-  -webkit-animation-delay: 3s;
-  -webkit-animation-duration: 3s;
+  animation-duration: 1.7s;
+  animation-delay: 2.7s;
+  -webkit-animation-delay: 2.7s;
+  -webkit-animation-duration: 1.7s;
+  -webkit-transition: width 2s;
+  transition: width 2s;
 }
 .input {
   width: 80%!important;
 }
 .input-field .prefix.active {
   color: rgba(30, 150, 187, 0.993)!important;
- 
 }
 .input:not(.brower-default):focus:not([readonly])+label {
   color: rgba(30, 150, 187, 0.993)!important;
@@ -46,17 +46,22 @@
   width: 80%;
   margin-bottom: 10px;
 }
+
+
 .toolbar-login {
   background: rgba(24, 174, 219, 0.747);
   color: white;
   max-width: 100%;
 }
-
+.action {
+  -webkit-transition: all 0.45s ease-in-out;
+  transition: all 0.45s e;
+}
 .welcome-login {
   width: 600px;
   height: 450px;
   margin-left: 60%;
-  margin-top: 80px;
+  margin-top: 120px;
   box-shadow: 3px 4px 5px;
   border-radius: 3%;
   background: rgba(30, 150, 187, 0.993);
@@ -67,7 +72,8 @@
   font-family: 'Prompt', sans-serif;
 }
 .welcome {
-  padding-left: 165px;
+  margin-top: -100px;
+  padding-left: 210px;
   font-size: 28px;
   animation: zoomIn 1s ;
   -webkit-animation: zoomIn 1s ;
@@ -75,9 +81,9 @@
 
 }
 .image{
-  width: 30%!important;
-  margin-left: 200px;
-  margin-top: 100px!important;
+  width: 50%!important;
+  margin-left: 130px;
+  margin-top: 50px!important;
   -webkit-animation: slideInLeft 0.5s linear;
   animation: slideInLeft 0.5s linear;
   
@@ -89,13 +95,14 @@
   -webkit-animation-delay: 2.5;
 }
 .subwelcome {
-  padding-left: 230px;
-  font-size: 20px;
+  
+  text-align: center;
+  font-size: 15px;
   animation-delay: 2s;
   -webkit-animation-delay: 2s;
   -webkit-animation: fadeIn 3s linear;
   animation: fadeIn 3s linear;
-  color: white;
+  color: rgba(233, 233, 233, 0.801);
 }
 @-webkit-keyframes mymove {
   from {right: 0px;}
