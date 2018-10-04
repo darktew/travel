@@ -66,11 +66,11 @@
                   <div [ngClass]="{'disablelist': sorts}">
                       
                       <h3 class="timeline-header"> ไทม์ไลน์เส้นทางการขนส่ง</h3>
-                      <ul class="timeline scale-transition" *ngFor="let j of job;let i = index" appSortableList (sort)="sort($event)">
-                          <li  *ngFor="let d of j.dropzone" appSortable>
+                      <ul class="timeline scale-transition" *ngFor="let j of job;" appSortableList (sort)="sort($event)">
+                          <li  *ngFor="let d of j.dropzone;let i = index" appSortable>
                               <div class="item">
                                   <span>
-                                    {{ i }}
+                                    {{ word[i] }}
                                   </span>
                                   <div class="content">
                                       {{ d.address }}

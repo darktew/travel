@@ -22,6 +22,7 @@ export class EmployeeDetailComponent implements OnInit {
   isPopupOpened = false;
   employee: Array<Object>;
   dataSource;
+  name:any;
   constructor(private route: ActivatedRoute,
               public positionService: PositionService,
               public employeeService: EmployeeService,
@@ -44,8 +45,9 @@ export class EmployeeDetailComponent implements OnInit {
       });
     this.employeeService.getEmployee(this.employeeId)
     .subscribe(res => {
-      this.employee = res as Employee[];
-      console.log(this.employee);
+      this.employeeService.employees = res as Employee[];
+      this.name = this.employeeService.employees["name"];
+      console.log(this.name);
     });
   }
   showAddPosition() {

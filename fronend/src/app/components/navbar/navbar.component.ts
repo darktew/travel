@@ -29,7 +29,19 @@ export interface Tile {
       ]),
       transition('1=>3, 3=>1',[
         style({opacity: 0}),
-        animate('2s linear')
+        animate('0.5s linear')
+      ]),
+      transition('3=>4, 4=>3',[
+        style({opacity: 0}),
+        animate('0.5s linear')
+      ]),
+      transition('3=>5, 5=>3',[
+        style({opacity: 0}),
+        animate('0.5s linear')
+      ]),
+      transition('4=>5, 5=>4',[
+        style({opacity: 0}),
+        animate('0.5s linear')
       ])
     ])
   ]

@@ -20,6 +20,10 @@
     right: 0;
     background: #eee;
   }
+  .example-container >* {
+    animation: fadeIn 1s linear;
+    -webkit-animation: fadeIn 1s linear;
+  }
   .input {
     padding-left: 20px;
     font-family: 'Prompt', sans-serif;

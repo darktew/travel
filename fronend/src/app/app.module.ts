@@ -48,16 +48,16 @@ export function tokenGetter() {
 }
 const routes: Routes = [
   {path: '', redirectTo:  '/login', pathMatch: 'full'},
-  {path: '', component: NavbarComponent, canActivate: [AuthGuard], data:{ depth: 4}},
+  {path: '', component: NavbarComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent, data: {depth: 2}},
   {path: 'login', component: LoginComponent, data: {depth: 1}},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard], data:{ depth: 3}},
-  {path: 'customer', component: EmployeesComponent},
+  {path: 'customer', component: EmployeesComponent, data:{ depth: 4}},
   {path: 'customer/:id', component: EmployeeDetailComponent},
   // {path: 'customer/create', component: EmployeeCreateComponent},
   // {path: 'position', component: PositionComponent},
-  {path: 'job', component: JobComponent},
+  {path: 'job', component: JobComponent, data:{ depth: 5}},
   {path: 'job/detail/:id', component: JobDetailComponent},
   {path: '**', component: PageNotFoundComponent}
 ];

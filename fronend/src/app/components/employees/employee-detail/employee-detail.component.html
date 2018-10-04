@@ -1,6 +1,6 @@
 <mat-card class="example-card">
         <a  (click)="goback()" class="back"><mat-icon>arrow_back</mat-icon></a>
-        <h4>ที่อยู่ของ {{ employee.name }} ทั้งหมด</h4>
+        <h4>ที่อยู่ของ {{ name }} ทั้งหมด</h4>
     <mat-card-content>
         <mat-list>
             <div class="row">
@@ -26,7 +26,13 @@
                 </div>
             </div>
         </mat-list>
-        
+        <agm-map [latitude]="14" [longitude]="101">
+            <agm-marker *ngFor="let m of positionService.positions" [latitude]="m.lattitude" [longitude] ="m.longtitude">
+                <agm-info-window>
+                    {{ m.address }}
+                </agm-info-window>
+            </agm-marker>
+        </agm-map>
     </mat-card-content>
 </mat-card>
 <footer class="footer">

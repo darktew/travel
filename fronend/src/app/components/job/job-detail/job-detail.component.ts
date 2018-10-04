@@ -27,6 +27,7 @@ export class JobDetailComponent implements OnInit {
   public origin: any;
   public destination: any;
   public waypoints: any;
+  word: any = [];
   constructor(
     private jobService: JobService,
     public route: ActivatedRoute,
@@ -93,10 +94,14 @@ export class JobDetailComponent implements OnInit {
             stopover: true
           });
         }
+        var char = this.genCharArray('a', 'z');
+        for(let c = 1; c < this.dis.length; c++) {
+          this.word.push(char[c].toUpperCase());
+        }
         this.selectJob._id = this.id_param;
         this.selectJob.jobname = this.job[0].jobname;
       });
-    
+
   }
   sort(event: SortEvent) {
     const current = this.job[0].dropzone[event.currentIndex];
@@ -115,13 +120,20 @@ export class JobDetailComponent implements OnInit {
     }
   }
   editJobByUser(form: NgForm) {
-    console.log("form_job",form.value);
-      this.jobService.putuserJob(form.value)
-        .subscribe(res => {
-          M.toast({html: "Job Update Success"});
+    console.log("form_job", form.value);
+    this.jobService.putuserJob(form.value)
+      .subscribe(res => {
+        M.toast({ html: "Job Update Success" });
         //  window.location.reload();
         this.getJobdetail(this.id_param);
         this.sorts = true;
-        });
+      });
+  }
+  genCharArray(charA, charZ) {
+    var a = [], i = charA.charCodeAt(0), j = charZ.charCodeAt(0);
+    for (; i <= j; ++i) {
+      a.push(String.fromCharCode(i));
+    }
+    return a;
   }
 }
