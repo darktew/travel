@@ -10,10 +10,7 @@ export class Job {
         lattitude = [], 
         longtitude = [], 
         total = 0,
-        hour = [],
-        min = [],
-        full_hour = 0,
-        full_min = 0,
+        time = '',
         dropzone = {}) {
         this._id = _id;
         this.jobname = jobname;
@@ -25,10 +22,7 @@ export class Job {
         this.lattitude = lattitude;
         this.longtitude = longtitude;
         this.total = total;
-        this.hour = hour;
-        this.min = min;
-        this.full_hour = full_hour;
-        this.full_min = full_min;
+        this.time = time; 
         this.dropzone = dropzone;
     }
     _id: string;
@@ -41,9 +35,6 @@ export class Job {
     date: Date;
     delivery: Number;
     total: Number; 
-    hour: Array<Object>;
-    min: Array<Object>;
-    full_hour: Number;
-    full_min: Number;
+    time:String;
     dropzone: Object;
 }

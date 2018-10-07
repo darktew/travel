@@ -24,6 +24,12 @@ export class JobDetailComponent implements OnInit {
   sorts: boolean;
   id_param: any;
   isPopupOpened = false;
+  time: String;
+  total: Number;
+  distance: Array<String> = [];
+  duration: Array<String> = [];
+  text_distance: Array<String> = [];
+  text_duration: Array<String> = [];
   public origin: any;
   public destination: any;
   public waypoints: any;
@@ -46,7 +52,6 @@ export class JobDetailComponent implements OnInit {
   AddJob() {
     this.isPopupOpened = true;
     this.sorts = true;
-    console.log(this.dropzone);
     const dialogRef = this.dialog.open(JobCreateComponent, {
       width: '1000px',
       height: '500px',
@@ -83,7 +88,10 @@ export class JobDetailComponent implements OnInit {
         for (let j = 0; j < this.job.length; j++) {
           this.dropzone = this.job[j].dropzone;
           this.dis = this.job[j].dis;
+          this.time = this.job[j].time;
+          this.total = this.job[j].total;
         }
+        
         for (let k = 0; k < this.dis.length; k++) {
           this.origin = { lat: this.dis[0].lattitude, lng: this.dis[0].longtitude };
           this.destination = { lat: this.dis[this.dis.length - 1].lattitude, lng: this.dis[this.dis.length - 1].longtitude };
@@ -93,34 +101,51 @@ export class JobDetailComponent implements OnInit {
             location: { lat: this.dis[b].lattitude, lng: this.dis[b].longtitude },
             stopover: true
           });
+          this.distance.push(this.dis[b].distance.text);
+          this.duration.push(this.dis[b].duration.text);
         }
         var char = this.genCharArray('a', 'z');
-        for(let c = 1; c < this.dis.length; c++) {
+        for(let c = 0; c < this.dis.length; c++) {
           this.word.push(char[c].toUpperCase());
         }
+
+        for (let w = 0; w < this.word.length; w++) {
+          if (this.word[w+1] != undefined) {
+            this.text_distance.push("จากจุด " + this.word[w] + " ถึงจุด " + this.word[w+1] + " มีระยะทาง " + this.dis[w+1].distance.text);
+          } else {
+            this.text_distance.push("");
+          }
+          if (this.dis[w+1] != undefined) {
+            this.text_duration.push(" ใช้เวลา "+this.dis[w+1].duration.text);
+          } else {
+            this.text_distance.push("");
+          }
+        }
+        console.log(this.text_distance);
         this.selectJob._id = this.id_param;
         this.selectJob.jobname = this.job[0].jobname;
       });
 
   }
   sort(event: SortEvent) {
-    const current = this.job[0].dropzone[event.currentIndex];
-    const swapWith = this.job[0].dropzone[event.newIndex];
-    this.job[0].dropzone[event.currentIndex] = swapWith;
-    this.job[0].dropzone[event.newIndex] = current;
+    const current = this.job[0].dis[event.currentIndex];
+    const swapWith = this.job[0].dis[event.newIndex];
+    this.job[0].dis[event.currentIndex] = swapWith;
+    this.job[0].dis[event.newIndex] = current;
     this.selectJob.address = [];
     this.selectJob.id = [];
     this.selectJob.lattitude = [];
     this.selectJob.longtitude = [];
-    for (let i = 0; i < this.dropzone.length; i++) {
-      this.selectJob.address.push(this.dropzone[i].address);
-      this.selectJob.id.push(this.dropzone[i]._id);
-      this.selectJob.lattitude.push(this.dropzone[i].lattitude);
-      this.selectJob.longtitude.push(this.dropzone[i].longtitude);
+    for (let i = 0; i < this.dis.length; i++) {
+      this.selectJob.address.push(this.dis[i].address);
+      this.selectJob.id.push(this.dis[i].id);
+      this.selectJob.lattitude.push(this.dis[i].lattitude);
+      this.selectJob.longtitude.push(this.dis[i].longtitude);
     }
+    
   }
   editJobByUser(form: NgForm) {
-    console.log("form_job", form.value);
+ 
     this.jobService.putuserJob(form.value)
       .subscribe(res => {
         M.toast({ html: "Job Update Success" });

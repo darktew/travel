@@ -14,7 +14,7 @@
                     <input matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="selectJob.jobname">
             </mat-form-field>
         </mat-card-title>
-        <mat-card-subtitle>รายละเอียด</mat-card-subtitle>
+        <mat-card-subtitle>ระยะทางทั้งหมด {{ total }} กม. ใช้เวลาทั้งหมด {{ time }} </mat-card-subtitle>
     </mat-card-header>
         <mat-card-content>    
             <div [ngClass]="{'disablemap': !sorts}">
@@ -67,18 +67,22 @@
                       
                       <h3 class="timeline-header"> ไทม์ไลน์เส้นทางการขนส่ง</h3>
                       <ul class="timeline scale-transition" *ngFor="let j of job;" appSortableList (sort)="sort($event)">
-                          <li  *ngFor="let d of j.dropzone;let i = index" appSortable>
+                          <li  *ngFor="let d of j.dis;let i = index" appSortable>
                               <div class="item">
                                   <span>
                                     {{ word[i] }}
                                   </span>
+                                  
                                   <div class="content">
                                       {{ d.address }}
                                       <div class="event" *appDraggableHelper> {{d.address}}</div>
+                                      {{ text_distance[i] }} {{ text_duration[i] }}
                                   </div>
                               </div>
+                             
                           </li>
                       </ul>
+                     
                   </div>  
         </mat-card-content>
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="selectJob._id">

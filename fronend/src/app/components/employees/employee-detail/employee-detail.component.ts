@@ -23,6 +23,7 @@ export class EmployeeDetailComponent implements OnInit {
   employee: Array<Object>;
   dataSource;
   name:any;
+  zoom = 6;
   constructor(private route: ActivatedRoute,
               public positionService: PositionService,
               public employeeService: EmployeeService,
@@ -47,7 +48,6 @@ export class EmployeeDetailComponent implements OnInit {
     .subscribe(res => {
       this.employeeService.employees = res as Employee[];
       this.name = this.employeeService.employees["name"];
-      console.log(this.name);
     });
   }
   showAddPosition() {

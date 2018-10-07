@@ -26,7 +26,7 @@
                 </div>
             </div>
         </mat-list>
-        <agm-map [latitude]="14" [longitude]="101">
+        <agm-map [latitude]="13.736717" [longitude]="100.523186" [zoom]="zoom" [scrollwheel]="true">
             <agm-marker *ngFor="let m of positionService.positions" [latitude]="m.lattitude" [longitude] ="m.longtitude">
                 <agm-info-window>
                     {{ m.address }}

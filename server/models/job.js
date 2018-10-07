@@ -12,10 +12,7 @@ const JobSchema = new Schema({
     total: Number,
     lattitude: [Number],
     longtitude: [Number],
-    min: [Number],
-    hour: [Number],
-    full_hour: Number,
-    full_min: Number,
+    time: String,
     dropzone : {type: Object, ref: 'Position', ref: 'Employee'}
 });
 
