@@ -12,3 +12,6 @@ cursor: pointer;
     height: 100%;
     font-family: 'Prompt', sans-serif;
 }
+.check {
+    pointer-events: none;
+}

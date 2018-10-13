@@ -1,7 +1,7 @@
 <mat-card class="card-register">
 
   <div class="header">สมัครสมาชิก</div>
-  <div class="row" style="padding-top: 30px; ">
+  <div class="row" style="padding-top: 10px; ">
     <form (submit)="onRegisterSubmit()" class="col s12">
       <div class="row" style="margin-left: 20px;margin-bottom: 0px; ">
         <div class="input-field col s6 " style="width: 100%; ">
@@ -24,11 +24,18 @@
           <label for="email">อีเมล์</label>
         </div>
       </div>
-      <div class="row" style="margin-left: 20px;margin-bottom: 20px; ">
+      <div class="row" style="margin-left: 20px;margin-bottom: 0px; ">
         <div class="input-field col s6"  style="width: 100%; ">
           <i class="material-icons prefix">lock</i>
           <input id="password" type="password" [(ngModel)]="password" name="password" class="input">
           <label for="password">รหัสผ่าน</label>
+        </div>
+      </div>
+      <div class="row" style="margin-left: 20px;margin-bottom: 20px; ">
+        <div class="input-field col s6"  style="width: 100%; ">
+          <i class="material-icons prefix">lock_outline</i>
+          <input id="password_check" type="password" [(ngModel)]="password_check" name="password_check" class="input">
+          <label for="password_check">ยืนยันรหัสผ่าน</label>
         </div>
       </div>
       <button mat-button type="submit" class="button-register" >สมัครสมาชิก</button>

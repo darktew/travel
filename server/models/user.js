@@ -8,15 +8,19 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        required: true
     },
     username: {
         type: String,
-        required: true
     },
     password: {
         type: String,
-        required: true
+    },
+    password_check: {
+        type: String
+    },
+    userImage: {
+        type: String,
+        default: "uploads/download.png"
     }
 });
 
@@ -44,4 +48,15 @@ module.exports.comparePassword = function (condidatePassword , hash , callback) 
         callback(null, isMatch);
     });
 
+}
+module.exports.editUser = function (id,editUser, callback) {
+    
+    bcrypt.genSalt(10, (err,salt) => {
+        bcrypt.hash(editUser.password, salt, (err,hash) => {
+            if (err) throw err;
+            editUser.password = hash;
+            console.log("editUser in model");
+            User.findByIdAndUpdate(id, {$set: editUser}, {new: true}, callback);
+        });
+    });
 }

@@ -11,7 +11,8 @@ userCtrl.Register = async (req,res) =>  {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        password_check: req.body.password_check
     });
 
   await User.addUser(newUser, (err,user)=> {
@@ -56,7 +57,36 @@ userCtrl.Auth = async (req,res) => {
     });
 };
 userCtrl.Profile = async (req, res) => {
-    res.json({user: req.user})
+    res.json({user: req.user});
 };
-
+userCtrl.editProfile = async (req, res) => {
+    let editUser = {
+        name: req.body.name,
+        email: req.body.email,
+        username: req.body.username,
+        password: req.body.password
+    }
+    const id = req.params.id;
+    console.log("editUser", id);
+    await User.editUser(id,editUser, (err,user) => {
+        if (err) {
+            console.log(user);
+            res.json({success: false, msg: 'Fail'});
+        } else {
+            console.log(user);
+            res.json({success: true, msg: 'True'});
+        }
+    });
+};
+userCtrl.userImage = async (req,res) => {
+    console.log(req.file);
+    const id = req.params.id;
+    const userImage = req.file.path.replace(/\\/g,"/");
+    await User.findByIdAndUpdate(id, {$set: {
+        'userImage': userImage
+    }})
+    res.json({
+        success: true, msg: 'Success Uploads'
+    })
+};
 module.exports = userCtrl;

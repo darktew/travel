@@ -12,6 +12,9 @@ export class JobService {
   getJobs(): Observable<Job[]> {
     return this.http.get<Job[]>(this.URL_API);
   }
+  getJobsInHome(): Observable<Job[]> {
+    return this.http.get<Job[]>('http://localhost:3000/api/home');
+  }
   // tslint:disable-next-line:no-shadowed-variable
   postJob(job: Job) {
     return this.http.post(this.URL_API, job);

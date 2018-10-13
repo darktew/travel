@@ -11,7 +11,8 @@ export class Job {
         longtitude = [], 
         total = 0,
         time = '',
-        dropzone = {}) {
+        dropzone = {},
+        status = '') {
         this._id = _id;
         this.jobname = jobname;
         this.address = address;
@@ -24,6 +25,8 @@ export class Job {
         this.total = total;
         this.time = time; 
         this.dropzone = dropzone;
+        this.status = status;
+     
     }
     _id: string;
     jobname: string;
@@ -37,4 +40,5 @@ export class Job {
     total: Number; 
     time:String;
     dropzone: Object;
+    status: String;
 }

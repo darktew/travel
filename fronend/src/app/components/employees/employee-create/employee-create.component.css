@@ -19,3 +19,10 @@
 .toolbar-spacer{
   flex: 1 1 auto;
 }
+.cancel {
+  cursor: pointer;
+}
+.cancel:hover {
+  color: black;
+  border-radius: 50%;
+}

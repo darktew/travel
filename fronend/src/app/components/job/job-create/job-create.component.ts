@@ -75,6 +75,7 @@ export class JobCreateComponent implements OnInit {
         this.select._id = this.data.Id
         this.positionService.positions = res as Position[];
         this.dropzone1 = this.data.data;
+        this.select.status = '';
         let count = 0;
         for (let i = 0; i < this.dropzone1.length; i++) {
           const p_id = this.dropzone1[i]._id;

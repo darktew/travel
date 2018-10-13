@@ -23,6 +23,9 @@ main {
 .mat-fab:not([class*=mat-elevation-z]) {
   background-color: rgba(28, 93, 212, 0.884);
 }
+.mat-fab.mat-accent {
+  background-color: rgba(28, 93, 212, 0.884);
+}
 .draggale{
   cursor: move;
   user-select: none;

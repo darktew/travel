@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, ResponseContentType} from '@angular/http';
 import { map } from 'rxjs/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   authToken: any;
-  user: any
+  user: any;
+  url: any;
   constructor(private http:Http, private jwthelperSerivice: JwtHelperService) { }
 
   registerUser(user) {
@@ -15,7 +17,18 @@ export class AuthService {
     headers.append('Content-Type','application/json');
     return this.http.post('http://localhost:3000/api/users/register', user, {headers: headers})
       .pipe(map(res => res.json()));
-  } 
+  }
+  getImage(url) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.get('http://localhost:3000/'+ url, {headers: headers});
+  }
+  editUser(user) {
+    let headers = new Headers();
+    headers.append('Content-Type','application/json');
+    return this.http.put('http://localhost:3000/api/users/profile/'+`${user.id}`, user, {headers: headers})
+      .pipe(map(res => res.json()));
+  }
   authenticateUser(user) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');

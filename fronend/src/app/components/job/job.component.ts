@@ -16,8 +16,9 @@ export class JobComponent implements OnInit {
   seletedJobs: Job;
   Jobs: Job[];
   dataSource;
-  displayedColumns: string[] = ['jobname', 'total', 'time', 'action'];
-  isPopupOpened = false;
+  displayedColumns: string[] = ['jobname', 'total', 'time', 'status' ,'action'];
+  isPopupOpened = true;
+  check_box;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private jobservice: JobService,
               public router: Router,
@@ -27,10 +28,26 @@ export class JobComponent implements OnInit {
   ngOnInit() {
     this.getJobs();
   }
+  statuschage(element) {
+     element.status = "จัดส่งเรียบร้อย";
+     this.jobservice.putjob(element)
+       .subscribe(res => {
+         M.toast({html: 'จัดส่งเรียบร้อย'});
+         this.getJobs();
+       });
+  }
   getJobs() {
     this.jobservice.getJobs()
       .subscribe(res => {
         this.Jobs = res as Job[];
+        for (let i =0; i< this.Jobs.length; i++) {
+          console.log(this.Jobs[i].status);
+          if (this.Jobs[i].status === "จัดส่งเรียบร้อย") {
+            this.check_box = false;
+          } else {
+            this.check_box = true;
+          }
+        }
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         console.log(this.Jobs);
@@ -82,7 +99,6 @@ export class JobComponent implements OnInit {
     });
   }
   onSelect(element) {
-  
     this.router.navigate(['/job/detail', element._id]);
   }
 }

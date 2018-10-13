@@ -8,12 +8,12 @@ const JobSchema = new Schema({
     address: Object,
     dis: Object,
     date: Date,
-    delivery: Number,
     total: Number,
     lattitude: [Number],
     longtitude: [Number],
     time: String,
-    dropzone : {type: Object, ref: 'Position', ref: 'Employee'}
+    dropzone : {type: Object, ref: 'Position', ref: 'Employee'},
+    status: String
 });
 
 

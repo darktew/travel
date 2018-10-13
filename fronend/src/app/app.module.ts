@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 
+
 import { RouterModule, Routes } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
@@ -43,6 +44,8 @@ import { HttpModule } from '@angular/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard }  from '../app/guards/auth.guards';
+import { UploadsComponent } from './components/uploads/uploads.component';
+import { SafePipePipe } from './pipe/safe-pipe.pipe';
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
@@ -55,11 +58,10 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard], data:{ depth: 3}},
   {path: 'customer', component: EmployeesComponent, data:{ depth: 4}},
   {path: 'customer/:id', component: EmployeeDetailComponent},
-  // {path: 'customer/create', component: EmployeeCreateComponent},
-  // {path: 'position', component: PositionComponent},
   {path: 'job', component: JobComponent, data:{ depth: 5}},
   {path: 'job/detail/:id', component: JobDetailComponent},
-  {path: '**', component: PageNotFoundComponent}
+  {path: '**', component: PageNotFoundComponent},
+  {path: '#', component: HomeComponent,canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -80,6 +82,8 @@ const routes: Routes = [
     HomeComponent,
     ProfileComponent,
     NavbarComponent,
+    UploadsComponent,
+    SafePipePipe,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +139,8 @@ const routes: Routes = [
   entryComponents: [
     EmployeeCreateComponent,
     PositionCreateComponent,
-    JobCreateComponent],
+    JobCreateComponent,
+    UploadsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

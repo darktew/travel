@@ -107,7 +107,12 @@ function calDistance(req, _id, res) {
     id = _id;
     console.log("Id edit", id);
   }
-
+  var status = ""; 
+  if (req.body.status !== '') {
+    status = req.body.status;
+  } else {
+    status = "กำลังจัดส่ง";
+  }
   // req values
   const position = req.body.id;
   const latitude = req.body.lattitude;
@@ -178,6 +183,7 @@ function calDistance(req, _id, res) {
   for (j = 1; j < order.length; j++) {
     total += order[j].distance;
   }
+  
   //  Save manual
   //SAVE
   var obj = {
@@ -186,11 +192,11 @@ function calDistance(req, _id, res) {
     id: position,
     address: address,
     dis: order,
-    delivery: req.body.delivery,
     total: total,
     lattitude: latitude,
     longtitude: longtitude,
-    dropzone: dropzone1
+    dropzone: dropzone1,
+    status: status
   };
 
   var job;
@@ -202,7 +208,6 @@ function calDistance(req, _id, res) {
       address: obj.address,
       dis: obj.dis,
       date: new Date(),
-      delivery: obj.delivery,
       total: obj.total,
       lattitude: obj.lattitude,
       longtitude: obj.longtitude,
@@ -210,7 +215,8 @@ function calDistance(req, _id, res) {
       //min: objcreate_time.min,
       //full_hour: Math.floor(total / 60),
       //full_min: Math.round(total % 60),
-      dropzone: obj.dropzone
+      dropzone: obj.dropzone,
+      status: obj.status
     });
     return job;
   } else {
@@ -221,7 +227,6 @@ function calDistance(req, _id, res) {
       address: obj.address,
       dis: obj.dis,
       date: new Date(),
-      delivery: obj.delivery,
       total: obj.total,
       lattitude: obj.lattitude,
       longtitude: obj.longtitude,
@@ -229,7 +234,8 @@ function calDistance(req, _id, res) {
       // min: objcreate_time.min,
       // full_hour: Math.floor(total / 60),
       // full_min: Math.round(total % 60),
-      dropzone: obj.dropzone
+      dropzone: obj.dropzone,
+      status: obj.status
     });
     return job;
   }
@@ -307,11 +313,11 @@ function calUserDistance  (id, req, res) {
       id: position,
       address: address,
       dis: order,
-      delivery: req.body.delivery,
       total: total,
       lattitude: latitude,
       longtitude: longtitude,
-      dropzone: dropzone1
+      dropzone: dropzone1,
+      status: "เตรียมพร้อม"
     };
     //set job after return to update
     var job;
@@ -322,11 +328,11 @@ function calUserDistance  (id, req, res) {
       address: obj.address,
       dis: obj.dis,
       date: new Date(),
-      delivery: obj.delivery,
       total: obj.total,
       lattitude: obj.lattitude,
       longtitude: obj.longtitude,
-      dropzone: obj.dropzone
+      dropzone: obj.dropzone,
+      status: "เตรียมพร้อม"
     });
 
     return job;
@@ -432,7 +438,6 @@ function getValuesTosave(data,job) {
   return job;
 };
 function getTime(time) {
-  console.log(time);
   var hour = 0;
   var min = 0;
     if (Math.floor( (time/60)/60 ) != 0) {
@@ -445,7 +450,12 @@ function getTime(time) {
     } else {
       min = min;
     }
-  var string_time = hour + " ชม. " + min + " นาที";
+    var string_time = "";
+  if (hour == 0) {
+   string_time = min + " นาที"
+  } else {
+    string_time = hour + " ชม. " + min + " นาที";
+  }
   return string_time;
 } 
 

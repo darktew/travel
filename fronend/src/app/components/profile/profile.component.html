@@ -1,7 +1,21 @@
-<div *ngIf="user">
-  <h2 class="header">{{ user.name }}</h2>
-  <mat-list role="list">
-      <mat-list-item role="listitem">Username: {{ user.username}}</mat-list-item>
-      <mat-list-item role="listitem">Email: {{ user.email}}</mat-list-item>
-    </mat-list>
+<div class="row">
+  <div class="col s6">
+    <div *ngIf="user">
+      <h2 class="header">{{ user.name }}</h2>
+      <mat-list role="list">
+        <mat-list-item role="listitem">Username: {{ user.username}}</mat-list-item>
+        <mat-list-item role="listitem">Email: {{ user.email}}</mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+  <div class="col s6">
+        <form (submit)="editUser()" #editForm="ngForm">
+            <input type="hidden" [(ngModel)]="id" name="id">
+          <input type="text" [(ngModel)]="name" name="name">
+          <input type="text" [(ngModel)]="email" name="email">
+          <input type="text" [(ngModel)]="username" name="username">
+          <input type="password" [(ngModel)]="password" name="password">
+          <button type="submit">บันทึก</button>
+        </form>
+  </div>
 </div>

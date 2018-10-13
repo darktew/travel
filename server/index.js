@@ -15,8 +15,16 @@ mongoose.connect(database.database)
 // Settings
 app.set('port', process.env.PORT || 3000);
 
+app.use(function (req,res,next) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested, Content-Type, Accept, Authorization, sid");
+        res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
+        next();
+});
+
 // Middlewares
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(cors({origin: 'http://localhost:4200'}));
@@ -26,6 +34,7 @@ app.use('/api/employees',require('./routes/employee.routes'));
 app.use('/api/position',require('./routes/position.routes'));
 app.use('/api/jobs',require('./routes/job.routes'));
 app.use('/api/users',require('./routes/user.routes'));
+app.use('/api/home', require('./routes/home.routes'));
 // Passport Middleware
 app.use(passport.initialize());
 app.use(passport.session());

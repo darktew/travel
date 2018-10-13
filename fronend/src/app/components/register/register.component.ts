@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   username: String;
   email: String;
   password: String;
+  password_check: String;
   constructor(private validateService: ValidateService,
               private _flashMessagesService: FlashMessagesService,
               private authService: AuthService,
@@ -30,11 +31,17 @@ export class RegisterComponent implements OnInit {
       name: this.name,
       username: this.username,
       email: this.email,
-      password: this.password
+      password: this.password,
+      password_check: this.password_check
     }
     // Required Field
     if(!this.validateService.validateRegister(user)) {
       M.toast({html: 'Plase Form Valid', classes: 'rounded',displayLength: 4000});
+      return false;
+    }
+    // Validate Password
+    if(!this.validateService.validatePassword(user)) {
+      M.toast({html: 'Password not like', classes: 'rounded',displayLength: 4000});
       return false;
     }
     // Validate Email 

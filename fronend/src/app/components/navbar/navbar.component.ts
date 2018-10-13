@@ -1,13 +1,16 @@
-import { Component, OnInit, ViewChildren, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChildren, ViewChild, ElementRef, HostListener} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { trigger, state, animate, transition, style, group, query} from '@angular/animations';
-
+import { MatDialog } from '@angular/material';
+import { UploadsComponent } from '../uploads/uploads.component';
+import { SafeUrl } from '@angular/platform-browser';
 
 declare var M:any;
 export interface Tile {
   cols: number;
 }
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -44,29 +47,73 @@ export interface Tile {
         animate('0.5s linear')
       ])
     ])
-  ]
+  ],
+ 
 })
+
 export class NavbarComponent implements OnInit {
   opened:boolean = false;
   fixed_action:any;
-  constructor(private authService: AuthService,
-    
-              private route: Router) { }
-  ngOnInit() { 
+  selectFile: File = null;
+  user: Object;
+  email: String;
+  isPopupOpened = true;
+  img: any;
 
+  constructor(private authService: AuthService,
+              private route: Router,
+              private dialog?: MatDialog
+              ) {
+               }
+  ngOnInit() { 
+    this.dropdown();
+    this.getProfile();
+  }
+  getProfile() {
+    this.authService.getProfile().
+    subscribe(profile => {
+      this.user = profile.user;
+      this.email = profile.user.email;
+      this.getImage(profile.user.userImage);
+    });
+  }
+  getImage(url) {
+      this.authService.getImage(url)
+        .subscribe(res => {
+            this.img = res.url;
+        });
   }
   open() {
     this.opened = true;
   }
   onLogoutClick() {
     this.authService.logout();
-    
     M.toast({html: 'You are log out', classes: 'rounded',displayLength: 3000});
     this.route.navigate(['/login']);
     return false;
   }
   getDept(outlet) {
-    
     return outlet.activatedRouteData['depth'];
   }
-}
+  dropdown() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.dropdown-trigger');
+      var instances = M.Dropdown.init(elems, {
+        stopPropagation: false
+      });
+    });
+  }
+  chageImage() {
+     this.isPopupOpened = true;
+     const dialogRef = this.dialog.open(UploadsComponent, {
+          width: '450px',
+          height: '500px',
+          data: this.user
+     });
+     dialogRef.afterClosed().subscribe(result => {
+      this.isPopupOpened = false;
+      this.getProfile();
+    });
+  }
+  
+};

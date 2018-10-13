@@ -1,0 +1,27 @@
+.toolbar-image {
+    width: 100%;
+    background: coral;
+}
+.cancel {
+    margin-left: 300px;
+    cursor: pointer;
+}
+.header-content {
+    font-family: 'Prompt', sans-serif;
+}
+.content {
+    margin-top: 10px;
+    width: 100%;
+    background: darkgray;
+    height: 370px;
+}
+.input-file {
+    position: absolute;
+    margin-top: 170px;
+    margin-left: 170px;
+}
+.button-upload{
+    float: right;
+    margin-top: 340px;
+    margin-right: 20px;
+}

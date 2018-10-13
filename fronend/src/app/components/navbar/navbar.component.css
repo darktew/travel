@@ -79,13 +79,10 @@
     display: block;
   }
   .checklogin {
-    background: rgba(43, 43, 43, 0.89)
+    background: rgba(43, 43, 43, 0.89);
   }
   router-outlet{
     display: none;
-  }
-  .hr {
-    width: 80%;
   }
   .button-img {
     height: 40px;
@@ -98,8 +95,92 @@
     width: 200px;
     height: 200px;
   }
+  .dropbtn {
+    background-color: #3498DB;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+.dropdown-trigger {
+  margin-right: 15px;
+}
+.dropdown-content {
+  width: 350px!important;
+  height: 200px!important;
+  top: 62px!important;
+  color: black;
+}
+.icon-dropdown {
+  margin-right: 20px;
+  color: black;
+}
+.chage-image {
+  margin-left: 40px;
+  margin-top: 20px;
+  margin-bottom: -5px;
+}
+.profile-hr {
+  color: darkgray!important;
+}
+.buttonclick {
+  border-color: white;
+}
+.topleft {
+  display: inline-block;
+  line-height: 1px;
+  position: absolute;
+  margin-top: 60px;
+  margin-left: -94px;
+  padding-top: 5px;
+  color: #fff;
+  background: rgba(0,0,0,.54);
+  cursor: pointer;
+  width: 90px;
+  height: 40px; /* as the half of the width */
+  border-bottom-left-radius: 110px;  /* 100px of height + 10px of border */
+  border-bottom-right-radius: 110px; /* 100px of height + 10px of border */
+  border-bottom: 0;
+  border: none;
+  outline: none;
+  font-family: 'Prompt', sans-serif;
+  font-size: 12px;
+}
+.click {
+  margin-top: 20px;
+}
+.content {
+  font-family: 'Prompt', sans-serif;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.button-profile{
+  font-family: 'Prompt', sans-serif;
+  font-size: 14px;
+  background-color: dodgerblue;
+  color: white;
+}
+.button-logout {
+  float: right;
+  font-family: 'Prompt', sans-serif;
+  font-size: 14px;
+  margin-right: 10px;
+  border: 1px solid darkgray; 
+}
+.online{
+  background: #42b72a!important;
+    border-radius: 50%;
+    height: 10px;
+    margin: 0 3px 1px 0;
+    vertical-align: middle;
+    width: 10px;
+    position: absolute;
+    top: 40px;
+    right: 30px;
+}
 
- 
 
 
   

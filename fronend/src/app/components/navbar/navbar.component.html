@@ -4,11 +4,11 @@
       <img src="assets/img/TRAVEL2.png" class="logo-travel">
     </mat-toolbar>
     <div class="imageprofile">
-      <a><img src="assets/img/download.png" class="circle"></a>
+      <a><img [src]="img | SafeUrl: 'resourceUrl'" class="circle"></a>
     </div>
     <div class="process">
       <div class="button">
-        <a class="button-display " routerLink="/home" mat-button routerLinkActive="active">
+        <a class="button-display" routerLink="/home" mat-button routerLinkActive="active">
           <mat-icon class="icon-home">home</mat-icon>หน้าหลัก
         </a>
       </div>
@@ -22,27 +22,45 @@
           <mat-icon class="icon-home">directions_car</mat-icon>ข้อมูลการจัดส่ง
         </a>
       </div>
-      <hr class="hr">
-      <div class="button">
-          <a *ngIf="!authService.loggedIn()" routerLink="/profile" mat-button routerLinkActive="active" class="button-display">
-            <mat-icon class="icon-home">person</mat-icon>ข้อมูลส่วนตัว
-          </a>
-        </div>
     </div>
-    <div class="button">
-        <a *ngIf="!authService.loggedIn()" href="#" (click)="onLogoutClick()" mat-button class="button-display">
-          <mat-icon class="icon-home">lock_open</mat-icon>ออกจากระบบ
-        </a>
-    </div>
-    
+
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <mat-toolbar class="mat-toolbar-content" *ngIf="!authService.loggedIn()">
       <mat-toolbar-row>
         <span class="example-spacer"></span>
-        <button mat-button disabled> 
-            <img src="assets/img/download.png" class="button-img">
-        </button> 
+        <a class="dropdown-trigger" data-target='dropdown1' href="#!">
+          <img [src]="img | SafeUrl: 'resourceUrl'" class="button-img">
+          <div class="online"></div>
+        </a>
+        <div id='dropdown1' class='dropdown-content'>
+          <div class="row">
+            <div class="col s6">
+              <div class="chage-image">
+                <a class="buttonclick" >
+                <img [src]="img | SafeUrl: 'resourceUrl'" class="circle">
+                <button class="topleft" type="button" (click)="chageImage()" >
+                  เปลี่ยน
+                </button>
+                </a>
+              </div>
+            </div>
+            <div class="col s6">
+              <div class="content">
+                  {{ email }}
+              </div>
+              <div class="button">
+                  <a class="button-profile" routerLink="/profile" mat-button routerLinkActive="active">
+                    ข้อมูลส่วนตัว
+                  </a>
+                </div>
+            </div>
+          </div>
+          <hr class="profile-hr">
+          <a *ngIf="!authService.loggedIn()" href="#" (click)="onLogoutClick()" mat-button class="button-logout">
+             <span style="color:black">ออกจากระบบ</span>
+          </a>
+          </div>
       </mat-toolbar-row>
     </mat-toolbar>
     <div class="main-content" [@routeAnimation]="getDept(myOutlet)">

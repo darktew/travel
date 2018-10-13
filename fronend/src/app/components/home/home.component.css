@@ -1,1 +1,48 @@
+.card-content {
+ font-family: 'Prompt', sans-serif; 
+}
+.map {
+    height: 400px;
+}
+.card-map {
+    height: 400px;
+}
+.sub-position {
+    top: 10px;
+    font-family: 'Prompt', sans-serif;
+    text-align: center;
+    font-size: 22px; 
+    height: 200px;
+    
+}
+.sub-position span {
+    margin-top: 10px!important;
+}
+.sub-distance {
+    top: 20px;
+    font-family: 'Prompt', sans-serif;
+    text-align: center;
+    font-size: 22px;
+    height: 200px;
+}
+.sub-duration {
+    top: 20px;
+    font-family: 'Prompt', sans-serif;
+    text-align: center;
+    font-size: 22px;
+    height: 200px; 
+}
+.img-time {
+   
+    width: 70px;
+    height: 70px;
+}
+.span-time{
+    position: relative;
+    top: 30px;
+}
+.check_page {
+    pointer-events: none;
+    opacity: 0.4;
+}
 

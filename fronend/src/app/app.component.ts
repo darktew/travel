@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import { AuthService } from './services/auth.service';
-
 
 @Component({
   selector: 'app-root',
@@ -9,6 +6,8 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  
+
 }
 
 

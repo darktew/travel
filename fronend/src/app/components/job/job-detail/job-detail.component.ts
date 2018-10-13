@@ -77,6 +77,13 @@ export class JobDetailComponent implements OnInit {
       this.sorts = true;
     }
   }
+  cancel() {
+    if (this.sorts == true) {
+      this.sorts = false;
+    } else {
+      this.sorts = true;
+    }
+  }
   getJobdetail(id) {
     this.job = [];
     this.waypoints = [];
@@ -91,11 +98,14 @@ export class JobDetailComponent implements OnInit {
           this.time = this.job[j].time;
           this.total = this.job[j].total;
         }
-        
-        for (let k = 0; k < this.dis.length; k++) {
-          this.origin = { lat: this.dis[0].lattitude, lng: this.dis[0].longtitude };
-          this.destination = { lat: this.dis[this.dis.length - 1].lattitude, lng: this.dis[this.dis.length - 1].longtitude };
-        }
+          this.origin = { 
+            lat: this.dis[0].lattitude, 
+            lng: this.dis[0].longtitude 
+          };
+          this.destination = { 
+            lat: this.dis[this.dis.length - 1].lattitude, 
+            lng: this.dis[this.dis.length - 1].longtitude
+           };
         for (let b = 1; b < this.dis.length - 1; b++) {
           this.waypoints.push({
             location: { lat: this.dis[b].lattitude, lng: this.dis[b].longtitude },
@@ -113,14 +123,15 @@ export class JobDetailComponent implements OnInit {
           if (this.word[w+1] != undefined) {
             this.text_distance.push("จากจุด " + this.word[w] + " ถึงจุด " + this.word[w+1] + " มีระยะทาง " + this.dis[w+1].distance.text);
           } else {
-            this.text_distance.push("");
+            this.text_distance = this.text_distance;
           }
           if (this.dis[w+1] != undefined) {
             this.text_duration.push(" ใช้เวลา "+this.dis[w+1].duration.text);
           } else {
-            this.text_distance.push("");
+            this.text_duration = this.text_duration;
           }
         }
+        console.log("distance",this.text_distance);
         console.log(this.text_distance);
         this.selectJob._id = this.id_param;
         this.selectJob.jobname = this.job[0].jobname;

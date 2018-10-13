@@ -1,0 +1,21 @@
+<mat-toolbar class="toolbar-image">
+        <div class="header-content">
+            เพิ่มรูปภาพ
+        </div>
+        <div class="cancel">
+            <mat-icon (click)="goback()">cancel</mat-icon>
+          </div>
+</mat-toolbar>
+<div class="content">
+  <div class="input-file">
+      <input type="file" 
+      style="display: none" 
+      (change)="onFileSelected($event)"
+      #fileInput>
+      <button type="button" (click)="fileInput.click()">เลือกรูปภาพ</button>
+  </div>
+ <div class="button-upload">
+    <button type="button" (click)="onUploads()">upload</button>
+ </div>
+  
+</div>
