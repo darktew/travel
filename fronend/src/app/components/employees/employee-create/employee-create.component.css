@@ -1,6 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
+ 
 }
 
 .container > * {
@@ -8,7 +9,7 @@
 }
 
 .example-full-width {
-  width: 100%;
+  width: 70%;
 }
 
 .toolbar {
@@ -21,8 +22,21 @@
 }
 .cancel {
   cursor: pointer;
+  float: right!important;
+  color: #26a69a;
 }
 .cancel:hover {
   color: black;
   border-radius: 50%;
+}
+.title {
+  font-size: 28px;
+}
+.btn {
+  position: absolute;
+  margin-left: 40px;
+  width: 78%;
+  font-family: 'Prompt', sans-serif;
+  color: white;
+  background-color: #26a69a;
 }

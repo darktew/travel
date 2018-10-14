@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
 import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
 import { EmployeeCreateComponent } from './employee-create/employee-create.component';
+import { PositionService } from 'src/app/services/position.service';
 declare var M: any;
 @Component({
   selector: 'app-employees',
@@ -18,15 +19,17 @@ declare var M: any;
 export class EmployeesComponent implements OnInit {
   isPopupOpened = false;
   show: boolean;
-  displayedColumns: string[] = ['name', 'action'];
+  displayedColumns: string[] = ['name', 'phone', 'action'];
   searchTerm: string;
   dataSource;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(public employeeService: EmployeeService,
-              public location: Location,
-              private router: Router,
-              private dialog?: MatDialog) {
-              }
+    public position: PositionService,
+    public location: Location,
+    private router: Router,
+    private dialog?: MatDialog,
+  ) {
+  }
   ngOnInit() {
     this.getEmployees();
   }
@@ -34,7 +37,7 @@ export class EmployeesComponent implements OnInit {
     this.employeeService.getEmployees()
       .subscribe(res => {
         this.employeeService.employees = res as Employee[];
-        this.dataSource = new  MatTableDataSource(res);
+        this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         console.log(res);
       });
@@ -46,18 +49,24 @@ export class EmployeesComponent implements OnInit {
     }
   }
   deleteEmployee(_id: string) {
-          if (confirm('Are you sure you want to delete it?')) {
-            this.employeeService.deleteEmployee(_id)
-              .subscribe(res => {
-                this.getEmployees();
-                M.toast({html: 'Deleted Success'});
-              });
-        }
-}
+    if (confirm('Are you sure you want to delete it?')) {
+      this.position.deleteAllPosition(_id)
+        .subscribe(res => {
+          console.log(res);
+      });
+      this.employeeService.deleteEmployee(_id)
+        .subscribe(res => {
+          this.getEmployees();
+          M.toast({ html: 'Deleted Success' });
+        });
+    }
+  }
   updateEmployee(employee: Employee) {
     this.isPopupOpened = true;
     this.employeeService.selectedEmployee = employee;
     const dialogRef = this.dialog.open(EmployeeCreateComponent, {
+      width: '500px',
+      height: '400px',
       data: this.employeeService.selectedEmployee
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -77,6 +86,8 @@ export class EmployeesComponent implements OnInit {
   showAddEmployee() {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(EmployeeCreateComponent, {
+      width: '500px',
+      height: '400px',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -96,5 +107,5 @@ export class EmployeesDataSource implements DataSource<any> {
     return this.employee.getEmployees();
   }
 
-  disconnect() {}
+  disconnect() { }
 }

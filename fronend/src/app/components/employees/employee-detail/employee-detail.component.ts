@@ -73,7 +73,6 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
   delePosition(_id: string) {
-    console.log(_id);
     if (confirm('Are you sure Delete')) {
       this.positionService.deletePosition(_id)
         .subscribe(res => {

@@ -32,4 +32,7 @@ export class PositionService {
   deletePosition(_id: string) {
     return this.http.delete(this.URL_API + `/${_id}`);
   }
+  deleteAllPosition(id) {
+    return this.http.delete(this.URL_API + `/employee` + `/${id}`);
+  }
 }

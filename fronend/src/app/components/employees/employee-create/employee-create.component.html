@@ -1,23 +1,46 @@
 <div class="card-header">
-<mat-toolbar class="toolbar">
-  <h3>Information</h3>
-  <span class="toolbar-spacer"></span>
-  <mat-icon class="cancel" (click)="goback()">cancel</mat-icon>
-</mat-toolbar>
-        <div class="card-content">
-<form  [formGroup]= "_addEmployee" (submit)="onSubmit()">
-    <input type="hidden" formControlName="_id">
-  <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id" [ngModelOptions]="{standalone: true}">
   <div class="row">
-    <div class="input-field col s12">
-      <input type="text" formControlName="name" id="name" name="employeeService.selectedEmployee.name" (value)="employeeService.selectedEmployee.name">
-    </div>
-      <div class="card-action">
-      <div class="input-field col s12">
-        <button mat-button class="btn btn-success right">Save</button>
-      </div>
-    </div>
+  <div class="col s6">
+    <div class="title">{{title}}</div>
   </div>
-</form>
+  <div class="col s6">
+    <span class="toolbar-spacer"></span>
+    <mat-icon class="cancel" (click)="goback()">cancel</mat-icon>
+  </div>
 </div>
+  <div class="card-content">
+    <form [formGroup]="_addEmployee" (submit)="onSubmit()">
+      <input type="hidden" formControlName="_id">
+      <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="employeeService.selectedEmployee._id"
+        [ngModelOptions]="{standalone: true}">
+      <div class="row">
+        <div class="input-field col s6 " style="width: 90%; ">
+          <i class="material-icons prefix">assignment_ind</i>
+          <input type="text" formControlName="name" id="name" name="employeeService.selectedEmployee.name" 
+          (value)="employeeService.selectedEmployee.name"
+            required>
+          <span class="helper-text" data-error="wrong" data-success="right">ชื่อ-นามสกุล</span>
+        </div>
+        <div class="input-field col s6 " style="width: 90%; ">
+            <i class="material-icons prefix">phone</i>
+            <input type="text" formControlName="phone" id="phone" name="employeeService.selectedEmployee.phone" 
+            (value)="employeeService.selectedEmployee.phone"
+              required>
+            <span class="helper-text" data-error="wrong" data-success="right">เบอร์โทร</span>
+          </div>
+        <!-- <div class="input-field col s6 " style="width: 90%; ">
+            <i class="material-icons prefix">telephone</i>
+            <input type="text" formControlName="name" id="name" name="employeeService.selectedEmployee.name" 
+            (value)="employeeService.selectedEmployee.name"
+            required>
+            <label for="name">เบอร์โทร</label>
+        </div> -->
+        <div class="card-action">
+          <div class="input-field col s12">
+            <button mat-button class="btn">บันทึก</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

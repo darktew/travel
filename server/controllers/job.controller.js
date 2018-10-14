@@ -8,7 +8,7 @@ const google = require('@google/maps').createClient({
 const jobCtrl = {};
 jobCtrl.getJobs = async (req, res) => {
   const job = await Job.find()
-    .populate({ path: "id" })
+    .populate({ path: "id", model: Position ,populate : {path: "employee", model: Employee}})
     .populate({
       path: "dropzone",
       model: Position,

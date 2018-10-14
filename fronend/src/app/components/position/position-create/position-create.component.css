@@ -7,7 +7,7 @@
   width: 50%;
 }
 .toolbar {
-  background-color: coral;
+  background-color: #26a69a;
   color: azure;
   border-radius: 5px;
   width: 750px;
@@ -15,10 +15,23 @@
 .toolbar-spacer{
   flex: 2 1  auto;
 }
+.cancel {
+  cursor: pointer;
+}
+.cancel:hover {
+  color: black;
+}
 agm-map{
   height: 300px;
 }
 select{
   display: initial ;
+}
+.toolbar {
+  font-family: 'Prompt', sans-serif;
+}
+.btn{
+  font-family: 'Prompt', sans-serif;
+  width: 100%;
 }
 

@@ -26,7 +26,6 @@ positionCtrl.createPosition = async (req, res) => {
 };
 
 positionCtrl.getPosition = async (req, res) => {
-  
     const position = await Position.findById(req.params.id)
         .populate({path: 'employee', select: 'name'})
         .exec();
@@ -58,5 +57,13 @@ positionCtrl.deletePosition = async (req, res) => {
           status: 'Position Deleted success'
       });
 };
-
+positionCtrl.deletePositionAll = async (req, res) => {
+    console.log(req.params.id);
+    await Position.remove({employee: {
+        _id: req.params.id 
+    }});
+    res.json({
+        status: 'Position All Delete success'
+    });
+}
 module.exports = positionCtrl;

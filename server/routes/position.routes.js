@@ -9,5 +9,6 @@ router.get('/:id', position.getPosition);
 router.get('/employee/:employee_id', position.getPositionByEmployeeId);
 router.put('/:id', position.editPosition);
 router.delete('/:id', position.deletePosition);
+router.delete('/employee/:id', position.deletePositionAll)
 
 module.exports = router;

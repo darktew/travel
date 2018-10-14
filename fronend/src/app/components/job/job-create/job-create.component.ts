@@ -54,7 +54,9 @@ export class JobCreateComponent implements OnInit {
   }
   getPosition() {
     this.positionService.getPositions().subscribe(res => {
+      console.log(res);
       if (this.data._id && !this.data.data) {
+
         this.positionService.positions = res as Position[];
         this.dropzone1 = this.data.dropzone;
         // Set Dropzone

@@ -4,6 +4,7 @@ import { EmployeeService } from './../../../services/employee.service';
 import { Component, OnInit, Inject } from '@angular/core';
 import { NgForm, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Location } from '@angular/common';
+import { ValidateService } from 'src/app/services/validate.service';
 declare var M: any;
 @Component({
   selector: 'app-employee-create',
@@ -14,19 +15,35 @@ declare var M: any;
 
 export class EmployeeCreateComponent implements OnInit {
   _addEmployee: FormGroup;
+  title: String;
   constructor(private _formbuilder: FormBuilder,
               public employeeService: EmployeeService,
               private location: Location,
               private dialogRef: MatDialogRef<EmployeeCreateComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any) { }
+              @Inject(MAT_DIALOG_DATA) public data: any,
+              private validate: ValidateService) { }
 
   ngOnInit() {
     this._addEmployee = this._formbuilder.group({
       _id: this.data._id,
-      name: [this.data.name, Validators.required]
+      name: [this.data.name, Validators.required],
+      phone: [this.data.phone, Validators.required]
     });
+    if (this.data._id) {
+      this.title = "แก้ไขข้อมูลลูกค้า";
+    } else {
+      this.title = "เพิ่มข้อมูลลูกค้า";
+    }
   }
   onSubmit() {
+    const employee = {
+      name: this._addEmployee.value.name,
+      phone: this._addEmployee.value.phone
+    };
+    if (!this.validate.validateEmployee(employee)) {
+      M.toast({html: 'Plase Form Valid', classes: 'rounded',displayLength: 4000});
+      return false;
+    }
     if (this.data._id) {
       this.employeeService.putEmployee(this._addEmployee.value)
         .subscribe(res => {
@@ -38,7 +55,7 @@ export class EmployeeCreateComponent implements OnInit {
       .subscribe(res => {
           M.toast({html: 'Save Success'});
           this.dialogRef.close();
-    });
+      });
     }
   }
   getEmployees() {
