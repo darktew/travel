@@ -40,4 +40,11 @@ export class ValidateService {
       return true;
     }
   }
+  validateEditUser(editUser) {
+      if (editUser.address === "ที่อยู่" && editUser.phone === "เบอร์โทร") {
+        return false;
+      } else {
+        return true;
+    }
+  }
 }

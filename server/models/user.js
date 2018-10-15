@@ -21,6 +21,14 @@ const UserSchema = new Schema({
     userImage: {
         type: String,
         default: "uploads/download.png"
+    },
+    address: {
+        type: String,
+        default: ''
+    },
+    phone: {
+        type: String,
+        default: ''
     }
 });
 

@@ -128,8 +128,6 @@
   border-color: white;
 }
 .topleft {
-  display: inline-block;
-  line-height: 1px;
   position: absolute;
   margin-top: 60px;
   margin-left: -94px;
@@ -180,10 +178,3 @@
     top: 40px;
     right: 30px;
 }
-
-
-
-  
-  
-  
-  

@@ -1,0 +1,76 @@
+.card-profile {
+    font-family: 'Prompt', sans-serif;
+    top: 50px;  
+}
+.img {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+}
+.name {
+    margin-bottom: 30px;
+    font-size: 18px;
+}
+.sub-content {
+    padding-left: 0!important;
+    margin-left: 0!important;
+    left: 0;
+    width: 100%!important;
+}
+.icon-home {
+    float: left;
+    margin-right: 50px;
+    font-size: 2.5rem;
+    top: 20px;
+  }
+  p {
+      padding-top: 5px;
+  }
+   .button-edit {
+      position: absolute;
+      left: 600px;
+      top: 60px;
+      z-index: 1;
+  }
+  .edit {
+      width: 30px;
+      height: 50px;
+      border-radius: 50%;
+      border: 0px solid;
+      background: black;
+      color: white;
+  }
+  .card-form {
+    width: 500px;
+    height: 650px;
+    box-shadow: 3px 4px 5px;
+    border-radius: 3%;
+    background-color:rgba(30, 150, 187, 0.993);
+  }
+  .header-form {
+    font-family: 'Prompt', sans-serif;
+    margin-bottom: 20px;
+    color: white;
+    margin-left: 10px;
+    margin-top: 50px;
+    font-size: 24px;
+  }
+  .row .input {
+      margin-bottom: -300px!important;
+  }
+  .submit {
+      width: 80%;
+      background: white;
+      color: black;
+      margin-left: 50px;
+      margin-top: 30px;
+      font-family: 'Prompt', sans-serif;
+  }
+  .input-field .prefix.active {
+      color: white;
+  }
+  input:not(.brower-default):focus:not([readonly])+label {
+    background: transparent;
+    border-bottom: 1px solid white!important;
+    box-shadow: 0 1px 0 0 white!important;
+  }

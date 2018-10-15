@@ -64,7 +64,9 @@ userCtrl.editProfile = async (req, res) => {
         name: req.body.name,
         email: req.body.email,
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
+        address: req.body.address,
+        phone: req.body.phone
     }
     const id = req.params.id;
     console.log("editUser", id);

@@ -2,16 +2,17 @@
   <h3>ข้อมูลการจัดส่ง</h3>
 <div class="row">
     <!-- Search Item -->
-    <div class="input-field col s12">
-      <input type="text" name="name" (keyup)="applyFilter($event.target.value)" id="n">
-      <label for="n">Search Job</label>
+    <div class="input-field col s6 " style="width: 40%; font-family: 'Prompt', sans-serif;">
+      <i class="material-icons prefix">search</i>
+      <input type="text" name="job" (keyup)="applyFilter($event.target.value)" id="job">
+      <label for="job">ค้นหาชื่อรอบการจัดส่ง</label>
     </div>
     <!-- Table Job -->
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <!-- Column -->
       <ng-container matColumnDef="jobname">
         <th mat-header-cell *matHeaderCellDef> ชื่อรอบงาน </th>
-        <td mat-cell *matCellDef="let element"> <div (click)="onSelect(element)"> {{element.jobname}} </div> </td>
+        <td mat-cell *matCellDef="let element"> <div class="select" (click)="onSelect(element)"> {{element.jobname}} </div> </td>
       </ng-container>
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef> ระยะทางทั้งหมด </th>
@@ -29,7 +30,7 @@
                 <span>{{element.status}}</span>
             </div>
             <div class="false" *ngSwitchCase="'กำลังจัดส่ง'">
-                <input type="checkbox" (change)="statuschage(element)"/>
+                <input *ngIf="check_box" type="checkbox" (change)="statuschage(element)"/>
                 <span>{{element.status}}</span>
             </div> 
            

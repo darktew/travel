@@ -34,6 +34,7 @@ export class JobDetailComponent implements OnInit {
   public destination: any;
   public waypoints: any;
   word: any = [];
+  check_staus;
   constructor(
     private jobService: JobService,
     public route: ActivatedRoute,
@@ -46,15 +47,15 @@ export class JobDetailComponent implements OnInit {
     this.getJobdetail(id);
     this.zoom = 7;
     this.selectJob = new Job();
-    this.sorts = true;
     this.id_param = id;
+    this.sorts = true;
   }
   AddJob() {
     this.isPopupOpened = true;
     this.sorts = true;
     const dialogRef = this.dialog.open(JobCreateComponent, {
-      width: '1000px',
-      height: '500px',
+      width: '1300px',
+      height: '750px',
       data: {
         data: this.dropzone,
         Id: this.id_param,
@@ -131,8 +132,8 @@ export class JobDetailComponent implements OnInit {
             this.text_duration = this.text_duration;
           }
         }
-        console.log("distance",this.text_distance);
-        console.log(this.text_distance);
+        this.check_staus = this.job[0].status;
+        console.log(this.check_staus);
         this.selectJob._id = this.id_param;
         this.selectJob.jobname = this.job[0].jobname;
       });

@@ -2,9 +2,15 @@
     <a *ngIf="sorts" (click)="goback()" class="buttonback">
         <mat-icon>arrow_back</mat-icon>
     </a>
-    <button mat-icon-button (click)="disablelist()" class="right">
-        <i class="low material-icons">edit</i>
-    </button>
+    <div [ngSwitch]="check_staus">
+    <div *ngSwitchCase="'กำลังจัดส่ง'">
+        <button mat-icon-button (click)="disablelist()" class="right">
+            <i class="low material-icons">edit</i>
+        </button>
+    </div>
+    <p *ngSwitchCase="'จัดส่งเรียบเรียบร้อย'">
+    </p>
+    </div>
     <form (ngSubmit)="editJobByUser(userlist)" #userlist="ngForm">
     <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>

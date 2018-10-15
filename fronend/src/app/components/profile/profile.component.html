@@ -1,21 +1,79 @@
 <div class="row">
   <div class="col s6">
-    <div *ngIf="user">
-      <h2 class="header">{{ user.name }}</h2>
-      <mat-list role="list">
-        <mat-list-item role="listitem">Username: {{ user.username}}</mat-list-item>
-        <mat-list-item role="listitem">Email: {{ user.email}}</mat-list-item>
-      </mat-list>
-    </div>
+    <mat-card class="card-profile">
+      <mat-card-content class="content">
+        <div class="row">
+          <div class="col s6">
+            <img [src]="img | SafeUrl: 'resourceUrl'" class="img">
+          </div>
+          <div class="col s6">
+            <div class="sub-content">
+              <div class="name">
+                <i class="icon-home medium material-icons">account_box</i>
+                <p>{{ name }}</p>
+              </div>
+              <div class="name">
+                <i class="icon-home medium material-icons">email</i>
+                <p>{{ email }}</p>
+              </div>
+              <div class="name">
+                <i class="icon-home medium material-icons">place</i>
+                <p>{{ address }}</p>
+              </div>
+              <div class="name">
+                <i class="icon-home medium material-icons">phone</i>
+                <p>{{ phone }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
   <div class="col s6">
-        <form (submit)="editUser()" #editForm="ngForm">
+      <div [@animation]="stateShow">
+        <mat-card class="card-form" >
+          <div class="header-form">แก้ไขข้อมูลส่วนตัว</div>
+           <form (submit)="editUser()" #editForm="ngForm" *ngIf="content_page">
             <input type="hidden" [(ngModel)]="id" name="id">
-          <input type="text" [(ngModel)]="name" name="name">
-          <input type="text" [(ngModel)]="email" name="email">
-          <input type="text" [(ngModel)]="username" name="username">
-          <input type="password" [(ngModel)]="password" name="password">
-          <button type="submit">บันทึก</button>
-        </form>
+            <div class="row input">
+                <div class="input-field col s12">
+                  <i class="material-icons prefix">account_circle</i>
+                  <input type="text" [(ngModel)]="name" name="name">
+                  <span class="helper-text" data-error="wrong" data-success="right">ชื่อ-นามสกุล</span>
+                </div>
+              </div>
+              <div class="row input">
+                  <div class="input-field col s12">
+                    <i class="material-icons prefix">email</i>
+                    <input type="text" [(ngModel)]="email" name="email">
+                    <span class="helper-text" data-error="wrong" data-success="right">อีเมล์</span>
+                  </div>
+                </div>
+                  <div class="row input">
+                      <div class="input-field col s12">
+                        <i class="material-icons prefix">place</i>
+                        <input type="text" [(ngModel)]="address" name="address">
+                        <span class="helper-text" data-error="wrong" data-success="right">ที่อยู่</span>
+                      </div>
+                    </div>
+                    <div class="row input">
+                        <div class="input-field col s12">
+                          <i class="material-icons prefix">phone</i>
+                          <input type="text" [(ngModel)]="phone" name="phone">
+                          <span class="helper-text" data-error="wrong" data-success="right">เบอร์โทรศัพท์</span>
+                        </div>
+                      </div>
+              <button type="submit" mat-button class="submit">บันทึก</button>
+          </form>
+        </mat-card>
+    </div>
   </div>
 </div>
+<footer class="footer">
+    <div class="container">
+      <button mat-fab (click)="showEdit()" class="right">
+        <i class="low material-icons">edit</i>
+      </button>
+    </div>
+  </footer>

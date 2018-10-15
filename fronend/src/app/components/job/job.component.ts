@@ -29,12 +29,14 @@ export class JobComponent implements OnInit {
     this.getJobs();
   }
   statuschage(element) {
-     element.status = "จัดส่งเรียบร้อย";
-     this.jobservice.putjob(element)
-       .subscribe(res => {
-         M.toast({html: 'จัดส่งเรียบร้อย'});
-         this.getJobs();
-       });
+  
+    element.status = "จัดส่งเรียบร้อย";
+    this.jobservice.putjob(element)
+      .subscribe(res => {
+        M.toast({html: 'จัดส่งเรียบร้อย'});
+        this.getJobs();
+      });
+   
   }
   getJobs() {
     this.jobservice.getJobs()
@@ -76,8 +78,8 @@ export class JobComponent implements OnInit {
   AddJob() {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(JobCreateComponent, {
-      width: '1000px',
-      height: '500px',
+      width: '1300px',
+      height: '750px',
       data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
@@ -89,8 +91,8 @@ export class JobComponent implements OnInit {
     this.isPopupOpened = true;
     this.seletedJobs = job;
     const dialogRef = this.dialog.open(JobCreateComponent, {
-      width: '1000px',
-      height: '500px',
+      width: '1300px',
+      height: '750px',
       data: this.seletedJobs
     });
     dialogRef.afterClosed().subscribe(result => {

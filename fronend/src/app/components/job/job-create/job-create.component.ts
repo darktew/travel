@@ -29,6 +29,8 @@ export class JobCreateComponent implements OnInit {
   currentBox?: Object[];
   dropzone1: Position[] = [];
   detailCheck:boolean = false;
+  title: String;
+  searchPosition;
   constructor(
     private dialogRef: MatDialogRef<JobCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -41,8 +43,10 @@ export class JobCreateComponent implements OnInit {
     this.getPosition();
     
     if (this.data._id) {
+      this.title = "แก้ไขข้อมูลการจัดส่ง"
       this.select = this.data;
     } else {
+      this.title = "เพิ่มข้อมูลการจัดส่ง"
       this.select = new Job();
     }
     

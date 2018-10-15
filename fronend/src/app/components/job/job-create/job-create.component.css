@@ -1,7 +1,7 @@
 .toolbar {
-    background-color: coral;
+    background-color: #26a69a;
     color: azure;
-    border-radius: 5px
+    border-radius: 5px;
 }
 .container {
     display: flex;
@@ -20,22 +20,27 @@
 
   .example-container > * {
     width: 100%;
-  }  
-input{
-    border: none;
-    border-color: transparent;
-    border-bottom: none!important;
-    box-shadow: none!important;
-}
+  } 
+  .header {
+    font-family: 'Prompt', sans-serif;
+    font-size: 18px; 
+  } 
 .example-card {
-    max-width: 400px;
+    max-width: 100%;
+    height: 450px;
     font-family: 'Prompt', sans-serif;
 }
 .save {
-    position: relative;
-    left: 280px;
-    background:rgb(42, 110, 2); 
+    width: 90%;
+    position: absolute;
+    margin-left: 20px!important;
+    background:#26a69a;
     color: white;
+}
+.header-position {
+    margin-top: 25px;
+    font-family: 'Prompt', sans-serif;
+    font-size: 16px;
 }
 .box {
  border: 1px solid black;
@@ -49,7 +54,7 @@ input{
     padding: 20px;
     margin: 20px;
     background: lightgray;
-    min-height: 200px;
+    min-height: 300px;
     border: 1px solid black;
 }
 .dropzone.dropzone-activated {
@@ -63,5 +68,19 @@ input{
     -moz-user-select: none;    
     -ms-user-select: none;      
     user-select: none;
+}
+.pagination {
+    position: fixed;
+}
+.sub-header {
+    margin-top: 10px;
+    opacity: 0.5;
+}
+.cancel {
+    cursor: pointer;
+  }
+  .cancel:hover {
+    color: black;
+    border-radius: 50%;
   }
 

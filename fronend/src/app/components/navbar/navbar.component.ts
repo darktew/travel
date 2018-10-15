@@ -44,6 +44,18 @@ export interface Tile {
       transition('4=>5, 5=>4', [
         style({ opacity: 0 }),
         animate('0.5s linear')
+      ]),
+      transition('6=>5, 5=>6', [
+        style({ opacity: 0 }),
+        animate('0.5s linear')
+      ]),
+      transition('6=>4, 4=>6', [
+        style({ opacity: 0 }),
+        animate('0.5s linear')
+      ]),
+      transition('6=>3, 3=>6', [
+        style({ opacity: 0 }),
+        animate('0.5s linear')
       ])
     ])
   ],

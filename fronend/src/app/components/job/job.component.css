@@ -5,7 +5,8 @@ button.menu {
     float: right;
 }
 .mat-elevation-z8{
-cursor: pointer;
+    cursor: default;
+font-family: 'Prompt', sans-serif;
 }
 .example-card {
     width: 100%;
@@ -15,3 +16,9 @@ cursor: pointer;
 .check {
     pointer-events: none;
 }
+.select {
+    cursor: pointer;
+    font-family: 'Prompt', sans-serif;
+}
+
+

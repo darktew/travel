@@ -29,11 +29,11 @@
     <mat-toolbar class="mat-toolbar-content" *ngIf="!authService.loggedIn()">
       <mat-toolbar-row>
         <span class="example-spacer"></span>
-        <a href="#" class="dropdown-trigger" data-target='dropdown1'>
+        <a href="#" rel="toggle" role="button" class="dropdown-trigger" data-target="dropdown1">
           <img *ngIf="!authService.loggedIn()" [src]="img | SafeUrl: 'resourceUrl'" class="button-img">
           <div class="online"></div>
         </a>
-        <div id='dropdown1' class='dropdown-content'>
+        <div id="dropdown1" class="dropdown-content" role="dialog" aria-labelledby="dropdown-trigger"> 
           <div class="row">
             <div class="col s6">
               <div class="chage-image">

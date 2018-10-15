@@ -46,6 +46,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AuthGuard }  from '../app/guards/auth.guards';
 import { UploadsComponent } from './components/uploads/uploads.component';
 import { SafePipePipe } from './pipe/safe-pipe.pipe';
+import { JobfilterPipe } from './pipe/jobfilter.pipe';
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
@@ -54,7 +55,7 @@ const routes: Routes = [
   {path: '', component: NavbarComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent, data: {depth: 2}},
   {path: 'login', component: LoginComponent, data: {depth: 1}},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: {depth: 6}},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard], data:{ depth: 3}},
   {path: 'customer', component: EmployeesComponent, data:{ depth: 4}},
   {path: 'customer/:id', component: EmployeeDetailComponent},
@@ -84,6 +85,7 @@ const routes: Routes = [
     NavbarComponent,
     UploadsComponent,
     SafePipePipe,
+    JobfilterPipe
   ],
   imports: [
     BrowserModule,
