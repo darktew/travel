@@ -13,6 +13,7 @@ declare var M:any;
 })
 export class UploadsComponent implements OnInit {
   selectFile:File = null;
+  img:any;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<UploadsComponent>,
@@ -20,7 +21,7 @@ export class UploadsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data);
+    
   }
   goback() {
     this.dialogRef.close();

@@ -1,13 +1,21 @@
 .toolbar-image {
     width: 100%;
     background: coral;
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
 }
 .cancel {
-    margin-left: 300px;
+    float: right;
     cursor: pointer;
+}
+.cancel:hover {
+    color: white;
 }
 .header-content {
     font-family: 'Prompt', sans-serif;
+    float: left;
 }
 .content {
     margin-top: 10px;

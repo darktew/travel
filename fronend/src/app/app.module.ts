@@ -3,7 +3,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
 
-
 import { RouterModule, Routes } from '@angular/router';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
@@ -58,9 +57,9 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], data: {depth: 6}},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard], data:{ depth: 3}},
   {path: 'customer', component: EmployeesComponent, data:{ depth: 4}},
-  {path: 'customer/:id', component: EmployeeDetailComponent},
+  {path: 'customer/:id', component: EmployeeDetailComponent, data: {depth: 8}},
   {path: 'job', component: JobComponent, data:{ depth: 5}},
-  {path: 'job/detail/:id', component: JobDetailComponent},
+  {path: 'job/detail/:id', component: JobDetailComponent, data: {depth: 7}},
   {path: '**', component: PageNotFoundComponent},
   {path: '#', component: HomeComponent,canActivate: [AuthGuard]}
 ];
@@ -85,7 +84,7 @@ const routes: Routes = [
     NavbarComponent,
     UploadsComponent,
     SafePipePipe,
-    JobfilterPipe
+    JobfilterPipe,
   ],
   imports: [
     BrowserModule,

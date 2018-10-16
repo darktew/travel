@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { JobService } from 'src/app/services/job.service';
 import { Job } from 'src/app/models/job';
-import { ThrowStmt } from '@angular/compiler';
 
+
+
+declare var M:any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,6 +29,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.getJobsInHome();
+    this.parallax();
   }
   getJobsInHome() {
     this.jobService.getJobsInHome()
@@ -78,5 +81,11 @@ export class HomeComponent implements OnInit {
           }
         }
       });
+  }
+  parallax() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.parallax');
+      var instances = M.Parallax.init(elems);
+    });
   }
 }

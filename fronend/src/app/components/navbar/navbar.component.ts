@@ -56,6 +56,14 @@ export interface Tile {
       transition('6=>3, 3=>6', [
         style({ opacity: 0 }),
         animate('0.5s linear')
+      ]),
+      transition('7=>5, 8=>4', [
+        style({ opacity: 0 }),
+        animate('0.5s linear')
+      ]),
+      transition('5=>7, 4=>8', [
+        style({ opacity: 0 }),
+        animate('0.5s linear')
       ])
     ])
   ],
@@ -80,13 +88,13 @@ export class NavbarComponent implements OnInit {
     this.dropdown();
   }
   getProfile() {
-      this.authService.getProfile().
-        subscribe(profile => {
-          this.user = profile.user;
-          this.email = profile.user.email;
-          this.getImage(profile.user.userImage);
-        });
-    
+    this.authService.getProfile().
+      subscribe(profile => {
+        this.user = profile.user;
+        this.email = profile.user.email;
+        this.getImage(profile.user.userImage);
+      });
+
   }
   getImage(url) {
     this.authService.getImage(url)
@@ -108,18 +116,18 @@ export class NavbarComponent implements OnInit {
     return outlet.activatedRouteData['depth'];
   }
   dropdown() {
-    document.addEventListener('DOMContentLoaded', function () { 
+    document.addEventListener('DOMContentLoaded', function () {
       var elems = document.querySelectorAll('.dropdown-trigger');
       var instances = M.Dropdown.init(elems, {
         stopPropagation: false
       });
     });
-    
+
   }
   chageImage() {
     this.isPopupOpened = true;
     const dialogRef = this.dialog.open(UploadsComponent, {
-      width: '450px',
+      width: '900px',
       height: '500px',
       data: this.user
     });

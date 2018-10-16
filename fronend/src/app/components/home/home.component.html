@@ -1,21 +1,18 @@
-<div class="card-content" *ngIf="check_page"> 
+<div class="card-content" *ngIf="check_page">
   <div class="row">
     <div class="col s12">
       <mat-card>
         <mat-card-title style=" font-family: 'Prompt', sans-serif;">
           รอบการจัดส่งล่าสุด
           <mat-card-subtitle>
-           ชื่อรอบการจัดส่ง: {{name_job}}
+            ชื่อรอบการจัดส่ง: {{name_job}}
           </mat-card-subtitle>
         </mat-card-title>
         <mat-card-content>
           <div class="card-map">
             <agm-map class="map" [latitude]="14.5" [longitude]="103.5" [zoom]="5">
-                <agm-direction 
-                [origin]="origin" 
-                [destination]="destination" 
-                [waypoints]="waypoints">
-                </agm-direction> 
+              <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints">
+              </agm-direction>
             </agm-map>
           </div>
         </mat-card-content>
@@ -24,7 +21,7 @@
   </div>
   <div class="row">
     <div class="col s4">
-      <mat-card >
+      <mat-card>
         <div class="sub-distance">
           <p> ระยะทางในการจัดส่งทั้งหมด <br> </p>
           <span>{{distance}} กิโลเมตร</span> <br>
@@ -41,19 +38,36 @@
         </div>
       </mat-card>
     </div>
-      <div class="row">
-        <div class="col s4">
-          <mat-card class="card-position">
-            <div class="sub-position">
-              <p> จำนวนสถานที่จัดส่งทั้งหมด <br> </p>
-              <span> {{ position }}</span> <br>
-              <span *ngIf="img" class="span-time"><img src="assets/img/route.png" class="img-time"></span>
-            </div>
-          </mat-card>
-        </div>
+    <div class="row">
+      <div class="col s4">
+        <mat-card class="card-position">
+          <div class="sub-position">
+            <p> จำนวนสถานที่จัดส่งทั้งหมด <br> </p>
+            <span> {{ position }}</span> <br>
+            <span *ngIf="img" class="span-time"><img src="assets/img/route.png" class="img-time"></span>
+          </div>
+        </mat-card>
       </div>
     </div>
+  </div>
 </div>
-<div class="container">
-<h1 *ngIf="page_set"> {{ page }}</h1>
-</div>
+<div class="pageset_false" *ngIf="page_set">
+  <div class="parallax-container">
+    <div class="getStart">
+        Welcome to <br>
+        Travel System <br>
+        <a class="button-getStart" routerLink="/customer" mat-button ><b>GET STARTED</b></a>
+    </div>
+    <div class="parallax"><img src="assets/img/homepage.png" alt="" style="width: 100%;height:100%">
+    </div>
+  </div>
+  <div class="section white">
+    <div class="row container">
+      <h2 class="header">Travel</h2>
+      <p class="grey-text text-darken-3 lighten-3">
+        เป็นโปรแกรมที่จะช่วยในการคำนวณเส้นทางที่สั้นและใช้เวลาในการจัดส่งน้อยที่สุดให้แกผู้ใช้โดยคำนวณจาก Google Maps
+        Api โดยตรง ซึ่ง Google Maps นั้นเป็นมาตรฐานในการค้นหาเส้นทางและคำนวณระยะทางที่ได้รับความนิยมมากเป็นอันดับต้นของโลก
+      </p>
+    </div>
+  </div>
+  
