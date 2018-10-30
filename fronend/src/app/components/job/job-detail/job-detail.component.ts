@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild, ElementRef } from '@angular/core';
 import { Job } from '../../../models/job';
 import { JobService } from '../../../services/job.service';
 import { MatTableDataSource, MatDialog, TooltipPosition } from '@angular/material';
@@ -15,7 +15,7 @@ declare var M: any;
   encapsulation: ViewEncapsulation.None
 })
 export class JobDetailComponent implements OnInit {
-  position: TooltipPosition[] = ['right']
+  position: TooltipPosition[] = ['right','before'];
   job: Job[];
   dis: any;
   dropzone: any;
@@ -26,21 +26,28 @@ export class JobDetailComponent implements OnInit {
   isPopupOpened = false;
   time: String;
   total: Number;
+
+  first_word: String;
   distance: Array<String> = [];
   duration: Array<String> = [];
   text_distance: Array<String> = [];
   text_duration: Array<String> = [];
-  public origin: any;
+  origin: any;
   public destination: any;
   public waypoints: any;
   word: any = [];
   check_staus;
+  status_chage1;
+  status_chage2;
+  status_chage3;
+  status_chage4;
   constructor(
     private jobService: JobService,
     public route: ActivatedRoute,
     public location: Location,
     private dialog?: MatDialog,
-  ) { }
+  ) {  
+  }
 
   ngOnInit() {
     let id = this.route.snapshot.paramMap.get('id');
@@ -116,10 +123,11 @@ export class JobDetailComponent implements OnInit {
           this.duration.push(this.dis[b].duration.text);
         }
         var char = this.genCharArray('a', 'z');
+     
         for(let c = 0; c < this.dis.length; c++) {
           this.word.push(char[c].toUpperCase());
         }
-
+      
         for (let w = 0; w < this.word.length; w++) {
           if (this.word[w+1] != undefined) {
             this.text_distance.push("จากจุด " + this.word[w] + " ถึงจุด " + this.word[w+1] + " มีระยะทาง " + this.dis[w+1].distance.text);
@@ -128,22 +136,53 @@ export class JobDetailComponent implements OnInit {
           }
           if (this.dis[w+1] != undefined) {
             this.text_duration.push(" ใช้เวลา "+this.dis[w+1].duration.text);
+            
           } else {
             this.text_duration = this.text_duration;
           }
         }
+        switch(this.job[0].status) {
+          case 'เตรียมการจัดส่ง':  
+          this.status_chage1 = true; 
+          this.status_chage2 = false;
+          this.status_chage3 = false;
+          this.status_chage4 = false;
+          break;
+          case 'แพ็คสินค้าเตรียมนำส่ง' :
+          this.status_chage1 = true; 
+          this.status_chage2 = true; 
+          this.status_chage3 = false;
+          this.status_chage4 = false;
+          break;
+          case 'กำลังจัดส่ง' : 
+          this.status_chage1 = true; 
+          this.status_chage2 = true;
+          this.status_chage3 = true;
+          this.status_chage4 = false; 
+          break;
+          case 'จัดส่งเสร็จสิ้น' :
+          this.status_chage1 = true; 
+          this.status_chage2 = true;
+          this.status_chage3 = true;  
+          this.status_chage4 = true; 
+          break;
+          default : throw new Error('Invalid status');
+        }
+        if (this.job[0].status == 'กำลังจัดส่ง') {
+
+        }
+        this.first_word = char[0].toUpperCase();
         this.check_staus = this.job[0].status;
-        console.log(this.check_staus);
         this.selectJob._id = this.id_param;
         this.selectJob.jobname = this.job[0].jobname;
       });
 
   }
   sort(event: SortEvent) {
-    const current = this.job[0].dis[event.currentIndex];
-    const swapWith = this.job[0].dis[event.newIndex];
-    this.job[0].dis[event.currentIndex] = swapWith;
-    this.job[0].dis[event.newIndex] = current;
+    const current = this.job[0].dropzone[event.currentIndex];
+    const swapWith = this.job[0].dropzone[event.newIndex];
+    this.job[0].dropzone[event.currentIndex] = swapWith;
+    this.job[0].dropzone[event.newIndex] = current;
     this.selectJob.address = [];
     this.selectJob.id = [];
     this.selectJob.lattitude = [];
@@ -172,5 +211,58 @@ export class JobDetailComponent implements OnInit {
       a.push(String.fromCharCode(i));
     }
     return a;
+  }
+  chageStatusUp() {
+    if (confirm('ต้องการเปลี่ยนสถานะการจัดส่ง')) {
+       switch(this.job[0].status) {
+         case 'เตรียมการจัดส่ง' : 
+         this.job[0].status =  'แพ็คสินค้าเตรียมนำส่ง';
+         this.jobService.putstatusJob(this.job[0])
+          .subscribe(res => {
+            
+            this.status_chage1 = true;
+            this.status_chage2 = true;
+          })
+         break;
+         case 'แพ็คสินค้าเตรียมนำส่ง' :    
+         this.job[0].status =  'กำลังจัดส่ง';
+         this.jobService.putstatusJob(this.job[0])
+          .subscribe(res => {
+            
+            this.status_chage1 = true;
+            this.status_chage2 = true;
+            this.status_chage3 = true;
+          }) 
+         break;
+       }
+    }
+  }
+  chageStatusDown() {
+    if (confirm('ต้องการเปลี่ยนสถานะการจัดส่ง')) { 
+      switch(this.job[0].status) {
+        case 'แพ็คสินค้าเตรียมนำส่ง' : 
+        this.job[0].status =  'เตรียมการจัดส่ง';
+        this.jobService.putstatusJob(this.job[0])
+         .subscribe(res => {
+           
+           this.status_chage1 = true;
+           this.status_chage2 = false;
+           this.status_chage3 = false;
+           this.status_chage4 = false;
+         })
+        break;
+        case 'กำลังจัดส่ง': 
+         this.job[0].status =  'แพ็คสินค้าเตรียมนำส่ง';
+         this.jobService.putstatusJob(this.job[0])
+          .subscribe(res => {
+            
+            this.status_chage1 = true;
+            this.status_chage2 = true;
+            this.status_chage3 = false;
+            this.status_chage4 = false;
+          })
+         break;
+      }
+    }
   }
 }

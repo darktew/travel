@@ -3,28 +3,43 @@
         <mat-icon>arrow_back</mat-icon>
     </a>
     <div [ngSwitch]="check_staus">
-    <div *ngSwitchCase="'กำลังจัดส่ง'">
-        <button mat-icon-button (click)="disablelist()" class="right">
-            <i class="low material-icons">edit</i>
-        </button>
-    </div>
-    <p *ngSwitchCase="'จัดส่งเรียบเรียบร้อย'">
-    </p>
+        <div *ngSwitchCase="'เตรียมการจัดส่ง'">
+            <button mat-icon-button (click)="disablelist()" class="right" matTooltip="แก้ไขเส้นทาง" matTooltipClass="font-tooltip"
+                [matTooltipPosition]="position[1]" aria-label="Button that displays a tooltip when focused or hovered over">
+                <i class="low material-icons">edit</i>
+            </button>
+        </div>
+        <div *ngSwitchCase="'แพ็คสินค้าเตรียมนำส่ง'">
+            <button mat-icon-button (click)="disablelist()" class="right" matTooltip="แก้ไขเส้นทาง" matTooltipClass="font-tooltip"
+                [matTooltipPosition]="position[1]" aria-label="Button that displays a tooltip when focused or hovered over">
+                <i class="low material-icons">edit</i>
+            </button>
+        </div>
+        <div *ngSwitchCase="'กำลังจัดส่ง'">
+            <button mat-icon-button (click)="disablelist()" class="right" matTooltip="แก้ไขเส้นทาง" matTooltipClass="font-tooltip"
+                [matTooltipPosition]="position[1]" aria-label="Button that displays a tooltip when focused or hovered over">
+                <i class="low material-icons">edit</i>
+            </button>
+        </div>
+        <p *ngSwitchCase="'จัดส่งเสร็จสิ้น'">
+        </p>
     </div>
     <form (ngSubmit)="editJobByUser(userlist)" #userlist="ngForm">
-    <mat-card-header>
-        <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>
-            <span *ngIf="sorts">ชื่อรอบงาน {{ selectJob.jobname}}</span>
-            <mat-form-field *ngIf="!sorts">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>
+                <h4 *ngIf="sorts">ชื่อรอบงาน {{ selectJob.jobname}}</h4>
+                <mat-form-field *ngIf="!sorts">
                     <input matInput placeholder="ชื่อรอบงาน" name="jobname" #jobname="ngModel" [(ngModel)]="selectJob.jobname">
-            </mat-form-field>
-        </mat-card-title>
-        <mat-card-subtitle>ระยะทางทั้งหมด {{ total }} กม. ใช้เวลาทั้งหมด {{ time }} </mat-card-subtitle>
-    </mat-card-header>
-        <mat-card-content>    
+                </mat-form-field>
+                <div class="subtitle">
+                    ระยะทางทั้งหมด {{ total }} กม. ใช้เวลาทั้งหมด {{ time }}
+                </div>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
             <div [ngClass]="{'disablemap': !sorts}">
-                <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom">
+                <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom" [scrollwheel]="false">
                     <!-- <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker> -->
                     <!-- <ng-container>
                             <agm-polyline [strokeColor]="'blue'">
@@ -34,7 +49,7 @@
                     <agm-direction [origin]="origin" [destination]="destination" [waypoints]="waypoints"></agm-direction>
                 </agm-map>
             </div>
-            
+
             <!-- Set list sort dragable -->
             <!-- <div [ngClass]="{'disablelist': sorts}">
                 <ul *ngFor="let j of job" class="list-address" appSortableList (sort)="sort($event)">
@@ -63,33 +78,54 @@
                       </div>
                     </section>
                   </div> -->
-                  <button *ngIf="!sorts" mat-mini-fab color="black" (click)="AddJob(data)" class="buttonadd" matTooltip="เพิ่มเส้นทางในการขนส่ง" 
-                  matTooltipClass="font-tooltip" 
-                  [matTooltipPosition]="position[0]"
-                  aria-label="Button that displays a tooltip when focused or hovered over">
-                        <i class="low material-icons">add</i>
-                      </button>
-                  <div [ngClass]="{'disablelist': sorts}">
-                      
-                      <h3 class="timeline-header"> ไทม์ไลน์เส้นทางการขนส่ง</h3>
-                      <ul class="timeline scale-transition" *ngFor="let j of job;" appSortableList (sort)="sort($event)">
-                          <li  *ngFor="let d of j.dis;let i = index" appSortable>
-                              <div class="item">
-                                  <span>
-                                    {{ word[i] }}
-                                  </span>
-                                  
-                                  <div class="content">
-                                      {{ d.address }}
-                                      <div class="event" *appDraggableHelper> {{d.address}}</div>
-                                      {{ text_distance[i] }} {{ text_duration[i] }}
-                                  </div>
-                              </div>
-                             
-                          </li>
-                      </ul>
-                     
-                  </div>  
+            <button *ngIf="!sorts" mat-mini-fab color="black" (click)="AddJob(data)" class="buttonadd" matTooltip="เพิ่มเส้นทางในการขนส่ง"
+                matTooltipClass="font-tooltip" [matTooltipPosition]="position[0]" aria-label="Button that displays a tooltip when focused or hovered over">
+                <i class="low material-icons">add</i>
+            </button>
+            <div [ngClass]="{'disablelist': sorts}">
+
+                <h4 class="timeline-header"> ไทม์ไลน์เส้นทางการขนส่ง</h4>
+                <div style="font-size: 16px; text-align: center;margin-top: 15px;" *ngIf="!sorts">ถ้าต้องการแก้ไขเส้นทางการขนส่งสามารถลากข้อมูลสลับตำแหน่งกันได้เลย
+                    <br>
+                    **ยกเว้นจุดเริ่มต้นไม่สามารถสลับตำแหน่งได้
+                </div>
+                <ul class="timeline scale-transition" *ngFor="let j of job;" appSortableList (sort)="sort($event)">
+                    <li>
+                        <div class="item-first">
+                            <span>
+                                {{ first_word }}
+                            </span>
+                            <div class="content-first">
+                                <b>จุดเริ่มต้น</b>
+                                <br>
+                                <b></b> {{ dis[0].address }}
+                            </div>
+                        </div>
+                    </li>
+                    <li *ngFor="let d of j.dropzone;let i = index;" appSortable>
+                        <div class="item">
+                            <span>
+                                {{ word[i+1] }}
+                            </span>
+                            <div class="content">
+                                <b>ผู้รับสินค้า:</b> {{ d.employee['name'] }} <br>
+                                <b>ที่อยู่ของผู้รับ:</b> {{ d.address }}
+                                <div class="event" *appDraggableHelper>
+                                    {{ d.employee['name'] }}
+                                    <br>
+                                    {{d.address}}
+                                </div>
+                                <br>
+                                <div *ngIf="sorts">{{ text_distance[i]}} {{text_duration[i]}} </div>
+                            </div>
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+
+            
+
         </mat-card-content>
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="selectJob._id">
         <input type="hidden" name="id" #id="ngModel" [(ngModel)]="selectJob.id">
@@ -102,3 +138,18 @@
         </mat-card-actions>
     </form>
 </mat-card>
+
+<h4 class="status">สถานะการขนส่ง</h4>
+<div class="container">
+    <ul class="progressbar">
+        <li [ngClass]="{'active': status_chage1}">
+            เตรียมการจัดส่ง
+        </li>
+        <li [ngClass]="{'active': status_chage2}" #status_2>แพ็คสินค้าเตรียมนำส่ง</li>
+        <li [ngClass]="{'active': status_chage3}" #status_3>กำลังจัดส่ง</li>
+        <li [ngClass]="{'active': status_chage4}" #status_4>จัดส่งเสร็จสิ้น</li>
+    </ul>
+    
+    <button (click)="chageStatusDown()" class="back_status"> Back </button>
+    <button (click)="chageStatusUp()" class="next_status"> Next </button>
+</div>

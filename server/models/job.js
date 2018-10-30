@@ -13,7 +13,8 @@ const JobSchema = new Schema({
     longtitude: [Number],
     time: String,
     dropzone : {type: Object, ref: 'Position', ref: 'Employee'},
-    status: String
+    status: { type: String, default: 'เตรียมการจัดส่ง'},
+    obj_time: Object
 });
 
 

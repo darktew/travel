@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Job } from '../../models/job';
 import { JobService } from '../../services/job.service';
-import { MatTableDataSource, MatPaginator, MatDialog } from '../../../../node_modules/@angular/material';
+import { MatTableDataSource, MatPaginator, MatDialog, TooltipPosition } from '../../../../node_modules/@angular/material';
 import { JobCreateComponent } from './job-create/job-create.component';
 import { Router } from '@angular/router';
 
@@ -14,6 +14,7 @@ declare var M: any;
 })
 export class JobComponent implements OnInit {
   seletedJobs: Job;
+  tooltip: TooltipPosition[] = ['left'];
   Jobs: Job[];
   dataSource;
   displayedColumns: string[] = ['jobname', 'total', 'time', 'status' ,'action'];
@@ -29,7 +30,6 @@ export class JobComponent implements OnInit {
     this.getJobs();
   }
   statuschage(element) {
-  
     element.status = "จัดส่งเรียบร้อย";
     this.jobservice.putjob(element)
       .subscribe(res => {
@@ -42,14 +42,6 @@ export class JobComponent implements OnInit {
     this.jobservice.getJobs()
       .subscribe(res => {
         this.Jobs = res as Job[];
-        for (let i =0; i< this.Jobs.length; i++) {
-          console.log(this.Jobs[i].status);
-          if (this.Jobs[i].status === "จัดส่งเรียบร้อย") {
-            this.check_box = false;
-          } else {
-            this.check_box = true;
-          }
-        }
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         console.log(this.Jobs);

@@ -4,11 +4,12 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const passport = require('passport');
-
 const mongoose  = require('mongoose');
 const database = require('./database');
+const http = require('http');
+const server = http.Server(app);
+const webpush = require('web-push');
 // Connect to Database
-
 mongoose.connect(database.database)
     .then(db => console.log('DB is connected'))
     .catch(err => console.error(err));
@@ -39,7 +40,10 @@ app.use('/api/home', require('./routes/home.routes'));
 app.use(passport.initialize());
 app.use(passport.session());
 require('./passport')(passport);
+
+
+
 // Starting the Server
-app.listen(app.get('port'), () =>{
+server.listen(app.get('port'), () =>{
     console.log('Server on port 3000');
 });

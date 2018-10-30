@@ -1,37 +1,39 @@
 <mat-card class="example-card">
-        <a  (click)="goback()" class="back"><mat-icon>arrow_back</mat-icon></a>
-        <div class="head-content">
+    <a (click)="goback()" class="back">
+        <mat-icon>arrow_back</mat-icon>
+    </a>
+    <div class="head-content">
         <h4>ที่อยู่ของ {{ name }} ทั้งหมด</h4>
-        </div>
+    </div>
     <mat-card-content>
         <mat-list>
             <div class="main-content">
-            <div class="row">
-                <div class="col s10">
-                    <mat-list-item *ngFor="let p of positionService.positions" class="list">
-                        {{p.address}}
-                    </mat-list-item>
-                </div>
-                <div class="col s2">
-                    <mat-list-item *ngFor="let p of positionService.positions">
-                        <button class="menu" mat-icon-button [matMenuTriggerFor]="Menu" style="background-color: aliceblue">
-                            <mat-icon>more_vert</mat-icon>
-                        </button>
-                        <mat-menu #Menu="matMenu">
-                            <button mat-menu-item (click)="editPosition(p)" style="background-color: aliceblue;text-align: center">
-                                <mat-icon>edit</mat-icon><span style="font-family: 'Prompt', sans-serif;">แก้ไข</span>
+                <div class="row">
+                    <div class="col s10">
+                        <mat-list-item *ngFor="let p of positionService.positions" class="list">
+                            {{p.address}}
+                        </mat-list-item>
+                    </div>
+                    <div class="col s2">
+                        <mat-list-item *ngFor="let p of positionService.positions">
+                            <button class="menu" mat-icon-button [matMenuTriggerFor]="Menu" style="background-color: aliceblue">
+                                <mat-icon>more_vert</mat-icon>
                             </button>
-                            <button mat-menu-item (click)="delePosition(p._id)" style="background-color: aliceblue;text-align: center">
-                                <mat-icon>delete</mat-icon><span style="font-family: 'Prompt', sans-serif;">ลบ</span>
-                            </button>
-                        </mat-menu>
-                    </mat-list-item>
+                            <mat-menu #Menu="matMenu">
+                                <button mat-menu-item (click)="editPosition(p)" style="background-color: aliceblue;text-align: center">
+                                    <mat-icon>edit</mat-icon><span style="font-family: 'Prompt', sans-serif;">แก้ไข</span>
+                                </button>
+                                <button mat-menu-item (click)="delePosition(p._id)" style="background-color: aliceblue;text-align: center">
+                                    <mat-icon>delete</mat-icon><span style="font-family: 'Prompt', sans-serif;">ลบ</span>
+                                </button>
+                            </mat-menu>
+                        </mat-list-item>
+                    </div>
                 </div>
             </div>
-        </div>
         </mat-list>
         <agm-map [latitude]="13.736717" [longitude]="100.523186" [zoom]="zoom" [scrollwheel]="true">
-            <agm-marker *ngFor="let m of positionService.positions" [latitude]="m.lattitude" [longitude] ="m.longtitude">
+            <agm-marker *ngFor="let m of positionService.positions" [latitude]="m.lattitude" [longitude]="m.longtitude">
                 <agm-info-window>
                     {{ m.address }}
                 </agm-info-window>
@@ -41,7 +43,11 @@
 </mat-card>
 <footer class="footer">
     <div class="container">
-        <button mat-fab (click)="showAddPosition()" class="right">
+        <button mat-fab (click)="showAddPosition()" class="right" 
+        matTooltip="เพิ่มที่อยู่ลูกค้า" 
+        matTooltipClass="font-tooltip"
+        [matTooltipPosition]="tooltip[0]" 
+        aria-label="Button that displays a tooltip when focused or hovered over">
             <i class="low material-icons">add</i>
         </button>
     </div>

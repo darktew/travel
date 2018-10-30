@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { PositionService } from '../../../services/position.service';
 import { Position } from '../../../models/position';
-import { MatTableDataSource, MatDialog } from '@angular/material';
+import { MatTableDataSource, MatDialog, TooltipPosition } from '@angular/material';
 import { EmployeeService } from '../../../services/employee.service';
 import { Employee } from '../../../models/employee';
 import { Observable } from '../../../../../node_modules/rxjs';
@@ -19,6 +19,7 @@ declare var M:any;
 })
 export class EmployeeDetailComponent implements OnInit {
   public employeeId;
+  tooltip: TooltipPosition[]  = ['left'];
   isPopupOpened = false;
   employee: Array<Object>;
   dataSource;
@@ -34,6 +35,7 @@ export class EmployeeDetailComponent implements OnInit {
     let id = this.route.snapshot.paramMap.get('id');
     this.employeeId = id;
     this.getPositionByEmployeeId();
+    this.tooltib();
   }
   goback() {
     this.location.back();
@@ -80,5 +82,11 @@ export class EmployeeDetailComponent implements OnInit {
           M.toast({html: 'Delete Success'});
         });
     }
+  }
+  tooltib() {
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.tooltipped');
+      var instances = M.Tooltip.init(elems);
+    });
   }
 }

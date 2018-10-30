@@ -74,3 +74,7 @@
     -ms-user-select: none;      
     user-select: none;
 }
+.subtitle {
+    font-size: 22px;
+    margin-top: 10px;
+}

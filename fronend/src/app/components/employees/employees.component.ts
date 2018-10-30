@@ -6,7 +6,7 @@ import { NgForm } from '@angular/forms';
 import { Employee } from '../../models/employee';
 import { Router } from '@angular/router';
 import { DataSource } from '@angular/cdk/table';
-import { MatPaginator, MatTableDataSource, MatDialog } from '@angular/material';
+import { MatPaginator, MatTableDataSource, MatDialog, TooltipPosition } from '@angular/material';
 import { EmployeeCreateComponent } from './employee-create/employee-create.component';
 import { PositionService } from 'src/app/services/position.service';
 declare var M: any;
@@ -18,6 +18,7 @@ declare var M: any;
 })
 export class EmployeesComponent implements OnInit {
   isPopupOpened = false;
+  tooltip: TooltipPosition[] = ['left'];
   show: boolean;
   displayedColumns: string[] = ['name', 'phone', 'action'];
   searchTerm: string;

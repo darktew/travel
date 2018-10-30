@@ -20,6 +20,12 @@ main {
     right: 0;
     width: 300px;
 }
+.font-tooltip {
+  width: 120px;
+  font-size: 12px;
+  font-family: 'Prompt', sans-serif;
+  text-align: center;
+}
 .mat-fab:not([class*=mat-elevation-z]) {
   background-color: rgba(28, 93, 212, 0.884);
 }

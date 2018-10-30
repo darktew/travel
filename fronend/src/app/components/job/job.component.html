@@ -24,17 +24,7 @@
       </ng-container>
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> สถานะการจัดส่ง </th>
-        <td mat-cell *matCellDef="let element">       
-          <label [ngSwitch]="element.status">
-            <div class="true" *ngSwitchCase="'จัดส่งเรียบร้อย'">
-                <span>{{element.status}}</span>
-            </div>
-            <div class="false" *ngSwitchCase="'กำลังจัดส่ง'">
-                <input *ngIf="check_box" type="checkbox" (change)="statuschage(element)"/>
-                <span>{{element.status}}</span>
-            </div> 
-           
-          </label>
+        <td mat-cell *matCellDef="let element"> {{element.status}}       
         </td>
       </ng-container>
       <!-- Action Column -->
@@ -65,7 +55,11 @@
 </mat-card>
 <footer class="footer">
   <div class="container">
-    <button mat-fab (click)="AddJob()" class="right">
+    <button mat-fab (click)="AddJob()" class="right"
+    matTooltip="เพิ่มรอบการจัดส่ง" 
+    matTooltipClass="font-tooltip" 
+    [matTooltipPosition]="tooltip[0]"
+    aria-label="Button that displays a tooltip when focused or hovered over">
       <i class="low material-icons">add</i>
     </button>
   </div>

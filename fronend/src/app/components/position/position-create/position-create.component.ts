@@ -64,9 +64,8 @@ export class PositionCreateComponent implements OnInit {
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ['address']
+        types: []
       });
-      let geocoder = new google.maps.Geocoder;
       autocomplete.addListener("place_changed", () => {
         this.ngzone.run(() => {
           //get the place result
@@ -79,7 +78,8 @@ export class PositionCreateComponent implements OnInit {
           this.positionService.selectedPosition.lattitude = place.geometry.location.lat();
           this.positionService.selectedPosition.longtitude = place.geometry.location.lng();
           this.positionService.selectedPosition.address = place.formatted_address;
-          this.map.setCenter({ lat: place.geometry.location.lat(), lng: place.geometry.location.lng() });
+          console.log(place);
+          this.map.setCenter(place.geometry.location);
           this.zoom = 15;
         });
       });
@@ -130,7 +130,7 @@ export class PositionCreateComponent implements OnInit {
     this.positionService.selectedPosition.lattitude = event.coords.lat;
     this.positionService.selectedPosition.longtitude = event.coords.lng;
     this.locationChosen = true;
-    this.searchAddressbylatlng(event.coords.lat,event.coords.lng,this.positionService);
+    this.searchAddressbylatlng(event.coords.lat, event.coords.lng, this.positionService);
   }
   getPositions() {
     this.positionService.getPositions()
@@ -143,10 +143,12 @@ export class PositionCreateComponent implements OnInit {
     this.mapsAPILoader.load().then(() => {
       let geocoder = new google.maps.Geocoder;
       let latlng = { lat: lat, lng: lng }
-      geocoder.geocode({ 'location': latlng }, function (results, status) {
+      geocoder.geocode({ 'location': latlng }, (results, status) => {
+        this.ngzone.run(() => {
           if (results[0]) {
             position.selectedPosition.address = results[0].formatted_address;
-        }  
+          }
+        });
       });
     });
   }

@@ -22,14 +22,14 @@ export class JobService {
   getJob(_id: string) {
     return this.http.get(this.URL_API + `/detail` + `/${_id}`);
   }
-  // getPositionByEmployeeId(employee_id: String) {
-  //   return this.http.get(this.URL_API+`/employee`+`/${employee_id}`);
-  // }
   putjob(job: Job) {
     return this.http.put(this.URL_API + `/${job._id}`, job);
   }
   putuserJob(job: Job) {
     return this.http.put(this.URL_API + `/detail` +`/${job._id}`,job);
+  }
+  putstatusJob(job: Job) {
+    return this.http.put(this.URL_API + `/status` + `/${job._id}`,job);
   }
   deleteJob(_id: string) {
     return this.http.delete(this.URL_API + `/${_id}`);

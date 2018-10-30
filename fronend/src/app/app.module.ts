@@ -46,6 +46,8 @@ import { AuthGuard }  from '../app/guards/auth.guards';
 import { UploadsComponent } from './components/uploads/uploads.component';
 import { SafePipePipe } from './pipe/safe-pipe.pipe';
 import { JobfilterPipe } from './pipe/jobfilter.pipe';
+import { CronJobsModule } from 'ngx-cron-jobs';
+
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
@@ -106,6 +108,7 @@ const routes: Routes = [
     MatDialogModule,
     MatCardModule,
     MatGridListModule,
+    CronJobsModule,
     NgxPaginationModule,
     DraggaleModule,
     ReactiveFormsModule,
@@ -144,4 +147,5 @@ const routes: Routes = [
     UploadsComponent],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+}
