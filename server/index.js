@@ -6,23 +6,22 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const mongoose  = require('mongoose');
 const database = require('./database');
-const http = require('http');
-const server = http.Server(app);
+
+const path = require('path');
 const webpush = require('web-push');
+const socketIO = require('socket.io');
 // Connect to Database
 mongoose.connect(database.database)
     .then(db => console.log('DB is connected'))
     .catch(err => console.error(err));
 // Settings
 app.set('port', process.env.PORT || 3000);
-
 app.use(function (req,res,next) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "Origin, X-Requested, Content-Type, Accept, Authorization, sid");
         res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
         next();
 });
-
 // Middlewares
 app.use(morgan('dev'));
 app.use('/uploads', express.static('uploads'));
@@ -44,6 +43,10 @@ require('./passport')(passport);
 
 
 // Starting the Server
-server.listen(app.get('port'), () =>{
+const server = app.listen(app.get('port'), () =>{
     console.log('Server on port 3000');
 });
+
+//Seting IO
+const io = socketIO.listen(server);
+app.set('io',io);

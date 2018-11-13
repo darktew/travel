@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth.service';
 import { trigger, state, animate, transition, style, group, query } from '@angular/animations';
 import { MatDialog } from '@angular/material';
 import { UploadsComponent } from '../uploads/uploads.component';
-
+import { IoService } from 'src/app/services/io.service';
 declare var M: any;
 export interface Tile {
   cols: number;
@@ -78,14 +78,25 @@ export class NavbarComponent implements OnInit {
   email: String;
   isPopupOpened = true;
   img: any;
+  public x = 0;
   constructor(private authService: AuthService,
     private route: Router,
-    private dialog?: MatDialog
+    private dialog?: MatDialog,
+    private socket?: IoService
   ) {
   }
   ngOnInit() {
     this.getProfile();
     this.dropdown();
+    this.notify();
+    
+  }
+  notify(){
+    this.socket.socket.on('ChangeStatus', (message)=> {
+         if (message.message) {
+           this.x = this.x + 1;
+         }
+    });
   }
   getProfile() {
     this.authService.getProfile().

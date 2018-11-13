@@ -27,6 +27,7 @@ jobCtrl.getJobs = async (req, res) => {
 };
 jobCtrl.createJob = async (req, res) => {
   const id = "";
+  const io = req.app.get('io');
   const job = calDistance(req, id, res);
   var test;
   await google_directions(job).then(
@@ -35,7 +36,9 @@ jobCtrl.createJob = async (req, res) => {
     err => console.log(err)
   );
   const save = getValuesTosave(test, job);
-  await save.save();
+  await save.save().then(()=> {
+    io.emit('createjob');
+  });
   res.json({
     status: "Save Success"
   });
@@ -102,46 +105,54 @@ jobCtrl.deleteJob = async (req, res) => {
 jobCtrl.statusJob = async (req, res) => {
   const { id } = req.params;
   const status = req.body.status;
+  const date_time = new Date().toLocaleString();
+  console.log(date_time);
+  const io = req.app.get('io');
   const obj_time = req.body.obj_time;
+  await Job.findByIdAndUpdate(id, { $set: {
+    date: date_time, 
+    status: status
+  } 
+}, { new: true });
   if (status == 'กำลังจัดส่ง') {
-    // var hour_new = new Date().getHours();
-    // var min_new = new Date().getMinutes();
-    // var hour = obj_time.hour + hour_new;
-    // var min = obj_time.min + min_new;
-    // if (hour >= 24) {
-    //   hour = hour - 24;
-    // } else {
-    //   hour = hour;
-    // }
-    // if(min >= 60) {
-    //   min = min - 60;
-    // }else {
-    //   min = min;
-    // }
-    const take = cron.schedule(9 + " " + 16 + ' * * *', function () {
+    var hour_new = new Date().getHours();
+    var min_new = new Date().getMinutes();
+    var hour = obj_time.hour + hour_new;
+    var min = obj_time.min + min_new;
+    if (hour >= 24) {
+      hour = hour - 24;
+    } else {
+      hour = hour;
+    }
+    if(min >= 60) {
+      min = min - 60;
+    }else {
+      min = min;
+    }
+    const take =  cron.schedule(min + " " + hour + ' * * *', function () {
       console.log("--------------------------");
       console.log(" Running Update Status ");
-      cronTime(id, res, (response, err) => {
+      cronTime(id, res, io, (response, err) => {
         if (err) {
           return console.log("Save Not Success");
         } else {
-          console.log("OK");
+          io.sockets.emit('ChangeStatus', {message: 'Status Success ?'});
           return take.stop();
         }
       });
     });
+   
     res.json({
       status: "Job Update Status Success"
     });
   } else {
-    await Job.findByIdAndUpdate(id, { $set: { status: status } }, { new: true });
     res.json({
       status: "Job Update Status Success"
     });
   }
 }
 
-let cronTime = (id, res, callbackFn) => {
+let cronTime = (id, res, io,callbackFn) => {
   Job.findByIdAndUpdate(id, { $set: { status: 'จัดส่งเสร็จสิ้น' } }, { new: true }, (err, res) => {
     if (err) {
       callbackFn(err, null);

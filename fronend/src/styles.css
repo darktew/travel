@@ -14,12 +14,7 @@ body {
 main {
   flex: 1 0 auto;
 }
-.footer{
-   position: fixed;
-    bottom: 30px;
-    right: 0;
-    width: 300px;
-}
+
 .font-tooltip {
   width: 120px;
   font-size: 12px;

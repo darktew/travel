@@ -124,7 +124,7 @@
                 </ul>
             </div>
 
-            
+
 
         </mat-card-content>
         <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="selectJob._id">
@@ -138,8 +138,20 @@
         </mat-card-actions>
     </form>
 </mat-card>
+<div class="row">
+    <div class="col s6">
+        <h4 class="status">สถานะการขนส่ง</h4>
+    </div>
+    <div class="col s6">
+        <div class="timer" *ngIf="timer">
+            <mat-icon style="margin-right: 10px;margin-top: 20px">timer</mat-icon>
+            <countdown-timer [end]="date"></countdown-timer>
+        </div>
+    </div>
+</div>
 
-<h4 class="status">สถานะการขนส่ง</h4>
+
+
 <div class="container">
     <ul class="progressbar">
         <li [ngClass]="{'active': status_chage1}">
@@ -149,7 +161,10 @@
         <li [ngClass]="{'active': status_chage3}" #status_3>กำลังจัดส่ง</li>
         <li [ngClass]="{'active': status_chage4}" #status_4>จัดส่งเสร็จสิ้น</li>
     </ul>
-    
-    <button (click)="chageStatusDown()" class="back_status"> Back </button>
-    <button (click)="chageStatusUp()" class="next_status"> Next </button>
+
+    <button (click)="chageStatusDown()" class="back_status" mat-raised-button color="warn">
+        <mat-icon>arrow_back</mat-icon> ย้อนกลับ
+    </button>
+    <button (click)="chageStatusUp()" mat-button class="next_status right"> ถัดไป <mat-icon>arrow_forward</mat-icon>
+    </button>
 </div>

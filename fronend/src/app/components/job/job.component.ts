@@ -1,10 +1,13 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Job } from '../../models/job';
 import { JobService } from '../../services/job.service';
 import { MatTableDataSource, MatPaginator, MatDialog, TooltipPosition } from '../../../../node_modules/@angular/material';
 import { JobCreateComponent } from './job-create/job-create.component';
 import { Router } from '@angular/router';
+import { IoService } from 'src/app/services/io.service';
+import { NotificationService } from 'src/app/services/notification.service';
 
+  
 declare var M: any;
 @Component({
   selector: 'app-job',
@@ -20,15 +23,44 @@ export class JobComponent implements OnInit {
   displayedColumns: string[] = ['jobname', 'total', 'time', 'status' ,'action'];
   isPopupOpened = true;
   check_box;
+  pdffile;
+  @ViewChild('pdf') pdfFile: ElementRef;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   constructor(private jobservice: JobService,
               public router: Router,
+              private socket: IoService,
               private dialog?: MatDialog,
-              ) { }
+              private _notification?:NotificationService
+              ) { 
+            this._notification.requestPermission();
+              }
 
   ngOnInit() {
     this.getJobs();
+    this.socket.socket.on('createjob', ()=> {
+      this.getJobs();
+    });
+    
   }
+  // downloadPDF() {
+  //   let doc = new jspdf();
+
+  //   let spacialElementRef = {
+  //     '#editor': function(element, renderer) {
+  //         return true
+  //     }
+  //   }
+  //  let content = this.pdfFile.nativeElement;
+  //  doc.addFont('fonts/calibri.ttf', 'Calibri', 'normal');
+  //  doc.setFont('Calibri');
+  //  doc.fromHTML(content.innerHTML, 15, 15, {
+  //    'width': 190,
+  //    'elementHandlers': spacialElementRef,
+  //  });
+  //  console.log(content.innerHTML);
+  //   doc.save('TRAVEL.pdf');
+  // }
+
   statuschage(element) {
     element.status = "จัดส่งเรียบร้อย";
     this.jobservice.putjob(element)

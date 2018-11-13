@@ -14,7 +14,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatButtonModule} from '@angular/material/button';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
-import {MatPaginatorModule, MatIconModule, MatProgressBarBase} from '@angular/material';
+import {MatPaginatorModule, MatIconModule, MatProgressBarBase, MatBadgeModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatListModule} from '@angular/material/list';
 import {MatDialogModule} from '@angular/material/dialog';
@@ -22,7 +22,6 @@ import {MatCardModule} from '@angular/material/card';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatTooltipModule} from '@angular/material/tooltip';
-
 import { AppComponent } from './app.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { PositionComponent } from './components/position/position.component';
@@ -46,8 +45,7 @@ import { AuthGuard }  from '../app/guards/auth.guards';
 import { UploadsComponent } from './components/uploads/uploads.component';
 import { SafePipePipe } from './pipe/safe-pipe.pipe';
 import { JobfilterPipe } from './pipe/jobfilter.pipe';
-import { CronJobsModule } from 'ngx-cron-jobs';
-
+import { CountdownTimerModule } from 'ngx-countdown-timer';
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
@@ -108,7 +106,7 @@ const routes: Routes = [
     MatDialogModule,
     MatCardModule,
     MatGridListModule,
-    CronJobsModule,
+    MatBadgeModule,
     NgxPaginationModule,
     DraggaleModule,
     ReactiveFormsModule,
@@ -119,6 +117,7 @@ const routes: Routes = [
         blacklistedRoutes: ['localhost:3001/api/users']
       }
     }),
+    CountdownTimerModule.forRoot(),
     FlashMessagesModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyB82hkYAY3SZRDmpH_SCcd3W8NgAnl9TPw',

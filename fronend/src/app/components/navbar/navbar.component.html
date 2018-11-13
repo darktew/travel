@@ -29,6 +29,9 @@
     <mat-toolbar class="mat-toolbar-content" *ngIf="!authService.loggedIn()">
       <mat-toolbar-row>
         <span class="example-spacer"></span>
+         <!-- <a href="#" rel="toggle" role="button" class="dropdown-trigger" data-target="dropdown2">
+        <mat-icon class="notifications">notifications</mat-icon><span *ngIf="x !=0" class="badge white-text red">{{x}}</span>
+         </a> -->
         <a href="#" rel="toggle" role="button" class="dropdown-trigger" data-target="dropdown1">
           <img *ngIf="!authService.loggedIn()" [src]="img | SafeUrl: 'resourceUrl'" class="button-img">
           <div class="online"></div>

@@ -60,6 +60,7 @@
     left: 150px;
     font-size: 48px;
     color:white;
+    z-index: 1;
 }
 .button-getStart {
     background-color: coral;
@@ -77,4 +78,8 @@
 .subtitle {
     font-size: 22px;
     margin-top: 10px;
+}
+.image {
+    height: 500px;
+    position: relative;
 }

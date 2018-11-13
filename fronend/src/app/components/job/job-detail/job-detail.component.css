@@ -173,7 +173,7 @@ h1.header {
   font-size: 18px;
 }
 .status {
-  text-align: center;
+  float: right;
 }
 .container {
   margin-top: 50px;
@@ -229,5 +229,22 @@ h1.header {
 }
 .progressbar li.active + li:after {
   background-color: #55b776;
+}
+.back_status {
+  left: 115px;
+  top: 20px;
+  font-family: 'Prompt', sans-serif;
+}
+.next_status {
+  right: 115px;
+  top: 20px;
+  background: rgb(9, 160, 9);
+  color: white;
+  font-family: 'Prompt', sans-serif;
+}
+.timer {
+  margin-top: 20px;
+  float: right;
+  font-size: 18px;
 }
    

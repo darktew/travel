@@ -1,6 +1,16 @@
 <mat-card class="example-card">
-  <h3>ข้อมูลการจัดส่ง</h3>
-<div class="row">
+  <div class="row">
+    <div class="col s6 m6">
+      <h3>ข้อมูลการจัดส่ง</h3>
+    </div>
+    <div class="col s6 m6">
+      <button type="button" mat-mini-fab class="right print" matTooltip="พิมพ์" [matTooltipPosition]="tooltip[0]"
+        aria-label="Button that displays a tooltip when focused or hovered over" (click)="downloadPDF()">
+        <i class="low material-icons">print</i>
+      </button>
+    </div>
+  </div>
+  <div class="row">
     <!-- Search Item -->
     <div class="input-field col s6 " style="width: 40%; font-family: 'Prompt', sans-serif;">
       <i class="material-icons prefix">search</i>
@@ -12,7 +22,9 @@
       <!-- Column -->
       <ng-container matColumnDef="jobname">
         <th mat-header-cell *matHeaderCellDef> ชื่อรอบงาน </th>
-        <td mat-cell *matCellDef="let element"> <div class="select" (click)="onSelect(element)"> {{element.jobname}} </div> </td>
+        <td mat-cell *matCellDef="let element">
+          <div class="select" (click)="onSelect(element)"> {{element.jobname}} </div>
+        </td>
       </ng-container>
       <ng-container matColumnDef="total">
         <th mat-header-cell *matHeaderCellDef> ระยะทางทั้งหมด </th>
@@ -24,7 +36,7 @@
       </ng-container>
       <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef> สถานะการจัดส่ง </th>
-        <td mat-cell *matCellDef="let element"> {{element.status}}       
+        <td mat-cell *matCellDef="let element"> {{element.status}}
         </td>
       </ng-container>
       <!-- Action Column -->
@@ -51,17 +63,29 @@
     </table>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
-</div>
-</mat-card>
-<footer class="footer">
-  <div class="container">
-    <button mat-fab (click)="AddJob()" class="right"
-    matTooltip="เพิ่มรอบการจัดส่ง" 
-    matTooltipClass="font-tooltip" 
-    [matTooltipPosition]="tooltip[0]"
-    aria-label="Button that displays a tooltip when focused or hovered over">
-      <i class="low material-icons">add</i>
-    </button>
   </div>
-</footer>
-
+  <div id="content" #pdf [hidden]="!pdffile">
+    <table>
+      <th>ชื่อรอบงาน</th>
+      <th>ระยะเวลาการจัดส่ง</th>
+      <th>ระยางทางในการจัดส่ง</th>
+      <th>สถานะการจัดส่ง</th>
+      <tr *ngFor="let j of Jobs">
+        <td> {{j.jobname}}</td>
+        <td> {{j.time}}</td>
+        <td> {{j.total.toFixed(2)}} กม.</td>
+        <td> {{j.status }}</td>
+      </tr>
+    </table>
+  </div>
+</mat-card>
+<div class="footer">
+  <footer class="footer">
+    <div class="container">
+      <button mat-fab (click)="AddJob()" class="right" matTooltip="เพิ่มรอบการจัดส่ง" matTooltipClass="font-tooltip"
+        [matTooltipPosition]="tooltip[0]" aria-label="Button that displays a tooltip when focused or hovered over">
+        <i class="low material-icons">add</i>
+      </button>
+    </div>
+  </footer>
+</div>

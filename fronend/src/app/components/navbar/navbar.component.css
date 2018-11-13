@@ -106,7 +106,32 @@
 .dropdown-trigger {
   margin-right: 15px;
 }
+.dropdown-content:before {
+  content:"";
+  position: absolute;
+  right: 11px;
+  top: -10px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 10px 10px;
+  border-color: transparent transparent #fae0bb transparent;
+  z-index:9999;
+}
+.dropdown-content:after {
+  content:"";
+  position: absolute;
+  right: 4px;
+  top: -22px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 17px 17px 17px;
+  border-color: transparent transparent #ffffff transparent;
+  z-index:9998;
+}
 .dropdown-content {
+  list-style-type: none;
   width: 350px!important;
   height: 200px!important;
   top: 62px!important;
@@ -177,4 +202,17 @@
     position: absolute;
     top: 40px;
     right: 30px;
+}
+.notifications{
+   margin-right: 30px;
+   cursor: pointer;
+}
+.badge {
+  position: relative;
+  right: 55px;
+  top:-10px;
+  border-radius: 50%;
+  min-width: 22px;
+  line-height: 23px;
+  font-size: 12px;
 }

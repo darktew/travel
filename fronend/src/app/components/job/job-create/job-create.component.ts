@@ -9,7 +9,7 @@ import { PositionService } from "../../../services/position.service";
 import { Position } from "../../../models/position";
 import { Employee } from "../../../models/employee";
 import { NgForm } from "../../../../../node_modules/@angular/forms";
-
+import { IoService } from 'src/app/services/io.service';
 function remove(item: Object, list: Array<Object>) {
   if (list.indexOf(item) !== -1) {
     list.splice(list.indexOf(item), 1);
@@ -35,7 +35,8 @@ export class JobCreateComponent implements OnInit {
     private dialogRef: MatDialogRef<JobCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     public jobservice: JobService,
-    public positionService: PositionService
+    public positionService: PositionService,
+    private socket: IoService
   ) {}
 
   ngOnInit() {

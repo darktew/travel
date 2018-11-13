@@ -12,7 +12,9 @@ export class Job {
         total = 0,
         time = '',
         dropzone = {},
-        status = '') {
+        status = '',
+        obj_time = {}
+       ) {
         this._id = _id;
         this.jobname = jobname;
         this.address = address;
@@ -26,7 +28,8 @@ export class Job {
         this.time = time; 
         this.dropzone = dropzone;
         this.status = status;
-     
+        this.obj_time = obj_time;
+         
     }
     _id: string;
     jobname: string;
@@ -41,4 +44,5 @@ export class Job {
     time:String;
     dropzone: Object;
     status: String;
+    obj_time: Object;
 }

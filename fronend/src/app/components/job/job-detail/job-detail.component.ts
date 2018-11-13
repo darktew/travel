@@ -7,6 +7,10 @@ import { Location } from '@angular/common';
 import { SortEvent } from '../../../draggale/sortable-list.directive';
 import { NgForm } from '@angular/forms';
 import { JobCreateComponent } from '../job-create/job-create.component';
+import { IoService } from 'src/app/services/io.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { interval } from 'rxjs';;
+import { map } from 'rxjs/operators';
 declare var M: any;
 @Component({
   selector: 'app-job-detail',
@@ -26,7 +30,6 @@ export class JobDetailComponent implements OnInit {
   isPopupOpened = false;
   time: String;
   total: Number;
-
   first_word: String;
   distance: Array<String> = [];
   duration: Array<String> = [];
@@ -41,11 +44,18 @@ export class JobDetailComponent implements OnInit {
   status_chage2;
   status_chage3;
   status_chage4;
+  name;
+  date;
+  x;
+   timer;
+  @ViewChild('demo') testdemo: ElementRef;
   constructor(
     private jobService: JobService,
     public route: ActivatedRoute,
     public location: Location,
     private dialog?: MatDialog,
+    private socket?: IoService,
+    private _notification? : NotificationService
   ) {  
   }
 
@@ -56,6 +66,7 @@ export class JobDetailComponent implements OnInit {
     this.selectJob = new Job();
     this.id_param = id;
     this.sorts = true;
+    this.notify();
   }
   AddJob() {
     this.isPopupOpened = true;
@@ -76,8 +87,8 @@ export class JobDetailComponent implements OnInit {
   }
   goback() {
     this.location.back();
-    this.sorts = false;
   }
+ 
   disablelist() {
     if (this.sorts == true) {
       this.sorts = false;
@@ -169,14 +180,33 @@ export class JobDetailComponent implements OnInit {
           default : throw new Error('Invalid status');
         }
         if (this.job[0].status == 'กำลังจัดส่ง') {
-
+           this.timer = true;
         }
         this.first_word = char[0].toUpperCase();
         this.check_staus = this.job[0].status;
         this.selectJob._id = this.id_param;
         this.selectJob.jobname = this.job[0].jobname;
+        this.name = this.job[0].jobname;
+        this.date = new Date(this.job[0].date);
+        
+         this.date.setHours(this.date.getHours() + this.job[0].obj_time['hour']);
+          this.date.setMinutes(this.date.getMinutes() + this.job[0].obj_time['min']);
       });
-
+      
+  }
+  
+  notify() {
+  this.socket.socket.on('ChangeStatus', (message)=> {
+    console.log("Connect IO");
+        if (message.message) {
+          let data = {
+            'title': this.name,
+            'alertContent': 'ครบเวลาที่กำหนดไว้แล้ว'
+          };
+          this._notification.generateNotification(data);
+        } 
+      });
+    
   }
   sort(event: SortEvent) {
     const current = this.job[0].dropzone[event.currentIndex];
@@ -216,16 +246,17 @@ export class JobDetailComponent implements OnInit {
     if (confirm('ต้องการเปลี่ยนสถานะการจัดส่ง')) {
        switch(this.job[0].status) {
          case 'เตรียมการจัดส่ง' : 
-         this.job[0].status =  'แพ็คสินค้าเตรียมนำส่ง';
+         this.job[0].status = 'แพ็คสินค้าเตรียมนำส่ง';
+         
          this.jobService.putstatusJob(this.job[0])
           .subscribe(res => {
-            
+           
             this.status_chage1 = true;
             this.status_chage2 = true;
           })
          break;
          case 'แพ็คสินค้าเตรียมนำส่ง' :    
-         this.job[0].status =  'กำลังจัดส่ง';
+         this.job[0].status = 'กำลังจัดส่ง';
          this.jobService.putstatusJob(this.job[0])
           .subscribe(res => {
             
@@ -234,7 +265,7 @@ export class JobDetailComponent implements OnInit {
             this.status_chage3 = true;
           }) 
          break;
-       }
+       }  
     }
   }
   chageStatusDown() {
@@ -261,6 +292,7 @@ export class JobDetailComponent implements OnInit {
             this.status_chage3 = false;
             this.status_chage4 = false;
           })
+          
          break;
       }
     }
