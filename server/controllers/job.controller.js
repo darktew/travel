@@ -129,7 +129,7 @@ jobCtrl.statusJob = async (req, res) => {
     }else {
       min = min;
     }
-    const take =  cron.schedule(min + " " + hour + ' * * *', function () {
+    const take = cron.schedule(min + " " + hour + ' * * *', function () {
       console.log("--------------------------");
       console.log(" Running Update Status ");
       cronTime(id, res, io, (response, err) => {
@@ -465,7 +465,7 @@ google_directions = (joblist) => {
     lng: joblist.dis[joblist.dis.length - 1].longtitude
   }
   var waypointsArray = [];
-  for (i = 1; i < joblist.dis.length - 1; i++) {
+  for (i = 1; i < joblist.dis.length - 1 ; i++) {
     waypointsArray.push(
       {
         lat: joblist.dis[i].lattitude,

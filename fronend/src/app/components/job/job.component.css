@@ -20,17 +20,20 @@ font-family: 'Prompt', sans-serif;
     cursor: pointer;
     font-family: 'Prompt', sans-serif;
 }
-.footer{
-    position: fixed;
-     bottom: 30px;
-     right: 0;
-     width: 300px;
-  }
  .font-tooltip {
     width: 250px;
     font-size: 18px;
     font-family: 'Prompt', sans-serif;
     text-align: center;
+  }
+  .footer-job {
+    position: fixed!important;
+    bottom: 30px!important;
+    right: 0!important;
+    width: 300px!important;
+  }
+  .footer-job-button {
+      right: -200px;
   }
   .print {
     background: transparent;

@@ -46,6 +46,8 @@ import { UploadsComponent } from './components/uploads/uploads.component';
 import { SafePipePipe } from './pipe/safe-pipe.pipe';
 import { JobfilterPipe } from './pipe/jobfilter.pipe';
 import { CountdownTimerModule } from 'ngx-countdown-timer';
+import { ExportAsModule } from 'ngx-export-as';
+
 export function tokenGetter() {
   return localStorage.getItem('id_token');
 }
@@ -88,6 +90,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    ExportAsModule,
     FormsModule,
     HttpClientModule,
     HttpModule,

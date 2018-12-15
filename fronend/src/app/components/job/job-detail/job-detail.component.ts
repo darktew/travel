@@ -9,8 +9,24 @@ import { NgForm } from '@angular/forms';
 import { JobCreateComponent } from '../job-create/job-create.component';
 import { IoService } from 'src/app/services/io.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { interval } from 'rxjs';;
-import { map } from 'rxjs/operators';
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+import * as htmlToImage from 'html-to-image';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.fonts = {
+  THSarabunNew: {
+    normal: 'THSarabunNew.ttf',
+    bold: 'THSarabunNew-Bold.ttf',
+    italics: 'THSarabunNew-Italic.ttf',
+    bolditalics: 'THSarabunNew-BoldItalic.ttf'
+  },
+  Roboto: {
+    normal: 'Roboto-Regular.ttf',
+    bold: 'Roboto-Medium.ttf',
+    italics: 'Roboto-Italic.ttf',
+    bolditalics: 'Roboto-MediumItalic.ttf'
+  }
+}
 declare var M: any;
 @Component({
   selector: 'app-job-detail',
@@ -29,7 +45,7 @@ export class JobDetailComponent implements OnInit {
   id_param: any;
   isPopupOpened = false;
   time: String;
-  total: Number;
+  total: any;
   first_word: String;
   distance: Array<String> = [];
   duration: Array<String> = [];
@@ -47,8 +63,8 @@ export class JobDetailComponent implements OnInit {
   name;
   date;
   x;
-   timer;
-  @ViewChild('demo') testdemo: ElementRef;
+  timer;
+  @ViewChild('map') testmap: ElementRef;
   constructor(
     private jobService: JobService,
     public route: ActivatedRoute,
@@ -89,6 +105,65 @@ export class JobDetailComponent implements OnInit {
     this.location.back();
   }
  
+  downloadPdf() {
+    htmlToImage.toJpeg(document.getElementById('map')).then((dataURL) => {
+      var docDefinition = {
+        header: {text:'รายละเอียด',style: 'head'},
+        pageSize: 'A4',
+        content: [
+          { text: 'ชื่อรอบงาน: '+ this.job[0].jobname, style: 'header'},
+          {text: 'ระยะทางทั้งหมด: ' + this.job[0].total.toFixed(2) + ' กม.' ,style: 'headercontent'},
+          {text: 'ระยะเวลาทั้งหมด: ' + this.job[0].time, style: 'headercontent'},
+          {text: 'รายละเอียดการขนส่ง', style:'content'},
+          {
+            ol: this.list(this.job[0].dis,this.job[0].dropzone), style: 'list'
+          },
+          {image:  dataURL,width: 500,height:250},
+          {text: 'รูปภาพเส้นทาง', style: 'map'}
+        ],
+        defaultStyle: {
+          font: 'THSarabunNew'
+        },
+        styles: {
+          head: {
+            fontSize: 24,
+            alignment: 'center',
+            margin: 50 
+          },
+          header: {
+            fontSize: 18
+          },
+          headercontent: {
+            fontSize: 16
+          },
+          map: {
+            fontSize: 16,
+            alignment: 'center'
+          },
+          content: {
+            fontSize: 16
+          },
+          list: {
+            fontSize: 16
+          }
+        },
+        pageMargins: [ 40, 60, 40, 80 ]
+      };
+      pdfMake.createPdf(docDefinition).open();
+    });
+  }
+  list(address,dropzone) {
+    var data = [];
+    data.push("จุดเริ่มต้น: " + address[0].address); 
+       for(let i=0; i < dropzone.length;i++){
+           data.push(
+             "ผู้รับสินค้า: " + dropzone[i].employee.name + 
+             "\n ที่อยู่ผู้รับ: " + address[i+1].address + 
+             "\n ระยะทาง: " + address[i+1].distance.text + 
+             "\n ใช้เวลา: " + address[i+1].duration.text);
+       }
+      return data;
+  }
   disablelist() {
     if (this.sorts == true) {
       this.sorts = false;
@@ -115,7 +190,7 @@ export class JobDetailComponent implements OnInit {
           this.dropzone = this.job[j].dropzone;
           this.dis = this.job[j].dis;
           this.time = this.job[j].time;
-          this.total = this.job[j].total;
+          this.total = this.job[j].total.toFixed(2);
         }
           this.origin = { 
             lat: this.dis[0].lattitude, 
@@ -190,7 +265,7 @@ export class JobDetailComponent implements OnInit {
         this.date = new Date(this.job[0].date);
         
          this.date.setHours(this.date.getHours() + this.job[0].obj_time['hour']);
-          this.date.setMinutes(this.date.getMinutes() + this.job[0].obj_time['min']);
+         this.date.setMinutes(this.date.getMinutes() + this.job[0].obj_time['min']);
       });
       
   }
@@ -250,7 +325,6 @@ export class JobDetailComponent implements OnInit {
          
          this.jobService.putstatusJob(this.job[0])
           .subscribe(res => {
-           
             this.status_chage1 = true;
             this.status_chage2 = true;
           })
@@ -259,7 +333,7 @@ export class JobDetailComponent implements OnInit {
          this.job[0].status = 'กำลังจัดส่ง';
          this.jobService.putstatusJob(this.job[0])
           .subscribe(res => {
-            
+            this.getJobdetail(this.id_param);
             this.status_chage1 = true;
             this.status_chage2 = true;
             this.status_chage3 = true;
@@ -275,7 +349,7 @@ export class JobDetailComponent implements OnInit {
         this.job[0].status =  'เตรียมการจัดส่ง';
         this.jobService.putstatusJob(this.job[0])
          .subscribe(res => {
-           
+           this.getJobdetail(this.id_param);
            this.status_chage1 = true;
            this.status_chage2 = false;
            this.status_chage3 = false;
@@ -286,7 +360,7 @@ export class JobDetailComponent implements OnInit {
          this.job[0].status =  'แพ็คสินค้าเตรียมนำส่ง';
          this.jobService.putstatusJob(this.job[0])
           .subscribe(res => {
-            
+            this.getJobdetail(this.id_param);
             this.status_chage1 = true;
             this.status_chage2 = true;
             this.status_chage3 = false;

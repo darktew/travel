@@ -6,9 +6,26 @@ import { JobCreateComponent } from './job-create/job-create.component';
 import { Router } from '@angular/router';
 import { IoService } from 'src/app/services/io.service';
 import { NotificationService } from 'src/app/services/notification.service';
-
-  
-declare var M: any;
+import * as pdfMake from 'pdfmake/build/pdfmake.js';
+import * as pdfFonts from 'pdfmake/build/vfs_fonts.js';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+pdfMake.fonts = {
+  THSarabunNew: {
+    normal: 'THSarabunNew.ttf',
+    bold: 'THSarabunNew-Bold.ttf',
+    italics: 'THSarabunNew-Italic.ttf',
+    bolditalics: 'THSarabunNew-BoldItalic.ttf'
+  },
+  Roboto: {
+    normal: 'Roboto-Regular.ttf',
+    bold: 'Roboto-Medium.ttf',
+    italics: 'Roboto-Italic.ttf',
+    bolditalics: 'Roboto-MediumItalic.ttf'
+  }
+}
+// import * as jsPDF from 'jspdf';
+// import { ExportAsService, ExportAsConfig } from 'ngx-export-as';
+  declare var M: any;
 @Component({
   selector: 'app-job',
   templateUrl: './job.component.html',
@@ -30,8 +47,8 @@ export class JobComponent implements OnInit {
               public router: Router,
               private socket: IoService,
               private dialog?: MatDialog,
-              private _notification?:NotificationService
-              ) { 
+              private _notification?:NotificationService,
+             ) { 
             this._notification.requestPermission();
               }
 
@@ -42,24 +59,32 @@ export class JobComponent implements OnInit {
     });
     
   }
-  // downloadPDF() {
-  //   let doc = new jspdf();
-
-  //   let spacialElementRef = {
-  //     '#editor': function(element, renderer) {
-  //         return true
-  //     }
-  //   }
-  //  let content = this.pdfFile.nativeElement;
-  //  doc.addFont('fonts/calibri.ttf', 'Calibri', 'normal');
-  //  doc.setFont('Calibri');
-  //  doc.fromHTML(content.innerHTML, 15, 15, {
-  //    'width': 190,
-  //    'elementHandlers': spacialElementRef,
-  //  });
-  //  console.log(content.innerHTML);
-  //   doc.save('TRAVEL.pdf');
-  // }
+  
+  downloadPDF() {
+  var docDefinition = {
+    content: [
+      { text: 'ข้อมูลการจัดส่ง', style: 'header' },
+      {text: 'รอบการจัดส่งทั้งหมด',style: 'subheader'},
+      this.table(this.Jobs, ['jobname', 'total','time', 'status'])
+    ],
+    defaultStyle: {
+      font: 'THSarabunNew'
+    },
+    styles: {
+      header: {
+        fontSize: 36,
+        alignment: 'center' 
+      },
+      subheader: {
+        fontSize: 18
+      },
+      table: {
+        fontSize: 16
+      }
+    }
+  };
+  pdfMake.createPdf(docDefinition).open()
+  }
 
   statuschage(element) {
     element.status = "จัดส่งเรียบร้อย";
@@ -70,14 +95,45 @@ export class JobComponent implements OnInit {
       });
    
   }
+  buildTableBody(data, columns) {
+    var body = [];
+
+    body.push(columns);
+    data.forEach(function(row) {
+        var dataRow = [];
+        columns.forEach(function(column) {
+            dataRow.push(row[column].toString());
+        })
+        body.push(dataRow);
+    });
+    body[0][0] = "ชื่อรอบงาน";
+    body[0][1] = "ระยะทางทั้งหมด";
+    body[0][2] = "ระยะเวลาทั้งหมด";
+    body[0][3] = "สถานะการจัดส่ง";
+    console.log(body);
+    return body;
+}
+   table(data, columns) {
+    return {
+        table: {
+            headerRows: 1,
+            widths: [ '*', 'auto', '*', '*' ],
+            style: 'table',
+            body: this.buildTableBody(data, columns)
+        }
+    };
+  }  
   getJobs() {
+    var job;
     this.jobservice.getJobs()
       .subscribe(res => {
         this.Jobs = res as Job[];
+        job = this.Jobs;
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         console.log(this.Jobs);
       });
+    return job;
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();

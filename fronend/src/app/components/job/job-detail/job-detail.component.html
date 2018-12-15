@@ -2,6 +2,16 @@
     <a *ngIf="sorts" (click)="goback()" class="buttonback">
         <mat-icon>arrow_back</mat-icon>
     </a>
+    <div class="right">
+        <button mat-icon-button
+        (click)="downloadPdf()"
+        matTooltip="พิมพ์รายงาน" 
+        matTooltipClass="font-tooltip"
+        [matTooltipPosition]="position[1]" 
+        aria-label="Button that displays a tooltip when focused or hovered over">
+        <i class="low material-icons">print</i>
+        </button>
+    </div>
     <div [ngSwitch]="check_staus">
         <div *ngSwitchCase="'เตรียมการจัดส่ง'">
             <button mat-icon-button (click)="disablelist()" class="right" matTooltip="แก้ไขเส้นทาง" matTooltipClass="font-tooltip"
@@ -38,8 +48,8 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <div [ngClass]="{'disablemap': !sorts}">
-                <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom" [scrollwheel]="false">
+            <div [ngClass]="{'disablemap': !sorts}" id="map">
+                <agm-map [latitude]="14" [longitude]="101" [zoom]="zoom" [scrollwheel]="false"  >
                     <!-- <agm-marker *ngFor="let m of dis" [latitude]="m.lattitude" [longitude]="m.longtitude"></agm-marker> -->
                     <!-- <ng-container>
                             <agm-polyline [strokeColor]="'blue'">

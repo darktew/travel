@@ -45,17 +45,15 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
     </div>
 
-    <div class="footer">
-        <footer class="footer">
-            <div class="container">
-                <button mat-fab (click)="showAddEmployee()" class="right " mat-raised-button 
+    <div class="footer-employee">
+        <button mat-fab (click)="showAddEmployee()"
+                class="footer-employee-button"
+                mat-raised-button 
                 matTooltip="เพิ่มรายชื่อลูกค้า" 
                 matTooltipClass="font-tooltip" 
                 [matTooltipPosition]="tooltip[0]"
-                aria-label="Button that displays a tooltip when focused or hovered over"><i
-                        class="low material-icons">add</i>
-                    </button>
-            </div>
-        </footer>
+                aria-label="Button that displays a tooltip when focused or hovered over">
+                <i class="low material-icons">add</i>
+        </button>   
     </div>
 </mat-card>

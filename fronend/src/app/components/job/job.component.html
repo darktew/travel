@@ -64,28 +64,34 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 
   </div>
-  <div id="content" #pdf [hidden]="!pdffile">
-    <table>
+  <div #pdf [hidden]="!pdffile">
+    <h2>รอบการจัดส่งทั้งหมด</h2>
+    <table  id="content-pdf"  >
+      <thead>
       <th>ชื่อรอบงาน</th>
       <th>ระยะเวลาการจัดส่ง</th>
       <th>ระยางทางในการจัดส่ง</th>
       <th>สถานะการจัดส่ง</th>
+    </thead>
+    <tbody>
       <tr *ngFor="let j of Jobs">
         <td> {{j.jobname}}</td>
         <td> {{j.time}}</td>
         <td> {{j.total.toFixed(2)}} กม.</td>
         <td> {{j.status }}</td>
       </tr>
+    </tbody>
     </table>
   </div>
 </mat-card>
-<div class="footer">
-  <footer class="footer">
-    <div class="container">
-      <button mat-fab (click)="AddJob()" class="right" matTooltip="เพิ่มรอบการจัดส่ง" matTooltipClass="font-tooltip"
-        [matTooltipPosition]="tooltip[0]" aria-label="Button that displays a tooltip when focused or hovered over">
-        <i class="low material-icons">add</i>
-      </button>
-    </div>
-  </footer>
+
+<div class="footer-job">      
+        <button mat-fab (click)="AddJob()"
+        class="footer-job-button"
+        matTooltip="เพิ่มรอบการจัดส่ง" 
+        matTooltipClass="font-tooltip"
+        [matTooltipPosition]="tooltip[0]">
+      <i class="low material-icons">add</i>
+    </button>
+     
 </div>
