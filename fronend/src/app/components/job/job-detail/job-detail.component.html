@@ -165,13 +165,15 @@
 <div class="container">
     <ul class="progressbar">
         <li [ngClass]="{'active': status_chage1}">
-            เตรียมการจัดส่ง
+            <div class="fonts">
+                เตรียมการจัดส่ง
+            </div>
         </li>
-        <li [ngClass]="{'active': status_chage2}" #status_2>แพ็คสินค้าเตรียมนำส่ง</li>
-        <li [ngClass]="{'active': status_chage3}" #status_3>กำลังจัดส่ง</li>
-        <li [ngClass]="{'active': status_chage4}" #status_4>จัดส่งเสร็จสิ้น</li>
+        <li [ngClass]="{'active': status_chage2}" #status_2> <div class="fonts">แพ็คสินค้าเตรียมนำส่ง</div> </li>
+        <li [ngClass]="{'active': status_chage3}" #status_3> <div class="fonts">กำลังจัดส่ง</div> </li>
+        <li [ngClass]="{'active': status_chage4}" #status_3> <div class="fonts">จัดส่งเสร็จสิ้น</div></li>
     </ul>
-
+ 
     <button (click)="chageStatusDown()" class="back_status" mat-raised-button color="warn">
         <mat-icon>arrow_back</mat-icon> ย้อนกลับ
     </button>

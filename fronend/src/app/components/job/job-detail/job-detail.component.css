@@ -218,14 +218,18 @@ h1.header {
   left: -50%;
   z-index: -1;
 }
+.fonts {
+  color: black;
+}
 .progressbar li:first-child:after {
   content: none;
 }
 .progressbar li.active {
-  color: green;
+  color: white;
 }
 .progressbar li.active:before {
   border-color: #55b776;
+  background-color: green;
 }
 .progressbar li.active + li:after {
   background-color: #55b776;
