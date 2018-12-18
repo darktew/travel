@@ -74,18 +74,3 @@
     border-bottom: 1px solid white!important;
     box-shadow: 0 1px 0 0 white!important;
   }
-  .footer {
-    position: fixed!important;
-    bottom: 30px!important;
-    right: 0!important;
-    width: 300px!important;
-  }
-  .font-tooltip {
-    width: 250px;
-    font-size: 18px;
-    font-family: 'Prompt', sans-serif;
-    text-align: center;
-  }
-  .footer-profile-button {
-    right: -200px;
-}
