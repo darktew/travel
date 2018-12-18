@@ -47,4 +47,11 @@ export class ValidateService {
         return true;
     }
   }
+  validateJob(Job) {
+    if(Job.jobname == "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

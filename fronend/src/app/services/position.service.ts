@@ -11,7 +11,7 @@ export class PositionService {
   selectedPosition: Position;
   pageID: String;
   positions: Position[];
-  readonly URL_API = 'https://localhost:3000/api/position';
+  readonly URL_API = 'http://localhost:3000/api/position';
   constructor(private http: HttpClient) {
       this.selectedPosition = new Position();
    }

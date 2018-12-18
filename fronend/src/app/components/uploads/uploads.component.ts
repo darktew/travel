@@ -14,6 +14,9 @@ declare var M:any;
 export class UploadsComponent implements OnInit {
   selectFile:File = null;
   img:any;
+  name_img;
+  url_img:any;
+  disable;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private dialogRef: MatDialogRef<UploadsComponent>,
@@ -28,6 +31,13 @@ export class UploadsComponent implements OnInit {
   }
   onFileSelected(event) {
       this.selectFile = <File>event.target.files[0];
+      this.name_img = this.selectFile.name;
+      var reader = new FileReader();
+      this.disable = true;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload =  (e) => {
+        this.url_img = e.target['result'];
+      }
   }
   onUploads() {
     const fd = new FormData();
@@ -41,7 +51,7 @@ export class UploadsComponent implements OnInit {
        if (event.type == HttpEventType.UploadProgress) {
          console.log('Upload Progress', Math.round(event.loaded / event.total * 100));
        } else if(event.type == HttpEventType.Response) {
-         console.log(event);
+        M.toast({html: 'เปลี่ยนรูปภาพเสร็จสิ้น'});
          this.dialogRef.close();
        }
     });

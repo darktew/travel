@@ -7,7 +7,7 @@ import { NotificationService } from './notification.service';
   providedIn: 'root'
 })
 export class IoService {
-  public socket = io('https://localhost:3000');
+  public socket = io('http://localhost:3000');
 
   constructor(public _notification: NotificationService) { }
 

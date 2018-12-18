@@ -7,13 +7,13 @@ import { Job } from '../models/job';
   providedIn: 'root'
 })
 export class JobService {
-  readonly URL_API = 'https://localhost:3000/api/jobs';
+  readonly URL_API = 'http://localhost:3000/api/jobs';
   constructor(private http: HttpClient) { }
   getJobs(): Observable<Job[]> {
     return this.http.get<Job[]>(this.URL_API);
   }
   getJobsInHome(): Observable<Job[]> {
-    return this.http.get<Job[]>('https://localhost:3000/api/home');
+    return this.http.get<Job[]>('http://localhost:3000/api/home');
   }
   // tslint:disable-next-line:no-shadowed-variable
   postJob(job: Job) {

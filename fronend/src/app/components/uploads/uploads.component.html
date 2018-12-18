@@ -13,12 +13,15 @@
     </mat-toolbar>
 </div>
 <div class="content">
-    <div class="input-file">
-        <input type="file" style="display: none" (change)="onFileSelected($event)" #fileInput>
-        <button type="button" (click)="fileInput.click()">เลือกรูปภาพ</button>
+    <div class="img center">
+        <img [src]="url_img" width="320px" height="320px" alt="">
     </div>
-    <div class="button-upload">
-        <button type="button" (click)="onUploads()">upload</button>
+    <div class="left input-file">
+        <input type="file" style="display: none" (change)="onFileSelected($event)" #fileInput>
+        <button type="button" mat-raised-button style="font-family: 'Prompt', sans-serif;" (click)="fileInput.click()">เลือกรูปภาพ</button>
+    </div>
+    <div class="right button-upload">
+        <button type="button" mat-raised-button color="primary" [disabled]="!disable" style="font-family: 'Prompt', sans-serif;" (click)="onUploads()">ตั้งเป็นรูปภาพหน้าปก</button>
     </div>
 
 </div>

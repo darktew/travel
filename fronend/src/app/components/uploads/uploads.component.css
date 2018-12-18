@@ -18,18 +18,19 @@
     float: left;
 }
 .content {
+    position: relative;
     margin-top: 10px;
     width: 100%;
-    background: darkgray;
     height: 370px;
+   
 }
-.input-file {
-    position: absolute;
-    margin-top: 170px;
-    margin-left: 170px;
-}
+/* .input-file {
+  position: absolute;
+  bottom: 0;
+  font-family: 'Prompt', sans-serif;
+} */
 .button-upload{
-    float: right;
-    margin-top: 340px;
-    margin-right: 20px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }

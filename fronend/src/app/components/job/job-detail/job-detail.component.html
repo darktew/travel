@@ -26,10 +26,7 @@
             </button>
         </div>
         <div *ngSwitchCase="'กำลังจัดส่ง'">
-            <button mat-icon-button (click)="disablelist()" class="right" matTooltip="แก้ไขเส้นทาง" matTooltipClass="font-tooltip"
-                [matTooltipPosition]="position[1]" aria-label="Button that displays a tooltip when focused or hovered over">
-                <i class="low material-icons">edit</i>
-            </button>
+          
         </div>
         <p *ngSwitchCase="'จัดส่งเสร็จสิ้น'">
         </p>
@@ -164,12 +161,12 @@
 
 <div class="container">
     <ul class="progressbar">
-        <li [ngClass]="{'active': status_chage1}">
-            เตรียมการจัดส่ง
+        <li [ngClass]="{'active': status_chage1}"  >
+           <div style="color: black">เตรียมการจัดส่ง</div> 
         </li>
-        <li [ngClass]="{'active': status_chage2}" #status_2>แพ็คสินค้าเตรียมนำส่ง</li>
-        <li [ngClass]="{'active': status_chage3}" #status_3>กำลังจัดส่ง</li>
-        <li [ngClass]="{'active': status_chage4}" #status_4>จัดส่งเสร็จสิ้น</li>
+        <li [ngClass]="{'active': status_chage2}"  #status_2> <div style="color: black"> แพ็คสินค้าเตรียมนำส่ง</div>   </li>
+        <li [ngClass]="{'active': status_chage3}"  #status_3> <div style="color: black">  กำลังจัดส่ง</div></li>
+        <li [ngClass]="{'active': status_chage4}"  #status_4> <div style="color: black">  จัดส่งเสร็จสิ้น</div></li>
     </ul>
 
     <button (click)="chageStatusDown()" class="back_status" mat-raised-button color="warn">
