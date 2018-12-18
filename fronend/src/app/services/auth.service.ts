@@ -15,7 +15,7 @@ export class AuthService {
   registerUser(user) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('api/users/register', user, {headers: headers})
+    return this.http.post('https://localhost:3000/api/users/register', user, {headers: headers})
       .pipe(map(res => res.json()));
   }
   getImage(url) {
@@ -26,13 +26,13 @@ export class AuthService {
   editUser(user) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.put('api/users/profile/'+`${user.id}`, user, {headers: headers})
+    return this.http.put('https://localhost:3000/api/users/profile/'+`${user.id}`, user, {headers: headers})
       .pipe(map(res => res.json()));
   }
   authenticateUser(user) {
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('api/users/authenticate', user, {headers: headers})
+    return this.http.post('https://localhost:3000/api/users/authenticate', user, {headers: headers})
       .pipe(map(res => res.json()));
   } 
   storeUserData(token, user) {
@@ -51,7 +51,7 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    return this.http.get('api/users/profile', {headers: headers})
+    return this.http.get('https://localhost:3000/api/users/profile', {headers: headers})
       .pipe(map(res => res.json()));
   }
   loadToken() {
