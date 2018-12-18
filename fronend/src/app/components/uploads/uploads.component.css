@@ -19,17 +19,28 @@
 }
 .content {
     margin-top: 10px;
-    width: 100%;
-    background: darkgray;
     height: 370px;
+    position: relative;
+}
+.img-select{
+    padding-bottom: 20px;
 }
 .input-file {
     position: absolute;
-    margin-top: 170px;
-    margin-left: 170px;
+    bottom: 10px;
 }
 .button-upload{
-    float: right;
-    margin-top: 340px;
-    margin-right: 20px;
+    position: absolute;
+    bottom: 10px;
+    right: 0;
+    font-family: 'Prompt', sans-serif;
+}
+.button-file:active {
+    background: transparent!important;
+}
+.button-file:hover {
+    box-shadow: 0.5px 0.5px 0.5px 0.5px #888888
+}
+.upload {
+    font-family: 'Prompt', sans-serif;
 }

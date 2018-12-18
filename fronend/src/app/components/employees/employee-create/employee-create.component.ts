@@ -41,19 +41,19 @@ export class EmployeeCreateComponent implements OnInit {
       phone: this._addEmployee.value.phone
     };
     if (!this.validate.validateEmployee(employee)) {
-      M.toast({html: 'Plase Form Valid', classes: 'rounded',displayLength: 4000});
+      M.toast({html: 'กรุณากรอกข้อมูลให้ครบ', classes: 'rounded',displayLength: 4000});
       return false;
     }
     if (this.data._id) {
       this.employeeService.putEmployee(this._addEmployee.value)
         .subscribe(res => {
-          M.toast({html: 'Update Success'});
+          M.toast({html: 'แก้ไขเสร็จสิ้น'});
           this.dialogRef.close();
         });
     } else {
       this.employeeService.postEmployee(this._addEmployee.value)
       .subscribe(res => {
-          M.toast({html: 'Save Success'});
+          M.toast({html: 'เพิ่มข้อมูลเสร็จสิ้น'});
           this.dialogRef.close();
       });
     }
