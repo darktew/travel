@@ -99,14 +99,14 @@ export class PositionCreateComponent implements OnInit {
       address: form.value.address
     };
     if (!this.validate.validateAddress(address)) {
-      M.toast({ html: 'กรุณาเพิ่มตำแหน่งที่อยู่', classes: 'rounded', displayLength: 4000 });
+      M.toast({ html: 'Plase Search Address', classes: 'rounded', displayLength: 4000 });
       return false;
     }
     if (this.new_data._id) {
       this.positionService.putPosition(form.value)
         .subscribe(res => {
           this.resetForm(form);
-          M.toast({ html: 'แก้ไขเสร็จสิ้น' });
+          M.toast({ html: 'Update Success' });
           this.getPositions();
           this.dialogRef.close();
         });
@@ -114,7 +114,7 @@ export class PositionCreateComponent implements OnInit {
       this.positionService.postPosition(form.value)
         .subscribe(res => {
           this.resetForm(form);
-          M.toast({ html: 'เพิ่มข้อมูลเสร็จสิ้น' });
+          M.toast({ html: 'Save Success' });
           this.getPositions();
           this.dialogRef.close();
         });

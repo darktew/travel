@@ -75,7 +75,7 @@ export class NavbarComponent implements OnInit {
   fixed_action: any;
   selectFile: File = null;
   user: Object;
-  name: String;
+  email: String;
   isPopupOpened = true;
   img: any;
   public x = 0;
@@ -102,7 +102,7 @@ export class NavbarComponent implements OnInit {
     this.authService.getProfile().
       subscribe(profile => {
         this.user = profile.user;
-        this.name = profile.user.name;
+        this.email = profile.user.email;
         this.getImage(profile.user.userImage);
       });
 

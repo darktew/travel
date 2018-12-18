@@ -50,7 +50,7 @@ export class EmployeesComponent implements OnInit {
     }
   }
   deleteEmployee(_id: string) {
-    if (confirm('คุณต้องการลบข้อมูลลูกค้าคนนี้หรือไม่?')) {
+    if (confirm('Are you sure you want to delete it?')) {
       this.position.deleteAllPosition(_id)
         .subscribe(res => {
           console.log(res);
@@ -58,7 +58,7 @@ export class EmployeesComponent implements OnInit {
       this.employeeService.deleteEmployee(_id)
         .subscribe(res => {
           this.getEmployees();
-          M.toast({ html: 'ลบข้อมูลสำเร็จ' });
+          M.toast({ html: 'Deleted Success' });
         });
     }
   }
