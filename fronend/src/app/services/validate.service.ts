@@ -47,4 +47,12 @@ export class ValidateService {
         return true;
     }
   }
+  validateAddJob(Job) {
+    console.log("checkvalue", Job);
+    if(Job.jobname == "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

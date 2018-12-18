@@ -75,11 +75,11 @@ export class EmployeeDetailComponent implements OnInit {
     });
   }
   delePosition(_id: string) {
-    if (confirm('Are you sure Delete')) {
+    if (confirm('คุณต้องการลบที่อยู่นี้หรือไม่')) {
       this.positionService.deletePosition(_id)
         .subscribe(res => {
           this.getPositionByEmployeeId()
-          M.toast({html: 'Delete Success'});
+          M.toast({html: 'ลบข้อมูลเสร็จสิ้น'});
         });
     }
   }

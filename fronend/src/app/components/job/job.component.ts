@@ -107,7 +107,7 @@ export class JobComponent implements OnInit {
         body.push(dataRow);
     });
     body[0][0] = "ชื่อรอบงาน";
-    body[0][1] = "ระยะทางทั้งหมด";
+    body[0][1] = "ระยะทางทั้งหมด (กม.)";
     body[0][2] = "ระยะเวลาทั้งหมด";
     body[0][3] = "สถานะการจัดส่ง";
     return body;
@@ -146,11 +146,11 @@ export class JobComponent implements OnInit {
     //   return dataStr.indexOf(filter) != -1;
   }
   deleteJob(_id: string) {
-    if (confirm('Are you sure you want to delete it?')) {
+    if (confirm('คุณต้องการลบข้อมูลรอบการส่งนี้หรือไม่?')) {
       this.jobservice.deleteJob(_id)
         .subscribe(res => {
           this.getJobs();
-          M.toast({ html: 'Deleted Success' });
+          M.toast({ html: 'ลบข้อมูลสำเร็จ' });
         });
     }
   }

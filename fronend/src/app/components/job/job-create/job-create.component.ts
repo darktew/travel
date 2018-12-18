@@ -10,6 +10,7 @@ import { Position } from "../../../models/position";
 import { Employee } from "../../../models/employee";
 import { NgForm } from "../../../../../node_modules/@angular/forms";
 import { IoService } from 'src/app/services/io.service';
+import { ValidateService } from "src/app/services/validate.service";
 function remove(item: Object, list: Array<Object>) {
   if (list.indexOf(item) !== -1) {
     list.splice(list.indexOf(item), 1);
@@ -36,6 +37,7 @@ export class JobCreateComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public jobservice: JobService,
     public positionService: PositionService,
+    public vadilate: ValidateService,
     private socket: IoService
   ) {}
 
@@ -104,25 +106,27 @@ export class JobCreateComponent implements OnInit {
     this.dialogRef.close();
   }
   addJob(form: NgForm) {
-    if (this.data._id) {
-      // EDIT
-      this.jobservice.putjob(form.value).subscribe(res => {
-        M.toast({ html: 'Update Success' });
-        this.dialogRef.close();
-      });
-    } else if (this.data.Id) {
-      console.log(form.value,'form');
-      this.jobservice.putuserJob(form.value).subscribe(res => {
-        M.toast({html: 'Add Position Success'});
-        this.dialogRef.close();
-      })
+    if (this.vadilate.validateAddJob(form.value) == false) {
+      M.toast({ html: 'กรุณากรอกชื่อรอบการจัดส่ง' });
     } else {
-      // CREATE
-      console.log(form.value, 'Form Add');
-      this.jobservice.postJob(form.value).subscribe(res => {
-        M.toast({ html: 'Save Success' });
-        this.dialogRef.close();
-      });
+      if (this.data._id) {
+        // EDIT
+        this.jobservice.putjob(form.value).subscribe(res => {
+          M.toast({ html: 'แก้ไขเสร็จสิ้น' });
+          this.dialogRef.close();
+        });
+      } else if (this.data.Id) {
+        this.jobservice.putuserJob(form.value).subscribe(res => {
+          M.toast({html: 'เพิ่มต่ำแหน่งที่อยู่เสร็จสิ้น'});
+          this.dialogRef.close();
+        })
+      } else {
+        // CREATE
+        this.jobservice.postJob(form.value).subscribe(res => {
+          M.toast({ html: 'เพิ่มข้อมูลเสร็จสิ้น' });
+          this.dialogRef.close();
+        });
+      }
     }
   }
   move(j: Object[], toList: Object[]): void {
