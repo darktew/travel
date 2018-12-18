@@ -110,6 +110,7 @@ export class JobComponent implements OnInit {
     body[0][1] = "ระยะทางทั้งหมด";
     body[0][2] = "ระยะเวลาทั้งหมด";
     body[0][3] = "สถานะการจัดส่ง";
+    console.log(body);
     return body;
 }
    table(data, columns) {

@@ -83,7 +83,6 @@ export class JobDetailComponent implements OnInit {
     this.id_param = id;
     this.sorts = true;
     this.notify();
-   
   }
   AddJob() {
     this.isPopupOpened = true;
