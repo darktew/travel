@@ -5,7 +5,7 @@
   "main": "index.js",
   "engines": {
     "node": "8.11.4"
-  }
+  },
   "scripts": {
     "dev": "nodemon server/index.js"
   },
